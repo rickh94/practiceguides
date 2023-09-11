@@ -1,0 +1,5 @@
+{% extends "base_external.html" %}
+{% block content %}
+    <h1>All Pieces</h1>
+    {% for piece in piece_list %}{{ piece.name }}{% endfor %}
+{% endblock content %}

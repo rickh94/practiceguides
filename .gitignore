@@ -1,0 +1,19 @@
+
+# Devenv
+.devenv*
+devenv.local.nix
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml
+
+*.db
+staticfiles/main.css
+*.db-shm
+*.db-wal
+.pids
+*-litestream
+app/media
+app/static/main.css

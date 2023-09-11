@@ -1,0 +1,4 @@
+.envrc
+devenv.*
+litestream.*
+app/media

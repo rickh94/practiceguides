@@ -1,0 +1,18 @@
+{% extends "base_external.html" %}
+{% block body_class %}h-screen{% endblock %}
+{% block content %}
+    <main id="main-content"
+          class="w-full bg-earth-200 py-30 border-b-4 border-smoky min-h-full">
+        <div id="hero"
+             class="px-4 mx-auto max-w-2xl py-32 sm:py-44 lg:py-48 xl:py-72 container">
+            <div class="flex flex-col text-center w-full">
+                <h1 class="text-6xl font-bold text-smoky sm:text-8xl teko tracking-tight">Page Not Found</h1>
+                <p class="text-2xl sm:text-4xl tracking-tight text-gray-800 montserrat">No page matching that url could be found on the server</p>
+                <div class="mt-10 flex flex-col sm:flex-row space-y-2 sm:space-y-0 items-center justify-center gap-x-6 tracking-normal montserrat">
+                    <a href="{% url 'index' %}"
+                       class="bg-jade-500 px-5 py-2 text-3xl lg:text-4xl font-semibold text-smoky border-smoky border-b-4 border-r-4 shadow-lg hover:border-t-4 hover:border-l-4 hover:border-r-0 hover:border-b-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-smoky">Back Home</a>
+                </div>
+            </div
+        </div>
+    </main>
+{% endblock content %}

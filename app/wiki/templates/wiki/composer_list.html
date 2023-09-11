@@ -1,0 +1,5 @@
+{% extends "base_external.html" %}
+{% block content %}
+    <h1>All Composers</h1>
+    {% for composer in composer_list %}{{ composer.name }}{% endfor %}
+{% endblock content %
