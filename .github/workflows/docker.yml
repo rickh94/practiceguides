@@ -29,7 +29,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ secrets.DOCKER_USERNAME }}/wiki.rickhenry.studio
+          images: ${{ secrets.DOCKER_USERNAME }}/studiowiki
 
       - name: Build and push docker image
         uses: docker/build-push-action@v4
@@ -39,3 +39,5 @@ jobs:
           platforms: linux/amd64, linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/studiowiki:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/studiowiki:buildcache,mode=max
