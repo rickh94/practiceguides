@@ -131,7 +131,7 @@ STATIC_HOST = "" if DEBUG else os.getenv("STATIC_HOST", "")
 
 MEDIA_PARENT = BASE_DIR if DEBUG else Path("/")
 MEDIA_ROOT = MEDIA_PARENT / "media"
-MEDIA_PATH = "/media/"
+MEDIA_PATH = "media/"
 MEDIA_URL = STATIC_HOST + MEDIA_PATH
 
 STATIC_URL = STATIC_HOST + "/static/"
