@@ -1,6 +1,6 @@
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.urls import reverse
-from django.core.validators import FileExtensionValidator
 
 
 class Composer(models.Model):
@@ -35,7 +35,7 @@ class Recording(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
     file = models.FileField(
-        upload_to="recordings", validators=[FileExtensionValidator(["mp3"])]
+        upload_to="recordings/%Y-%m-%d/", validators=[FileExtensionValidator(["mp3"])]
     )
 
     def __str__(self):
@@ -44,8 +44,6 @@ class Recording(models.Model):
 
 class Piece(models.Model):
     title = models.CharField(max_length=255)
-    description = models.TextField(null=True, blank=True)
-    practice_notes = models.TextField(null=True, blank=True)
     composer = models.ForeignKey(
         Composer,
         on_delete=models.SET_NULL,
@@ -56,11 +54,15 @@ class Piece(models.Model):
     book = models.ForeignKey(
         Book, on_delete=models.SET_NULL, null=True, related_name="pieces", blank=True
     )
+    description = models.TextField(null=True, blank=True)
+    practice_notes = models.TextField(null=True, blank=True)
     recording = models.ForeignKey(
         "Recording", on_delete=models.SET_NULL, null=True, related_name="+", blank=True
     )
-    large_sections = models.TextField(null=True, blank=True)
+    spotify_link = models.URLField(null=True, blank=True)
+    apple_music_link = models.URLField(null=True, blank=True)
     skills = models.ManyToManyField("Skill")
+    large_sections = models.TextField(null=True, blank=True)
     order = models.IntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -73,32 +75,52 @@ class Piece(models.Model):
 
 
 class Spot(models.Model):
+    nickname = models.CharField(max_length=255, null=True, blank=True)
+    order = models.IntegerField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    measures = models.CharField(max_length=255, null=True, blank=True)
+    skills = models.ManyToManyField("Skill")
+    abc_notation = models.TextField(null=True, blank=True)
     recording = models.ForeignKey(
         "Recording", on_delete=models.CASCADE, null=True, blank=True
     )
-    description = models.TextField(null=True, blank=True)
     piece = models.ForeignKey(
         Piece, on_delete=models.CASCADE, related_name="spots")
-    measures = models.CharField(max_length=255, null=True, blank=True)
-    order = models.IntegerField(null=True, blank=True)
-    abc_notation = models.TextField(null=True, blank=True)
-    skills = models.ManyToManyField("Skill")
 
     def __str__(self):
-        return f"{self.piece.title} - {self.measures or self.order}"
+        if self.nickname:
+            return f"{self.piece.title} - {self.nickname}"
+        else:
+            return f"{self.piece.title} - {self.measures or self.order}"
+
+    def get_absolute_url(self):
+        return reverse("spot_detail", kwargs={"pk": self.pk, "piece_id": self.piece.id})
+
+    @property
+    def display_name(self):
+        return (
+            f"{self.order}. {self.nickname}"
+            or f"{self.order}. {self.measures}"
+            or f"{self.piece.title} - {self.order}"
+        )
 
 
 class Step(models.Model):
     order = models.IntegerField()
-    abc_notation = models.TextField(null=True)
-    spot = models.ForeignKey(Spot, on_delete=models.CASCADE)
     instructions = models.TextField()
+    abc_notation = models.TextField(null=True)
     recording = models.ForeignKey(
         "Recording", on_delete=models.CASCADE, null=True, blank=True
     )
+    spot = models.ForeignKey(
+        Spot, on_delete=models.CASCADE, related_name="steps")
 
     def __str__(self):
         return f"{self.spot} - Step {self.order}"
+
+    @property
+    def notes_id(self):
+        return f"step-{self.spot.piece.id}-{self.spot.id}-{self.pk}-notes"
 
 
 class Skill(models.Model):

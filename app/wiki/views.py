@@ -1,9 +1,11 @@
-from django.db.models import Count
+from typing import Any
+
+from django.db.models import Count, QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views import generic
 
-from .models import Book, Composer, Piece, Skill
+from .models import Book, Composer, Piece, Skill, Spot
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -56,3 +58,33 @@ class ComposerDetailView(generic.DetailView[Composer]):
 
 class ComposerListView(generic.ListView[Composer]):
     model = Composer
+
+
+class SpotDetailView(generic.DetailView[Spot]):
+    model = Spot
+
+    def get_queryset(self) -> QuerySet[Spot]:
+        # type: ignore
+        return Spot.objects.filter(piece_id=self.kwargs["piece_id"])
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["piece"] = self.object.piece
+        context["steps"] = self.object.steps.order_by("order")
+        context[
+            "spot_notes_id"
+        ] = f"spot-{self.object.piece.id}-{self.kwargs['pk']}-notes"
+        return context
+
+
+class SpotListView(generic.ListView[Spot]):
+    model = Spot
+
+    def get_queryset(self) -> QuerySet[Spot]:
+        # type: ignore
+        return Spot.objects.filter(piece_id=self.kwargs["piece_id"])
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["piece"] = Piece.objects.get(pk=self.kwargs["piece_id"])
+        return context

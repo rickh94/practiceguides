@@ -14,4 +14,11 @@ urlpatterns = [
         "composers/<int:pk>", views.ComposerDetailView.as_view(), name="composer_detail"
     ),
     path("composers", views.ComposerListView.as_view(), name="composer_list"),
+    path("pieces/<int:piece_id>/spots",
+         views.SpotListView.as_view(), name="spot_list"),
+    path(
+        "pieces/<int:piece_id>/spots/<int:pk>",
+        views.SpotDetailView.as_view(),
+        name="spot_detail",
+    ),
 ]
