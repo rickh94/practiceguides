@@ -8,42 +8,42 @@
     </div>
     <script src="{% static 'abcjs-basic-min.js' %}"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      ABCJS.renderAbc("abcjs-viewer", document.getElementById('id_abc_notation').value, {
-        scale: 1,
-        add_classes: true,
-        paddingleft: 0,
-        paddingright: 0,
-        paddingbottom: 0,
-        paddingtop: 0,
-        viewportHorizontal: true,
-        scrollHorizontal: true,
-        staffwidth: 720,
-        wrap: {
-          minSpacing: 1.4,
-          maxSpacing: 2.7,
-          preferredMeasuresPerLine: 2,
-        },
-      });
-      document.getElementById('id_abc_notation').addEventListener('change', (event) => {
-          ABCJS.renderAbc("abcjs-viewer", event.target.value, {
-            scale: 1,
-            add_classes: true,
-            paddingleft: 0,
-            paddingright: 0,
-            paddingbottom: 0,
-            paddingtop: 0,
-            viewportHorizontal: true,
-            scrollHorizontal: true,
-            staffwidth: 381,
-            wrap: {
-              minSpacing: 1.4,
-              maxSpacing: 2.7,
-              preferredMeasuresPerLine: 2,
-            },
-            responsive: "resize",
-          });
-      });
-    });
+        document.addEventListener('DOMContentLoaded', () => {
+            ABCJS.renderAbc("abcjs-viewer", document.getElementById('id_abc_notation').value, {
+                scale: 1,
+                add_classes: true,
+                paddingleft: 0,
+                paddingright: 0,
+                paddingbottom: 0,
+                paddingtop: 0,
+                viewportHorizontal: true,
+                scrollHorizontal: true,
+                staffwidth: 720,
+                wrap: {
+                    minSpacing: 1.4,
+                    maxSpacing: 2.7,
+                    preferredMeasuresPerLine: 2,
+                },
+            });
+            document.getElementById('id_abc_notation').addEventListener('change', (event) => {
+                ABCJS.renderAbc("abcjs-viewer", event.target.value, {
+                    scale: 1,
+                    add_classes: true,
+                    paddingleft: 0,
+                    paddingright: 0,
+                    paddingbottom: 0,
+                    paddingtop: 0,
+                    viewportHorizontal: true,
+                    scrollHorizontal: true,
+                    staffwidth: 381,
+                    wrap: {
+                        minSpacing: 1.4,
+                        maxSpacing: 2.7,
+                        preferredMeasuresPerLine: 2,
+                    },
+                    responsive: "resize",
+                });
+            });
+        });
     </script>
 {% endblock %}

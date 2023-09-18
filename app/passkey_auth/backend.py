@@ -7,10 +7,11 @@ from django.conf import settings
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth.models import User
 from django.http import HttpRequest
-from passkey_auth.models import PasskeyCredential
 from pydantic import ValidationError
 from webauthn.helpers.exceptions import InvalidAuthenticationResponse
 from webauthn.helpers.structs import AuthenticationCredential
+
+from .models import PasskeyCredential
 
 
 class PasskeyBackend(BaseBackend):

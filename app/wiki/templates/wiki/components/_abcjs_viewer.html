@@ -2,25 +2,24 @@
 <script src="{% static 'abcjs-basic-min.js' %}"></script>
 <div id="{{ viewer_id }}"></div>
 <script data-viewer-id="{{ viewer_id }}" data-notes="{{ notes }}" id="script-{{ viewer_id }}">
-  ABCJS.renderAbc(
-    document.currentScript.dataset.viewerId,
-    document.currentScript.dataset.notes,
-    {
-      scale: 1,
-      add_classes: true,
-      paddingleft: 0,
-      paddingright: 0,
-      paddingbottom: 0,
-      paddingtop: 0,
-      viewportHorizontal: true,
-      scrollHorizontal: true,
-      staffwidth: 381,
-      wrap: {
-        minSpacing: 1.4,
-        maxSpacing: 2.7,
-        preferredMeasuresPerLine: 2,
-      },
-      responsive: "resize",
-    },
-  );
+    ABCJS.renderAbc(
+        document.currentScript.dataset.viewerId,
+        document.currentScript.dataset.notes, {
+            scale: 1,
+            add_classes: true,
+            paddingleft: 0,
+            paddingright: 0,
+            paddingbottom: 0,
+            paddingtop: 0,
+            viewportHorizontal: true,
+            scrollHorizontal: true,
+            staffwidth: 381,
+            wrap: {
+                minSpacing: 1.4,
+                maxSpacing: 2.7,
+                preferredMeasuresPerLine: 2,
+            },
+            responsive: "resize",
+        },
+    );
 </script>

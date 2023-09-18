@@ -27,7 +27,6 @@
           To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
       -->
             <div class="relative transform overflow-hidden max-w-full sm:my-8 sm:w-full sm:max-w-lg sm:p-6 rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all flex flex-col gap-2 sm:gap-4">
-                <!-- TODO: create close button and click away -->
                 <header class="flex justify-between w-full">
                     <h3 class="text-xl font-bold leading-6 text-gray-900 text-left"
                         id="modal-title">
@@ -55,7 +54,6 @@
                 {% if spot.abc_notation %}
                     {% include "wiki/components/_abcjs_viewer.html" with viewer_id=spot_notes_id notes=spot.abc_notation %}
                 {% endif %}
-                <!-- TODO: add abcjs component -->
                 {% if spot.recording %}
                     <div class="text-xl text-black font-bold flex gap-2 justify-start sm:items-center flex-col sm:flex-row">
                         Listen:
@@ -91,7 +89,7 @@
                             </audio>
                         </div>
                     {% endif %}
-                    <div class="max-w-full overflow-scroll">
+                    <div class="max-w-full">
                         {% if step.abc_notation %}
                             {% include "wiki/components/_abcjs_viewer.html" with viewer_id=step.notes_id notes=step.abc_notation %}
                         {% endif %}

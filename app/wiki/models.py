@@ -84,8 +84,7 @@ class Spot(models.Model):
     recording = models.ForeignKey(
         "Recording", on_delete=models.CASCADE, null=True, blank=True
     )
-    piece = models.ForeignKey(
-        Piece, on_delete=models.CASCADE, related_name="spots")
+    piece = models.ForeignKey(Piece, on_delete=models.CASCADE, related_name="spots")
 
     def __str__(self):
         if self.nickname:
@@ -112,8 +111,7 @@ class Step(models.Model):
     recording = models.ForeignKey(
         "Recording", on_delete=models.CASCADE, null=True, blank=True
     )
-    spot = models.ForeignKey(
-        Spot, on_delete=models.CASCADE, related_name="steps")
+    spot = models.ForeignKey(Spot, on_delete=models.CASCADE, related_name="steps")
 
     def __str__(self):
         return f"{self.spot} - Step {self.order}"
@@ -136,34 +134,52 @@ class Skill(models.Model):
 
 class PieceExercise(models.Model):
     piece = models.ForeignKey(Piece, on_delete=models.CASCADE)
+    nickname = models.CharField(max_length=255, null=True, blank=True)
     skills = models.ManyToManyField("Skill")
     description = models.TextField(null=True, blank=True)
     abc_notation = models.TextField(null=True, blank=True)
     instructions = models.TextField()
 
     def __str__(self):
-        return f"{self.piece.title} - {self.description}"
+        if self.nickname:
+            return f"{self.piece.title} - {self.nickname}"
+        else:
+            return f"{self.piece.title} - {self.description}"
+
+    @property
+    def notes_id(self):
+        return f"step-{self.piece.id}-{self.pk}-notes"
+
+    def get_absolute_url(self):
+        return reverse(
+            "pieceexercise_detail", kwargs={"pk": self.pk, "piece_id": self.piece.id}
+        )
 
 
 class StandaloneExercise(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(null=True)
     practice_notes = models.TextField(null=True)
-    recording = models.ForeignKey(
-        "Recording", on_delete=models.CASCADE, null=True)
     composer = models.ForeignKey(
-        Composer, on_delete=models.CASCADE, related_name="exercises"
+        Composer, on_delete=models.CASCADE, related_name="standaloneexercises"
     )
     book = models.ForeignKey(
-        Book, on_delete=models.CASCADE, null=True, related_name="exercises"
+        Book,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="standaloneexercises",
     )
     recording = models.ForeignKey(
-        "Recording", on_delete=models.CASCADE, null=True, related_name="+"
+        "Recording", on_delete=models.CASCADE, null=True, blank=True, related_name="+"
     )
     skills = models.ManyToManyField("Skill")
-    order = models.IntegerField(null=True)
+    order = models.IntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.title} - {self.book} - {self.composer}"
+
+    def get_absolute_url(self):
+        return reverse("standaloneexercise_detail", kwargs={"pk": self.pk})

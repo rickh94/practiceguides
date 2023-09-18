@@ -1,0 +1,13 @@
+{% block pagination %}
+    {% if is_paginated %}
+        {% with disabled_class="border-slate-100 bg-slate-100 pointer-events-none text-slate-400" enabled_class="text-black border-slate-500 bg-slate-200 hover:border-slate-300 hover:bg-slate-100 hover:text-slate-800 hover:shadow-lg shadow" %}
+            <div class="w-full flex justify-between mt-4">
+                <a class="block rounded border {% if page_obj.has_previous %} {{ enabled_class }} {% else %} {{ disabled_class }} {% endif %} py-1 px-2"
+                   {% if page_obj.has_previous %} href="{{ request.path }}?page={{ page_obj.previous_page_number }}" {% else %} href="#" disabled {% endif %}>Previous Page</a>
+                <span class="page-current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                <a class="block rounded border shadow {% if page_obj.has_next %} {{ enabled_class }} {% else %} {{ disabled_class }} {% endif %} py-1 px-2"
+                   {% if page_obj.has_next %} href="{{ request.path }}?page={{ page_obj.next_page_number }}" {% else %} href="#" disabled {% endif %}>Next Page</a>
+            </div>
+        {% endwith %}
+    {% endif %}
+{% endblock pagination %}

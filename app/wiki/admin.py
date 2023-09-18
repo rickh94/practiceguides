@@ -1,4 +1,3 @@
-from django.conf.urls.static import static
 from django.contrib import admin
 from django.utils.html import format_html
 
@@ -9,7 +8,6 @@ admin.site.register(models.Composer)
 admin.site.register(models.Book)
 admin.site.register(models.Skill)
 admin.site.register(models.PieceExercise)
-admin.site.register(models.StandaloneExercise)
 
 
 class RecordingAdmin(admin.ModelAdmin):
@@ -57,7 +55,13 @@ class PieceAdmin(admin.ModelAdmin, RecordingPlayerMixin):
     change_form_template = "wiki/admin/abcjs_change_form.html"
 
 
+class StandaloneExerciseAdmin(admin.ModelAdmin, RecordingPlayerMixin):
+    list_display = ["title", "composer", "description", "order"]
+    readonly_fields = ["player"]
+
+
 admin.site.register(models.Recording, RecordingAdmin)
 admin.site.register(models.Spot, SpotAdmin)
 admin.site.register(models.Step, StepAdmin)
 admin.site.register(models.Piece, PieceAdmin)
+admin.site.register(models.StandaloneExercise, StandaloneExerciseAdmin)

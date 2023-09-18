@@ -31,7 +31,7 @@
                    :class="$store.location.path === new URL($el.href).pathname ? 'bg-jade-500 text-smoky border-smoky' : 'text-smoky/70 border-smoky/50 hover:text-smoky hover:bg-jade-500 hover:border-smoky'"
                    class="group flex gap-x-3 p-2 text-lg leading-6 font-semibold border-b-4">
                     <span class="flex h-6 w-6 pt-1 shrink-0 items-center justify-center border border-smoky/80 bg-smoky/20 text-[1rem] font-medium text-smoky/70 group-hover:text-smoky">
-                    {{ goal.name|icon_from_word }}</span>
+                        {{ goal.name|icon_from_word }}</span>
                     <span class="truncate">{{ goal.name }}</span>
                 </a>
             </li>

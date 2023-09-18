@@ -5,7 +5,15 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views import generic
 
-from .models import Book, Composer, Piece, Skill, Spot
+from .models import (
+    Book,
+    Composer,
+    Piece,
+    PieceExercise,
+    Skill,
+    Spot,
+    StandaloneExercise,
+)
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -34,6 +42,16 @@ class PieceDetailView(generic.DetailView[Piece]):
 
 class PieceListView(generic.ListView[Piece]):
     model = Piece
+    paginate_by = 20
+
+
+class StandaloneExerciseDetailView(generic.DetailView[StandaloneExercise]):
+    model = StandaloneExercise
+
+
+class StandaloneExerciseListView(generic.ListView[StandaloneExercise]):
+    model = StandaloneExercise
+    paginate_by = 20
 
 
 class SkillDetailView(generic.DetailView[Skill]):
@@ -42,6 +60,7 @@ class SkillDetailView(generic.DetailView[Skill]):
 
 class SkillListView(generic.ListView[Skill]):
     model = Skill
+    paginate_by = 50
 
 
 class BookDetailView(generic.DetailView[Book]):
@@ -70,6 +89,7 @@ class SpotDetailView(generic.DetailView[Spot]):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["piece"] = self.object.piece
+        # type: ignore
         context["steps"] = self.object.steps.order_by("order")
         context[
             "spot_notes_id"
@@ -83,6 +103,36 @@ class SpotListView(generic.ListView[Spot]):
     def get_queryset(self) -> QuerySet[Spot]:
         # type: ignore
         return Spot.objects.filter(piece_id=self.kwargs["piece_id"])
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["piece"] = Piece.objects.get(pk=self.kwargs["piece_id"])
+        return context
+
+
+class PieceExerciseDetailView(generic.DetailView[PieceExercise]):
+    model = PieceExercise
+
+    def get_queryset(self) -> QuerySet[PieceExercise]:
+        # type: ignore
+        return PieceExercise.objects.filter(piece_id=self.kwargs["piece_id"])
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["piece"] = self.object.piece
+        # type: ignore
+        context[
+            "exercise_notes_id"
+        ] = f"spot-{self.object.piece.id}-{self.kwargs['pk']}-notes"
+        return context
+
+
+class PieceExerciseListView(generic.ListView[PieceExercise]):
+    model = PieceExercise
+
+    def get_queryset(self) -> QuerySet[PieceExercise]:
+        # type: ignore
+        return PieceExercise.objects.filter(piece_id=self.kwargs["piece_id"])
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)

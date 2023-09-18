@@ -5,17 +5,18 @@
             <div class="flex flex-col p-1">
                 <div class="flex">
                     <h2 class="text-4xl font-bold text-byzantium-500 border-b-2 border-byzantium-500 pl-2 pr-4 mb-2 font-playfair">
-                        Pieces
+                        Etudes
                     </h2>
                 </div>
                 <ul class="space-y-2">
-                    {% for piece in piece_list %}
+                    {% for standaloneexercise in standaloneexercise_list %}
                         <li class="rounded border border-azure-500 bg-azure-200 shadow-lg hover:border-azure-300 hover:bg-azure-100 hover:text-slate-800">
-                            <a href="{{ piece.get_absolute_url }}" class="flex flex-col p-2">
+                            <a href="{{ standaloneexercise.get_absolute_url }}"
+                               class="flex flex-col p-2">
                                 <h3 class="text-xl font-bold">
-                                    <span class="underline">{{ piece.title }}</span> - {{ piece.composer.name }}
+                                    <span class="underline">{{ standaloneexercise.title }}</span> - {{ standaloneexercise.composer.name }}
                                 </h3>
-                                <p class="text-sm">{{ piece.description }}</p>
+                                <p class="text-sm">{{ standaloneexercise.description }}</p>
                             </a>
                         </li>
                     {% endfor %}

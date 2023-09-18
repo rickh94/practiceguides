@@ -6,6 +6,16 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("pieces/<int:pk>", views.PieceDetailView.as_view(), name="piece_detail"),
     path("pieces", views.PieceListView.as_view(), name="piece_list"),
+    path(
+        "etudes/<int:pk>",
+        views.StandaloneExerciseDetailView.as_view(),
+        name="standaloneexercise_detail",
+    ),
+    path(
+        "etudes",
+        views.StandaloneExerciseListView.as_view(),
+        name="standaloneexercise_list",
+    ),
     path("skills/<int:pk>", views.SkillDetailView.as_view(), name="skill_detail"),
     path("skills", views.SkillListView.as_view(), name="skill_list"),
     path("books/<int:pk>", views.BookDetailView.as_view(), name="book_detail"),
@@ -14,11 +24,20 @@ urlpatterns = [
         "composers/<int:pk>", views.ComposerDetailView.as_view(), name="composer_detail"
     ),
     path("composers", views.ComposerListView.as_view(), name="composer_list"),
-    path("pieces/<int:piece_id>/spots",
-         views.SpotListView.as_view(), name="spot_list"),
+    path("pieces/<int:piece_id>/spots", views.SpotListView.as_view(), name="spot_list"),
     path(
         "pieces/<int:piece_id>/spots/<int:pk>",
         views.SpotDetailView.as_view(),
         name="spot_detail",
+    ),
+    path(
+        "pieces/<int:piece_id>/exercises",
+        views.PieceExerciseListView.as_view(),
+        name="pieceexercise_list",
+    ),
+    path(
+        "pieces/<int:piece_id>/exercises/<int:pk>",
+        views.PieceExerciseDetailView.as_view(),
+        name="pieceexercise_detail",
     ),
 ]

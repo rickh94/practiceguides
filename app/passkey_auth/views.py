@@ -7,16 +7,22 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import (HttpRequest, HttpResponse, HttpResponseBadRequest,
-                         HttpResponseServerError)
+from django.http import (
+    HttpRequest,
+    HttpResponse,
+    HttpResponseBadRequest,
+    HttpResponseServerError,
+)
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST
 from webauthn.helpers.exceptions import InvalidRegistrationResponse
-from webauthn.helpers.structs import (AuthenticatorSelectionCriteria,
-                                      PublicKeyCredentialDescriptor,
-                                      RegistrationCredential,
-                                      UserVerificationRequirement)
+from webauthn.helpers.structs import (
+    AuthenticatorSelectionCriteria,
+    PublicKeyCredentialDescriptor,
+    RegistrationCredential,
+    UserVerificationRequirement,
+)
 
 from .models import PasskeyCredential
 from .types import AuthenticatedHttpRequest
