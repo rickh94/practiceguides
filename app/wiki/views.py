@@ -1,6 +1,7 @@
 from typing import Any
 
-from django.db.models import Count, QuerySet
+from django import forms
+from django.db.models import Count, Q, QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views import generic
@@ -16,6 +17,10 @@ from .models import (
 )
 
 
+class SearchForm(forms.Form):
+    q = forms.CharField(label="Search", max_length=255)
+
+
 def index(request: HttpRequest) -> HttpResponse:
     """Render the index page."""
     piece_list = Piece.objects.order_by("-created_at")[:5]
@@ -24,14 +29,17 @@ def index(request: HttpRequest) -> HttpResponse:
         "-piece_count"
     )[:10]
     book_list = Book.objects.order_by("-created_at")[:5]
+    standaloneexercise_list = StandaloneExercise.objects.order_by("-created_at")[:5]
     return render(
         request,
         "wiki/index.html",
         {
             "piece_list": piece_list,
+            "standaloneexercise_list": standaloneexercise_list,
             "composer_list": composer_list,
             "skill_list": skill_list,
             "book_list": book_list,
+            "form": SearchForm(),
         },
     )
 
@@ -138,3 +146,37 @@ class PieceExerciseListView(generic.ListView[PieceExercise]):
         context = super().get_context_data(**kwargs)
         context["piece"] = Piece.objects.get(pk=self.kwargs["piece_id"])
         return context
+
+
+class SearchView(generic.TemplateView):
+    template = "wiki/search.html"
+
+    def get(self, request: HttpRequest, *_args: Any, **_kwargs: Any) -> HttpResponse:
+        form = SearchForm()
+        return render(request, self.template, {"form": form})
+
+    def post(self, request: HttpRequest, *_args: Any, **_kwargs: Any) -> HttpResponse:
+        context = {}
+        form = SearchForm(request.POST)
+        context["form"] = form
+        if form.is_valid():
+            q = form.cleaned_data["q"]
+            context["piece_list"] = Piece.objects.filter(
+                Q(title__icontains=q)
+                | Q(skills__name__icontains=q)
+                | Q(composer__name__icontains=q)
+            ).distinct()
+            context["standaloneexercise_list"] = StandaloneExercise.objects.filter(
+                Q(title__icontains=q)
+                | Q(skills__name__icontains=q)
+                | Q(composer__name__icontains=q)
+            ).distinct()
+            context["skill_list"] = Skill.objects.filter(name__icontains=q).distinct()
+            context["composer_list"] = Composer.objects.filter(
+                name__icontains=q
+            ).distinct()
+            context["book_list"] = Book.objects.filter(
+                Q(title__icontains=q) | Q(composer__name__icontains=q)
+            ).distinct()
+
+        return render(request, self.template, context)

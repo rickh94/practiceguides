@@ -40,4 +40,5 @@ urlpatterns = [
         views.PieceExerciseDetailView.as_view(),
         name="pieceexercise_detail",
     ),
+    path("search/", views.SearchView.as_view(), name="search"),
 ]
