@@ -21,6 +21,9 @@ class SearchForm(forms.Form):
     q = forms.CharField(label="Search", max_length=255)
 
 
+# TODO: htmx-ify
+
+
 def index(request: HttpRequest) -> HttpResponse:
     """Render the index page."""
     piece_list = Piece.objects.order_by("-created_at")[:5]
@@ -30,9 +33,14 @@ def index(request: HttpRequest) -> HttpResponse:
     )[:10]
     book_list = Book.objects.order_by("-created_at")[:5]
     standaloneexercise_list = StandaloneExercise.objects.order_by("-created_at")[:5]
+    template_name = (
+        "wiki/htmx/index.html"
+        if request.htmx and not request.htmx.boosted
+        else "wiki/index.html"
+    )
     return render(
         request,
-        "wiki/index.html",
+        template_name,
         {
             "piece_list": piece_list,
             "standaloneexercise_list": standaloneexercise_list,
@@ -47,48 +55,119 @@ def index(request: HttpRequest) -> HttpResponse:
 class PieceDetailView(generic.DetailView[Piece]):
     model = Piece
 
+    def get_template_names(self) -> list[str]:
+        if self.request.htmx and not self.request.htmx.boosted:
+            return ["wiki/htmx/piece_detail.html"]
+        else:
+            return ["wiki/piece_detail.html"]
+
 
 class PieceListView(generic.ListView[Piece]):
     model = Piece
-    paginate_by = 20
+    paginate_by = 10
+
+    def get_template_names(self) -> list[str]:
+        if self.request.htmx and not self.request.htmx.boosted:
+            return ["wiki/htmx/piece_list.html"]
+        else:
+            return ["wiki/piece_list.html"]
 
 
 class StandaloneExerciseDetailView(generic.DetailView[StandaloneExercise]):
     model = StandaloneExercise
+
+    def get_template_names(self) -> list[str]:
+        if self.request.htmx and not self.request.htmx.boosted:
+            return ["wiki/htmx/standaloneexercise_detail.html"]
+        else:
+            return ["wiki/standaloneexercise_detail.html"]
 
 
 class StandaloneExerciseListView(generic.ListView[StandaloneExercise]):
     model = StandaloneExercise
     paginate_by = 20
 
+    def get_template_names(self) -> list[str]:
+        if self.request.htmx and not self.request.htmx.boosted:
+            return ["wiki/htmx/standaloneexercise_list.html"]
+        else:
+            return ["wiki/standaloneexercise_list.html"]
+
 
 class SkillDetailView(generic.DetailView[Skill]):
     model = Skill
+
+    def get_template_names(self) -> list[str]:
+        if self.request.htmx and not self.request.htmx.boosted:
+            return ["wiki/htmx/skill_detail.html"]
+        else:
+            return ["wiki/skill_detail.html"]
 
 
 class SkillListView(generic.ListView[Skill]):
     model = Skill
     paginate_by = 50
 
+    def get_template_names(self) -> list[str]:
+        if self.request.htmx and not self.request.htmx.boosted:
+            return ["wiki/htmx/skill_list.html"]
+        else:
+            return ["wiki/skill_list.html"]
+
 
 class BookDetailView(generic.DetailView[Book]):
     model = Book
+
+    def get_template_names(self) -> list[str]:
+        if self.request.htmx and not self.request.htmx.boosted:
+            return ["wiki/htmx/book_detail.html"]
+        else:
+            return ["wiki/book_detail.html"]
 
 
 class BookListView(generic.ListView[Book]):
     model = Book
 
+    def get_template_names(self) -> list[str]:
+        if self.request.htmx and not self.request.htmx.boosted:
+            return ["wiki/htmx/book_list.html"]
+        else:
+            return ["wiki/book_list.html"]
+
 
 class ComposerDetailView(generic.DetailView[Composer]):
     model = Composer
 
+    def get_template_names(self) -> list[str]:
+        if self.request.htmx and not self.request.htmx.boosted:
+            return ["wiki/htmx/composer_detail.html"]
+        else:
+            return ["wiki/composer_detail.html"]
+
 
 class ComposerListView(generic.ListView[Composer]):
     model = Composer
+    paginate_by = 50
+
+    def get_queryset(self) -> QuerySet[Composer]:
+        # type: ignore
+        return Composer.objects.order_by("name")
+
+    def get_template_names(self) -> list[str]:
+        if self.request.htmx and not self.request.htmx.boosted:
+            return ["wiki/htmx/composer_list.html"]
+        else:
+            return ["wiki/composer_list.html"]
 
 
 class SpotDetailView(generic.DetailView[Spot]):
     model = Spot
+
+    def get_template_names(self) -> list[str]:
+        if self.request.htmx and not self.request.htmx.boosted:
+            return ["wiki/htmx/spot_detail.html"]
+        else:
+            return ["wiki/spot_detail.html"]
 
     def get_queryset(self) -> QuerySet[Spot]:
         # type: ignore
@@ -118,6 +197,7 @@ class SpotListView(generic.ListView[Spot]):
         return context
 
 
+# TODO: make this nice like the spots
 class PieceExerciseDetailView(generic.DetailView[PieceExercise]):
     model = PieceExercise
 
@@ -149,11 +229,19 @@ class PieceExerciseListView(generic.ListView[PieceExercise]):
 
 
 class SearchView(generic.TemplateView):
-    template = "wiki/search.html"
+    @property
+    def template_name(self) -> str:
+        if self.request.htmx and not self.request.htmx.boosted:
+            if self.request.method == "POST":
+                return "wiki/htmx/search_results.html"
+            else:
+                return "wiki/htmx/search_full.html"
+        else:
+            return "wiki/search.html"
 
     def get(self, request: HttpRequest, *_args: Any, **_kwargs: Any) -> HttpResponse:
         form = SearchForm()
-        return render(request, self.template, {"form": form})
+        return render(request, self.template_name, {"form": form})
 
     def post(self, request: HttpRequest, *_args: Any, **_kwargs: Any) -> HttpResponse:
         context = {}
@@ -165,6 +253,7 @@ class SearchView(generic.TemplateView):
                 Q(title__icontains=q)
                 | Q(skills__name__icontains=q)
                 | Q(composer__name__icontains=q)
+                | Q(spots__nickname__icontains=q)
             ).distinct()
             context["standaloneexercise_list"] = StandaloneExercise.objects.filter(
                 Q(title__icontains=q)
@@ -179,4 +268,4 @@ class SearchView(generic.TemplateView):
                 Q(title__icontains=q) | Q(composer__name__icontains=q)
             ).distinct()
 
-        return render(request, self.template, context)
+        return render(request, self.template_name, context)

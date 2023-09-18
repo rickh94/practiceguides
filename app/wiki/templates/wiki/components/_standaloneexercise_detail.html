@@ -1,57 +1,57 @@
-<main id="main-content" class="flex-1 font-lato px-2 fade-out fade-in">
+<main id="main-content" class="flex-1 font-lato px-2 fade-in fade-out">
     <div class="max-w-4xl mx-auto px-4 pt-3 pb-4 shadow rounded flex flex-col gap-8 bg-white">
-        <header class="flex flex-col gap-2" id="piece-header">
+        <header class="flex flex-col gap-2" id="standaloneexercise-header">
             <div class="flex flex-col gap-4 flex-wrap items-center justify-center">
                 <div>
                     <h2 class="text-5xl font-bold text-byzantium-500 border-b-2 border-byzantium-500 px-2 font-playfair">
-                        {{ piece.title }}
+                        {{ standaloneexercise.title }}
                     </h2>
                 </div>
                 <div class="flex flex-wrap gap-4">
-                    {% if piece.composer %}
+                    {% if standaloneexercise.composer %}
                         <div class="text-2xl">
                             by
-                            <a href="{{ piece.composer.get_absolute_url }}"
-                               hx-get="{{ piece.composer.get_absolute_url }}"
-                               hx-push-url="{{ piece.composer.get_absolute_url }}"
+                            <a href="{{ standaloneexercise.composer.get_absolute_url }}"
+                               hx-get="{{ standaloneexercise.composer.get_absolute_url }}"
+                               hx-push-url="{{ standaloneexercise.composer.get_absolute_url }}"
                                hx-target="#main-content"
                                hx-swap="outerHTML swap:300ms"
-                               class="italic underline text-azure-700 hover:text-azure-400">{{ piece.composer.name }}</a>
+                               class="italic underline text-azure-700 hover:text-azure-400">{{ standaloneexercise.composer.name }}</a>
                         </div>
                     {% endif %}
-                    {% if piece.book %}
+                    {% if standaloneexercise.book %}
                         <div class="text-2xl">
                             from
-                            <a href="{{ piece.book.get_absolute_url }}"
-                               hx-get="{{ piece.book.get_absolute_url }}"
-                               hx-push-url="{{ piece.book.get_absolute_url }}"
+                            <a href="{{ standaloneexercise.book.get_absolute_url }}"
+                               hx-get="{{ standaloneexercise.book.get_absolute_url }}"
+                               hx-push-url="{{ standaloneexercise.book.get_absolute_url }}"
                                hx-target="#main-content"
                                hx-swap="outerHTML swap:300ms"
-                               class="italic underline text-azure-700 hover:text-azure-400">{{ piece.book.title }}</a>
+                               class="italic underline text-azure-700 hover:text-azure-400">{{ standaloneexercise.book.title }}</a>
                         </div>
                     {% endif %}
                 </div>
             </div>
-            <p class="text-lg text-slate-900">{{ piece.description }}</p>
-            {% if piece.recording %}
+            <p class="text-lg text-slate-900">{{ standaloneexercise.description }}</p>
+            {% if standaloneexercise.recording %}
                 <div class="text-2xl text-black font-bold flex gap-2 items-center">
                     Listen:
                     <audio controls>
-                        <source src="{{ piece.recording.file.url }}" type="audio/mpeg" />
+                        <source src="{{ standaloneexercise.recording.file.url }}" type="audio/mpeg" />
                     </audio>
                 </div>
             {% endif %}
             <div class="flex gap-2">
-                {% if piece.spotify_link %}
-                    <a href="{{ piece.spotify_link }}"
+                {% if standaloneexercise.spotify_link %}
+                    <a href="{{ standaloneexercise.spotify_link }}"
                        target="_blank"
                        rel="noopener noreferrer"
                        class="rounded text-xl text-white font-bold px-4 py-2 bg-green-600 shadow hover:shadow-lg hover:bg-green-400">
                         Listen on Spotify
                     </a>
                 {% endif %}
-                {% if piece.apple_music_link %}
-                    <a href="{{ piece.apple_music_link }}"
+                {% if standaloneexercise.apple_music_link %}
+                    <a href="{{ standaloneexercise.apple_music_link }}"
                        target="_blank"
                        rel="noopener noreferrer"
                        class="rounded text-xl text-white font-bold px-4 py-2 bg-rose-600 shadow hover:shadow-lg hover:bg-rose-400">
@@ -60,29 +60,14 @@
                 {% endif %}
             </div>
         </header>
-        <section id="piece-spots" class="flex flex-col gap-2">
-            <h3 class="text-3xl font-bold">Spots</h3>
-            <ul class="flex flex-wrap gap-2">
-                {% for spot in piece.spots.all %}
-                    <li>
-                        <a class="block border-azure-200 border rounded p-4 shadow bg-azure-100/50 hover:shadow-lg hover:bg-white"
-                           href="{{ spot.get_absolute_url }}"
-                           hx-get="{{ spot.get_absolute_url }}"
-                           hx-push-url="{{ spot.get_absolute_url }}"
-                           hx-target="#spot-modal"
-                           hx-swap="innerHTML swap:300ms">{{ spot.display_name }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </section>
-        <section id="piece-practice-notes" class="flex flex-col gap-2">
+        <section id="standaloneexercise-practice-notes" class="flex flex-col gap-2">
             <h3 class="text-3xl font-bold">Practicing</h3>
-            <p class="text-lg text-slate-900">{{ piece.practice_notes }}</p>
-            {% if piece.skills %}
+            <p class="text-lg text-slate-900">{{ standaloneexercise.practice_notes }}</p>
+            {% if standaloneexercise.skills %}
                 <div class="flex flex-col gap-2">
                     <h4 class="text-xl">Skills</h4>
                     <ul class="flex gap-2 flex-wrap">
-                        {% for skill in piece.skills.all %}
+                        {% for skill in standaloneexercise.skills.all %}
                             <li class="rounded border border-pink-500 bg-pink-200 shadow hover:border-pink-300 hover:bg-pink-100 hover:text-slate-800 hover:shadow-lg">
                                 <a href="{{ skill.get_absolute_url }}"
                                    hx-get="{{ skill.get_absolute_url }}"
@@ -96,7 +81,6 @@
                 </div>
             {% endif %}
         </section>
-        <div id="spot-modal"></div>
     </div>
 </main>
 {# vim: se ft=htmldjango : #}

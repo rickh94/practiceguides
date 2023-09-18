@@ -1,0 +1,37 @@
+<div class="flex flex-col p-1">
+    <div class="flex">
+        <h2 class="text-4xl font-bold text-byzantium-500 border-b-2 border-byzantium-500 pl-2 pr-4 mb-2 font-playfair">
+            Books
+        </h2>
+    </div>
+    <ul class="space-y-2">
+        {% for book in book_list %}
+            <li class="rounded border border-emerald-500 bg-emerald-200 shadow-lg hover:border-emerald-300 hover:bg-emerald-100 hover:text-slate-800">
+                <a href="{{ book.get_absolute_url }}"
+                   hx-get="{{ book.get_absolute_url }}"
+                   hx-push-url="{{ book.get_absolute_url }}"
+                   hx-target="#main-content"
+                   hx-swap="outerHTML swap:300ms"
+                   class="flex flex-col p-2">
+                    <h3 class="text-xl font-bold">
+                        <span class="underline">{{ book.title }}</span> - {{ book.composer.name }}
+                    </h3>
+                    <p class="text-sm">{{ book.description }}</p>
+                </a>
+            </li>
+        {% endfor %}
+        {% if showlink %}
+            <li class="rounded border border-slate-500 bg-slate-200 shadow hover:border-slate-300 hover:bg-slate-100 hover:text-slate-800 hover:shadow-lg">
+                <a href="{% url 'book_list' %}"
+                   hx-get="{% url 'book_list' %}"
+                   hx-push-url="{% url 'book_list' %}"
+                   hx-target="#main-content"
+                   hx-swap="outerHTML swap:300ms"
+                   class="flex flex-col p-2">
+                    <h3 class="text-lg italic">View All Books…</h3>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
+{# vim: se ft=htmldjango : #}

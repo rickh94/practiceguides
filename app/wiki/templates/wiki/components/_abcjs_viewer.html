@@ -1,5 +1,4 @@
 {% load static %}
-<script src="{% static 'abcjs-basic-min.js' %}"></script>
 <div id="{{ viewer_id }}"></div>
 <script data-viewer-id="{{ viewer_id }}" data-notes="{{ notes }}" id="script-{{ viewer_id }}">
     ABCJS.renderAbc(
@@ -23,3 +22,4 @@
         },
     );
 </script>
+{# vim: se ft=htmldjango : #}

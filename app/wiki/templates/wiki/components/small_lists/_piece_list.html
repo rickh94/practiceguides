@@ -7,7 +7,12 @@
     <ul class="space-y-2">
         {% for piece in piece_list %}
             <li class="rounded border border-azure-500 bg-azure-200 shadow hover:shadow-lg hover:border-azure-300 hover:bg-azure-100 hover:text-slate-800">
-                <a href="{{ piece.get_absolute_url }}" class="flex flex-col p-2">
+                <a href="{{ piece.get_absolute_url }}"
+                   class="flex flex-col p-2"
+                   hx-get="{{ piece.get_absolute_url }}"
+                   hx-target="#main-content"
+                   hx-push-url="{{ piece.get_absolute_url }}"
+                   hx-swap="outerHTML swap:300ms">
                     <h3 class="text-xl font-bold">
                         <span class="underline">{{ piece.title }}</span> - {{ piece.composer.name }}
                     </h3>
@@ -15,12 +20,18 @@
                 </a>
             </li>
         {% endfor %}
-        {% if showlink %}
+        {% if showlink and list_view %}
             <li class="rounded border border-slate-500 bg-slate-200 shadow hover:border-slate-300 hover:bg-slate-100 hover:text-slate-800 hover:shadow-lg">
-                <a href="{% url 'piece_list' %}" class="flex flex-col p-2">
-                    <h3 class="text-lg italic">View All Pieces…</h3>
+                <a href="{% url list_view %}"
+                   class="flex flex-col p-2"
+                   hx-get="{% url list_view %}"
+                   hx-target="#main-content"
+                   hx-push-url="{% url list_view %}"
+                   hx-swap="outerHTML swap:300ms">
+                    <h3 class="text-lg italic">View All {{ list_title }}…</h3>
                 </a>
             </li>
         {% endif %}
     </ul>
 </div>
+{# vim: se ft=htmldjango : #}
