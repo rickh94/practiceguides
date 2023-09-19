@@ -39,7 +39,7 @@
                     About
                 </h3>
             </div>
-            <p class="text-lg text-slate-900">{{ piece.description }}</p>
+            <p class="text-lg text-neutral-900">{{ piece.description }}</p>
         </section>
         <section id="piece-recordings" class="flex flex-col gap-2">
             <div class="flex">
@@ -131,7 +131,7 @@
                         Notes on Practicing
                     </h3>
                 </div>
-                <p class="text-lg text-slate-900">{{ piece.practice_notes }}</p>
+                <p class="text-lg text-neutral-900">{{ piece.practice_notes }}</p>
             </section>
         {% endif %}
         {% if piece.skills %}
@@ -143,7 +143,7 @@
                 </div>
                 <ul class="flex gap-2 flex-wrap">
                     {% for skill in piece.skills.all %}
-                        <li class="rounded border border-pink-500 bg-pink-200 shadow hover:border-pink-300 hover:bg-pink-100 hover:text-slate-800 hover:shadow-lg">
+                        <li class="rounded border border-pink-500 bg-pink-200 shadow hover:border-pink-300 hover:bg-pink-100 hover:text-neutral-800 hover:shadow-lg">
                             <a href="{{ skill.get_absolute_url }}"
                                hx-get="{{ skill.get_absolute_url }}"
                                hx-push-url="{{ skill.get_absolute_url }}"

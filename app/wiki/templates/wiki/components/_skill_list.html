@@ -9,7 +9,7 @@
             </div>
             <ul class="flex flex-wrap gap-2">
                 {% for skill in skill_list %}
-                    <li class="rounded border border-pink-500 bg-pink-200 shadow hover:shadow-lg hover:border-pink-300 hover:bg-pink-100 hover:text-slate-800">
+                    <li class="rounded border border-pink-500 bg-pink-200 shadow hover:shadow-lg hover:border-pink-300 hover:bg-pink-100 hover:text-neutral-800">
                         <a href="{{ skill.get_absolute_url }}"
                            class="block p-1"
                            hx-get="{{ skill.get_absolute_url }}"

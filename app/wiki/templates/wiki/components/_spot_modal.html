@@ -53,7 +53,7 @@
                         <h4 class="text-lg">Skills</h4>
                         <ul class="flex gap-2 flex-wrap">
                             {% for skill in spot.skills.all %}
-                                <li class="text-sm rounded border border-pink-500 bg-pink-200 shadow-lg hover:border-pink-300 hover:bg-pink-100 hover:text-slate-800">
+                                <li class="text-sm rounded border border-pink-500 bg-pink-200 shadow-lg hover:border-pink-300 hover:bg-pink-100 hover:text-neutral-800">
                                     <a href="{{ skill.get_absolute_url }}" class="block p-0.5">{{ skill.name }}</a>
                                 </li>
                             {% endfor %}
@@ -66,7 +66,7 @@
                      x-show="currentStep === {{ step.order }}"
                      x-cloak>
                     <header class="flex justify-between w-full" id="modal-title">
-                        <h3 class="text-xl font-bold leading-6 text-gray-900 text-center">Step {{ step.order }}</h3>
+                        <h3 class="text-xl font-bold leading-6 text-neutral-900 text-center">Step {{ step.order }}</h3>
                         <a href="{% url 'piece_detail' spot.piece.pk %}"
                            hx-get="{% url 'piece_detail' spot.piece.pk %}"
                            hx-swap="delete swap:300ms"
@@ -100,11 +100,11 @@
                         {% endif %}
                     </div>
                     <div class="flex w-full justify-between">
-                        <button class="{% if forloop.first %}bg-slate-500 pointer-events-none{% else %}bg-azure-500 hover:bg-azure-700{% endif %} text-white font-bold py-2 px-6 rounded"
+                        <button class="{% if forloop.first %}bg-neutral-500 pointer-events-none{% else %}bg-azure-500 hover:bg-azure-700{% endif %} text-white font-bold py-2 px-6 rounded"
                                 {% if forloop.first %}disabled{% endif %}
                                 type="button"
                                 @click="currentStep--">Previous</button>
-                        <button class="{% if forloop.last %}bg-slate-500 pointer-events-none{% else %}bg-azure-500 hover:bg-azure-700{% endif %} text-white font-bold py-2 px-4 rounded"
+                        <button class="{% if forloop.last %}bg-neutral-500 pointer-events-none{% else %}bg-azure-500 hover:bg-azure-700{% endif %} text-white font-bold py-2 px-4 rounded"
                                 {% if forloop.last %}disabled{% endif %}
                                 type="button"
                                 @click="currentStep++">Next</button>

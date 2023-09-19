@@ -8,6 +8,15 @@
                     </h2>
                 </div>
             </div>
+            <div class="px-6">
+                {% if book.description %}<p class="text-lg text-neutral-900">{{ book.description }}</p>{% endif %}
+                {% if book.link %}
+                    <a href="{{ book.link }}"
+                       class="underline text-lg text-azure-700 hover:text-azure-400"
+                       target="_blank"
+                       rel="noreferrer noopener">Get the book</a>
+                {% endif %}
+            </div>
         </header>
         {% if book.pieces.all %}
             {% with piece_list=book.pieces.all showlink=False list_title="Pieces" %}

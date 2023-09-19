@@ -9,7 +9,7 @@
             </div>
             <ul class="flex flex-wrap gap-2">
                 {% for composer in composer_list %}
-                    <li class="rounded border border-orange-500 bg-orange-200 shadow hover:shadow-lg hover:border-orange-300 hover:bg-orange-100 hover:text-slate-800">
+                    <li class="rounded border border-orange-500 bg-orange-200 shadow hover:shadow-lg hover:border-orange-300 hover:bg-orange-100 hover:text-neutral-800">
                         <a href="{{ composer.get_absolute_url }}"
                            hx-get="{{ composer.get_absolute_url }}"
                            hx-push-url="{{ composer.get_absolute_url }}"

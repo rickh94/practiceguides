@@ -6,7 +6,7 @@
     </div>
     <ul class="space-y-2">
         {% for piece in piece_list %}
-            <li class="rounded border border-azure-500 bg-azure-200 shadow hover:shadow-lg hover:border-azure-300 hover:bg-azure-100 hover:text-slate-800">
+            <li class="rounded border border-azure-500 bg-azure-200 shadow hover:shadow-lg hover:border-azure-300 hover:bg-azure-100 hover:text-neutral-800">
                 <a href="{{ piece.get_absolute_url }}"
                    class="flex flex-col p-2"
                    hx-get="{{ piece.get_absolute_url }}"
@@ -21,7 +21,7 @@
             </li>
         {% endfor %}
         {% if showlink and list_view %}
-            <li class="rounded border border-slate-500 bg-slate-200 shadow hover:border-slate-300 hover:bg-slate-100 hover:text-slate-800 hover:shadow-lg">
+            <li class="rounded border border-neutral-500 bg-neutral-200 shadow hover:border-neutral-300 hover:bg-neutral-100 hover:text-neutral-800 hover:shadow-lg">
                 <a href="{% url list_view %}"
                    class="flex flex-col p-2"
                    hx-get="{% url list_view %}"
