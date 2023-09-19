@@ -57,7 +57,7 @@ class StepAdmin(admin.ModelAdmin, RecordingPlayerMixin):
 class PieceAdmin(admin.ModelAdmin, RecordingPlayerMixin):
     list_display = ["title", "composer", "description", "order"]
     readonly_fields = ["player"]
-    change_form_template = "wiki/admin/abcjs_change_form.html"
+    # change_form_template = "wiki/admin/abcjs_change_form.html"
 
 
 class StandaloneExerciseAdmin(admin.ModelAdmin, RecordingPlayerMixin):

@@ -128,6 +128,7 @@ class Step(models.Model):
 class Skill(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
+    read_more_link = models.URLField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -143,6 +144,9 @@ class PieceExercise(models.Model):
     description = models.TextField(null=True, blank=True)
     abc_notation = models.TextField(null=True, blank=True)
     instructions = models.TextField()
+    recording = models.ForeignKey(
+        "Recording", on_delete=models.SET_NULL, null=True, blank=True
+    )
 
     def __str__(self):
         if self.nickname:

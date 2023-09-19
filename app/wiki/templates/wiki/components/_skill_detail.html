@@ -9,46 +9,76 @@
                 </div>
             </div>
         </header>
-        {% with piece_list=skill.piece_set.all showlink=False list_title="Pieces" %}
-            {% include "wiki/components/small_lists/_piece_list.html" %}
-        {% endwith %}
-        {% with piece_list=skill.standaloneexercise_set.all showlink=False list_title="Etudes" %}
-            {% include "wiki/components/small_lists/_piece_list.html" %}
-        {% endwith %}
-        <section id="skill-spots" class="flex flex-col gap-2">
-            <div class="flex">
-                <div>
-                    <h2 class="text-4xl font-bold text-byzantium-500 border-b-2 border-byzantium-500 pl-2 pr-4 mb-2 font-playfair">
-                        Spots
-                    </h2>
+        <section id="about-skill" class="flex flex-col gap-2">
+            {% if skill.description %}
+                <div class="flex">
+                    <h3 class="text-4xl font-bold text-byzantium-500 border-b-2 border-byzantium-500 pl-2 pr-4 mb-2 font-playfair">
+                        About
+                    </h3>
                 </div>
-            </div>
-            <ul class="flex flex-wrap gap-2">
-                {% for spot in skill.spot_set.all %}
-                    <li>
-                        <a class="block border-azure-200 border rounded p-4 shadow bg-azure-100/50 hover:shadow-lg hover:bg-white"
-                           href="{{ spot.get_absolute_url }}">{{ spot }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
+                <p class="text-lg text-slate-900">{{ skill.description }}</p>
+            {% endif %}
+            {% if skill.read_more_link %}
+                <a href="{{ skill.read_more_link }}"
+                   class="underline text-lg text-azure-700 hover:text-azure-400"
+                   target="_blank"
+                   rel="noreferrer noopener">
+                    {% if skill.description %}
+                        Read more
+                    {% else %}
+                        Learn About {{ skill.name }}
+                    {% endif %}
+                </a>
+            {% endif %}
         </section>
-        <section id="skill-piece-exercises" class="flex flex-col gap-2">
-            <div class="flex">
-                <div>
-                    <h2 class="text-4xl font-bold text-byzantium-500 border-b-2 border-byzantium-500 pl-2 pr-4 mb-2 font-playfair">
-                        Exercises
-                    </h2>
+        {% if skill.piece_set.all %}
+            {% with piece_list=skill.piece_set.all showlink=False list_title="Pieces" %}
+                {% include "wiki/components/small_lists/_piece_list.html" %}
+            {% endwith %}
+        {% endif %}
+        {% if skill.standaloneexercise_set.all %}
+            {% with piece_list=skill.standaloneexercise_set.all showlink=False list_title="Etudes" %}
+                {% include "wiki/components/small_lists/_piece_list.html" %}
+            {% endwith %}
+        {% endif %}
+        {% if skill.spot_set.all %}
+            <section id="skill-spots" class="flex flex-col gap-2">
+                <div class="flex">
+                    <div>
+                        <h2 class="text-4xl font-bold text-byzantium-500 border-b-2 border-byzantium-500 pl-2 pr-4 mb-2 font-playfair">
+                            Spots
+                        </h2>
+                    </div>
                 </div>
-            </div>
-            <ul class="flex flex-wrap gap-2">
-                {% for exercise in skill.pieceexercise_set.all %}
-                    <li>
-                        <a class="block border-azure-200 border rounded p-4 shadow bg-azure-100/50 hover:shadow-lg hover:bg-white"
-                           href="{{ exercise.get_absolute_url }}">{{ exercise }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </section>
+                <ul class="flex flex-wrap gap-2">
+                    {% for spot in skill.spot_set.all %}
+                        <li>
+                            <a class="block border-azure-200 border rounded p-4 shadow bg-azure-100/50 hover:shadow-lg hover:bg-white"
+                               href="{{ spot.get_absolute_url }}">{{ spot }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        {% endif %}
+        {% if skill.pieceexercise_set.all %}
+            <section id="skill-piece-exercises" class="flex flex-col gap-2">
+                <div class="flex">
+                    <div>
+                        <h2 class="text-4xl font-bold text-byzantium-500 border-b-2 border-byzantium-500 pl-2 pr-4 mb-2 font-playfair">
+                            Exercises
+                        </h2>
+                    </div>
+                </div>
+                <ul class="flex flex-wrap gap-2">
+                    {% for exercise in skill.pieceexercise_set.all %}
+                        <li>
+                            <a class="block border-azure-200 border rounded p-4 shadow bg-azure-100/50 hover:shadow-lg hover:bg-white"
+                               href="{{ exercise.get_absolute_url }}">{{ exercise }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        {% endif %}
     </div>
 </main>
 {# vim: se ft=htmldjango: #}
