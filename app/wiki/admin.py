@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 
 from . import models
+from .util import truncate_words
 
 # Register your models here.
 admin.site.register(models.Composer)
@@ -49,9 +50,14 @@ class PieceExerciseAdmin(admin.ModelAdmin, RecordingPlayerMixin):
 
 
 class StepAdmin(admin.ModelAdmin, RecordingPlayerMixin):
-    list_display = ["spot", "order", "instructions", "player"]
+    list_display = ["spot", "order", "truncated_instructions", "player"]
     readonly_fields = ["player"]
     change_form_template = "wiki/admin/abcjs_change_form.html"
+
+    def truncated_instructions(self, obj):
+        return truncate_words(obj.instructions)
+
+    truncated_instructions.__name__ = "Instructions"
 
 
 class PieceAdmin(admin.ModelAdmin, RecordingPlayerMixin):

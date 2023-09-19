@@ -44,7 +44,7 @@
         <section id="piece-recordings" class="flex flex-col gap-2">
             <div class="flex">
                 <h3 class="text-4xl font-bold text-byzantium-500 border-b-2 border-byzantium-500 pl-2 pr-4 mb-2 font-playfair">
-                    Recordings
+                    Listen
                 </h3>
             </div>
             {% if piece.recording %}
@@ -60,16 +60,24 @@
                     <a href="{{ piece.spotify_link }}"
                        target="_blank"
                        rel="noopener noreferrer"
-                       class="rounded text-lg text-white font-bold px-4 py-2 bg-green-600 shadow hover:shadow-lg hover:bg-green-400">
-                        Listen on Spotify
+                       class="rounded text-base text-white font-bold px-4 py-2 bg-green-600 shadow hover:shadow-lg hover:bg-green-400">
+                        Spotify
                     </a>
                 {% endif %}
                 {% if piece.apple_music_link %}
                     <a href="{{ piece.apple_music_link }}"
                        target="_blank"
                        rel="noopener noreferrer"
-                       class="rounded text-lg text-white font-bold px-4 py-2 bg-rose-600 shadow hover:shadow-lg hover:bg-rose-400">
-                        Listen on Apple Music
+                       class="rounded text-base text-white font-bold px-4 py-2 bg-rose-600 shadow hover:shadow-lg hover:bg-rose-400">
+                        Apple Music
+                    </a>
+                {% endif %}
+                {% if piece.amazon_music_link %}
+                    <a href="{{ piece.amazon_music_link }}"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="rounded text-base text-white font-bold px-4 py-2 bg-yellow-600 shadow hover:shadow-lg hover:bg-yellow-400">
+                        Amazon Music
                     </a>
                 {% endif %}
             </div>

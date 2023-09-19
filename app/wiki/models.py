@@ -2,9 +2,9 @@ from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.urls import reverse
 
+from .util import truncate_words
 
-def truncate_words(s: str, n: int = 5) -> str:
-    return " ".join(s.split()[:5])
+# TODO: custom validator that makes sure steps and spot orders are unique and sequential
 
 
 class Composer(models.Model):
@@ -65,6 +65,7 @@ class Piece(models.Model):
     )
     spotify_link = models.URLField(null=True, blank=True)
     apple_music_link = models.URLField(null=True, blank=True)
+    amazon_music_link = models.URLField(null=True, blank=True)
     skills = models.ManyToManyField("Skill")
     large_sections = models.TextField(null=True, blank=True)
     order = models.IntegerField(null=True, blank=True)
@@ -109,13 +110,13 @@ class Spot(models.Model):
 
 
 class Step(models.Model):
+    spot = models.ForeignKey(Spot, on_delete=models.CASCADE, related_name="steps")
     order = models.IntegerField()
     instructions = models.TextField()
-    abc_notation = models.TextField(null=True)
+    abc_notation = models.TextField(null=True, blank=True)
     recording = models.ForeignKey(
         "Recording", on_delete=models.CASCADE, null=True, blank=True
     )
-    spot = models.ForeignKey(Spot, on_delete=models.CASCADE, related_name="steps")
 
     def __str__(self):
         return f"{self.spot} - Step {self.order}"
