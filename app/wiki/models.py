@@ -3,6 +3,10 @@ from django.db import models
 from django.urls import reverse
 
 
+def truncate_words(s: str, n: int = 5) -> str:
+    return " ".join(s.split()[:5])
+
+
 class Composer(models.Model):
     name = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -133,7 +137,7 @@ class Skill(models.Model):
 
 
 class PieceExercise(models.Model):
-    piece = models.ForeignKey(Piece, on_delete=models.CASCADE)
+    piece = models.ForeignKey(Piece, on_delete=models.CASCADE, related_name="exercises")
     nickname = models.CharField(max_length=255, null=True, blank=True)
     skills = models.ManyToManyField("Skill")
     description = models.TextField(null=True, blank=True)
@@ -144,16 +148,20 @@ class PieceExercise(models.Model):
         if self.nickname:
             return f"{self.piece.title} - {self.nickname}"
         else:
-            return f"{self.piece.title} - {self.description}"
+            return f"{self.piece.title} - {truncate_words(self.description)}"
 
     @property
     def notes_id(self):
-        return f"step-{self.piece.id}-{self.pk}-notes"
+        return f"exercise-{self.piece.id}-{self.pk}-notes"
 
     def get_absolute_url(self):
         return reverse(
             "pieceexercise_detail", kwargs={"pk": self.pk, "piece_id": self.piece.id}
         )
+
+    @property
+    def display_name(self):
+        return self.nickname or truncate_words(self.description)
 
 
 class StandaloneExercise(models.Model):

@@ -7,7 +7,6 @@ from . import models
 admin.site.register(models.Composer)
 admin.site.register(models.Book)
 admin.site.register(models.Skill)
-admin.site.register(models.PieceExercise)
 
 
 class RecordingAdmin(admin.ModelAdmin):
@@ -43,6 +42,12 @@ class SpotAdmin(admin.ModelAdmin, RecordingPlayerMixin):
     change_form_template = "wiki/admin/abcjs_change_form.html"
 
 
+class PieceExerciseAdmin(admin.ModelAdmin, RecordingPlayerMixin):
+    list_display = ["nickname", "piece", "description"]
+    readonly_fields = ["player"]
+    change_form_template = "wiki/admin/abcjs_change_form.html"
+
+
 class StepAdmin(admin.ModelAdmin, RecordingPlayerMixin):
     list_display = ["spot", "order", "instructions", "player"]
     readonly_fields = ["player"]
@@ -65,3 +70,4 @@ admin.site.register(models.Spot, SpotAdmin)
 admin.site.register(models.Step, StepAdmin)
 admin.site.register(models.Piece, PieceAdmin)
 admin.site.register(models.StandaloneExercise, StandaloneExerciseAdmin)
+admin.site.register(models.PieceExercise, PieceExerciseAdmin)

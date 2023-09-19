@@ -21,9 +21,6 @@ class SearchForm(forms.Form):
     q = forms.CharField(label="Search", max_length=255)
 
 
-# TODO: htmx-ify
-
-
 def index(request: HttpRequest) -> HttpResponse:
     """Render the index page."""
     piece_list = Piece.objects.order_by("-created_at")[:5]
@@ -64,7 +61,10 @@ class PieceDetailView(generic.DetailView[Piece]):
 
 class PieceListView(generic.ListView[Piece]):
     model = Piece
-    paginate_by = 10
+    paginate_by = 20
+
+    def get_queryset(self) -> QuerySet[Piece]:
+        return Piece.objects.order_by("-created_at")
 
     def get_template_names(self) -> list[str]:
         if self.request.htmx and not self.request.htmx.boosted:
@@ -87,6 +87,9 @@ class StandaloneExerciseListView(generic.ListView[StandaloneExercise]):
     model = StandaloneExercise
     paginate_by = 20
 
+    def get_queryset(self) -> QuerySet[StandaloneExercise]:
+        return StandaloneExercise.objects.order_by("-created_at")
+
     def get_template_names(self) -> list[str]:
         if self.request.htmx and not self.request.htmx.boosted:
             return ["wiki/htmx/standaloneexercise_list.html"]
@@ -107,6 +110,9 @@ class SkillDetailView(generic.DetailView[Skill]):
 class SkillListView(generic.ListView[Skill]):
     model = Skill
     paginate_by = 50
+
+    def get_queryset(self) -> QuerySet[Skill]:
+        return Skill.objects.order_by("name")
 
     def get_template_names(self) -> list[str]:
         if self.request.htmx and not self.request.htmx.boosted:
@@ -150,7 +156,6 @@ class ComposerListView(generic.ListView[Composer]):
     paginate_by = 50
 
     def get_queryset(self) -> QuerySet[Composer]:
-        # type: ignore
         return Composer.objects.order_by("name")
 
     def get_template_names(self) -> list[str]:
@@ -170,7 +175,6 @@ class SpotDetailView(generic.DetailView[Spot]):
             return ["wiki/spot_detail.html"]
 
     def get_queryset(self) -> QuerySet[Spot]:
-        # type: ignore
         return Spot.objects.filter(piece_id=self.kwargs["piece_id"])
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
@@ -184,19 +188,6 @@ class SpotDetailView(generic.DetailView[Spot]):
         return context
 
 
-class SpotListView(generic.ListView[Spot]):
-    model = Spot
-
-    def get_queryset(self) -> QuerySet[Spot]:
-        # type: ignore
-        return Spot.objects.filter(piece_id=self.kwargs["piece_id"])
-
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["piece"] = Piece.objects.get(pk=self.kwargs["piece_id"])
-        return context
-
-
 # TODO: make this nice like the spots
 class PieceExerciseDetailView(generic.DetailView[PieceExercise]):
     model = PieceExercise
@@ -205,6 +196,12 @@ class PieceExerciseDetailView(generic.DetailView[PieceExercise]):
         # type: ignore
         return PieceExercise.objects.filter(piece_id=self.kwargs["piece_id"])
 
+    def get_template_names(self) -> list[str]:
+        if self.request.htmx and not self.request.htmx.boosted:
+            return ["wiki/htmx/pieceexercise_detail.html"]
+        else:
+            return ["wiki/pieceexercise_detail.html"]
+
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["piece"] = self.object.piece
@@ -212,19 +209,6 @@ class PieceExerciseDetailView(generic.DetailView[PieceExercise]):
         context[
             "exercise_notes_id"
         ] = f"spot-{self.object.piece.id}-{self.kwargs['pk']}-notes"
-        return context
-
-
-class PieceExerciseListView(generic.ListView[PieceExercise]):
-    model = PieceExercise
-
-    def get_queryset(self) -> QuerySet[PieceExercise]:
-        # type: ignore
-        return PieceExercise.objects.filter(piece_id=self.kwargs["piece_id"])
-
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["piece"] = Piece.objects.get(pk=self.kwargs["piece_id"])
         return context
 
 

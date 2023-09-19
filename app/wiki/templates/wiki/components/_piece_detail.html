@@ -1,6 +1,6 @@
 <main id="main-content" class="flex-1 font-lato px-2 fade-out fade-in">
-    <div class="max-w-4xl mx-auto px-4 pt-3 pb-4 shadow rounded flex flex-col gap-8 bg-white">
-        <header class="flex flex-col gap-2" id="piece-header">
+    <div class="max-w-4xl mx-auto px-4 pt-3 pb-4 shadow rounded grid grid-cols-1 sm:grid-cols-2 gap-8 bg-white">
+        <header class="flex flex-col gap-2 col-span-full" id="piece-header">
             <div class="flex flex-col gap-4 flex-wrap items-center justify-center">
                 <div>
                     <h2 class="text-5xl font-bold text-byzantium-500 border-b-2 border-byzantium-500 px-2 font-playfair">
@@ -32,7 +32,21 @@
                     {% endif %}
                 </div>
             </div>
+        </header>
+        <section id="about-piece" class="flex flex-col gap-2">
+            <div class="flex">
+                <h3 class="text-4xl font-bold text-byzantium-500 border-b-2 border-byzantium-500 pl-2 pr-4 mb-2 font-playfair">
+                    About
+                </h3>
+            </div>
             <p class="text-lg text-slate-900">{{ piece.description }}</p>
+        </section>
+        <section id="piece-recordings" class="flex flex-col gap-2">
+            <div class="flex">
+                <h3 class="text-4xl font-bold text-byzantium-500 border-b-2 border-byzantium-500 pl-2 pr-4 mb-2 font-playfair">
+                    Recordings
+                </h3>
+            </div>
             {% if piece.recording %}
                 <div class="text-2xl text-black font-bold flex gap-2 items-center">
                     Listen:
@@ -46,7 +60,7 @@
                     <a href="{{ piece.spotify_link }}"
                        target="_blank"
                        rel="noopener noreferrer"
-                       class="rounded text-xl text-white font-bold px-4 py-2 bg-green-600 shadow hover:shadow-lg hover:bg-green-400">
+                       class="rounded text-lg text-white font-bold px-4 py-2 bg-green-600 shadow hover:shadow-lg hover:bg-green-400">
                         Listen on Spotify
                     </a>
                 {% endif %}
@@ -54,49 +68,86 @@
                     <a href="{{ piece.apple_music_link }}"
                        target="_blank"
                        rel="noopener noreferrer"
-                       class="rounded text-xl text-white font-bold px-4 py-2 bg-rose-600 shadow hover:shadow-lg hover:bg-rose-400">
+                       class="rounded text-lg text-white font-bold px-4 py-2 bg-rose-600 shadow hover:shadow-lg hover:bg-rose-400">
                         Listen on Apple Music
                     </a>
                 {% endif %}
             </div>
-        </header>
-        <section id="piece-spots" class="flex flex-col gap-2">
-            <h3 class="text-3xl font-bold">Spots</h3>
-            <ul class="flex flex-wrap gap-2">
-                {% for spot in piece.spots.all %}
-                    <li>
-                        <a class="block border-azure-200 border rounded p-4 shadow bg-azure-100/50 hover:shadow-lg hover:bg-white"
-                           href="{{ spot.get_absolute_url }}"
-                           hx-get="{{ spot.get_absolute_url }}"
-                           hx-push-url="{{ spot.get_absolute_url }}"
-                           hx-target="#spot-modal"
-                           hx-swap="innerHTML swap:300ms">{{ spot.display_name }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
         </section>
-        <section id="piece-practice-notes" class="flex flex-col gap-2">
-            <h3 class="text-3xl font-bold">Practicing</h3>
-            <p class="text-lg text-slate-900">{{ piece.practice_notes }}</p>
-            {% if piece.skills %}
-                <div class="flex flex-col gap-2">
-                    <h4 class="text-xl">Skills</h4>
-                    <ul class="flex gap-2 flex-wrap">
-                        {% for skill in piece.skills.all %}
-                            <li class="rounded border border-pink-500 bg-pink-200 shadow hover:border-pink-300 hover:bg-pink-100 hover:text-slate-800 hover:shadow-lg">
-                                <a href="{{ skill.get_absolute_url }}"
-                                   hx-get="{{ skill.get_absolute_url }}"
-                                   hx-push-url="{{ skill.get_absolute_url }}"
-                                   hx-target="#main-content"
-                                   hx-swap="outerHTML swap:300ms"
-                                   class="block p-1">{{ skill.name }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
+        {% if piece.spots.all %}
+            <section id="piece-spots" class="flex flex-col gap-2">
+                <div class="flex">
+                    <h3 class="text-4xl font-bold text-byzantium-500 border-b-2 border-byzantium-500 pl-2 pr-4 mb-2 font-playfair">
+                        Spots
+                    </h3>
                 </div>
-            {% endif %}
-        </section>
-        <div id="spot-modal"></div>
+                <ul class="flex flex-wrap gap-2">
+                    {% for spot in piece.spots.all %}
+                        <li>
+                            <a class="block border-azure-200 border rounded p-4 shadow bg-azure-100/50 hover:shadow-lg hover:bg-white"
+                               href="{{ spot.get_absolute_url }}"
+                               hx-get="{{ spot.get_absolute_url }}"
+                               hx-push-url="{{ spot.get_absolute_url }}"
+                               hx-target="#modal"
+                               hx-swap="innerHTML swap:300ms">{{ spot.display_name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        {% endif %}
+        {% if piece.exercises.all %}
+            <section id="piece-exercises" class="flex flex-col gap-2">
+                <div class="flex">
+                    <h3 class="text-4xl font-bold text-byzantium-500 border-b-2 border-byzantium-500 pl-2 pr-4 mb-2 font-playfair">
+                        Exercises
+                    </h3>
+                </div>
+                <ul class="flex flex-wrap gap-2">
+                    {% for exercise in piece.exercises.all %}
+                        <li>
+                            <a class="block border-teal-200 border rounded p-4 shadow bg-teal-100/50 hover:shadow-lg hover:bg-white"
+                               href="{{ exercise.get_absolute_url }}"
+                               hx-get="{{ exercise.get_absolute_url }}"
+                               hx-push-url="{{ exercise.get_absolute_url }}"
+                               hx-target="#modal"
+                               hx-swap="innerHTML swap:300ms">{{ exercise.display_name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        {% endif %}
+        {% if piece.practice_notes %}
+            <section id="piece-practice-notes" class="flex flex-col gap-2">
+                <div class="flex">
+                    <h3 class="text-3xl font-bold text-byzantium-500 border-b-2 border-byzantium-500 pl-2 pr-4 mb-2 font-playfair">
+                        Notes on Practicing
+                    </h3>
+                </div>
+                <p class="text-lg text-slate-900">{{ piece.practice_notes }}</p>
+            </section>
+        {% endif %}
+        {% if piece.skills %}
+            <section class="flex flex-col gap-2">
+                <div class="flex">
+                    <h3 class="text-3xl font-bold text-byzantium-500 border-b-2 border-byzantium-500 pl-2 pr-4 mb-2 font-playfair">
+                        Skills Covered
+                    </h3>
+                </div>
+                <ul class="flex gap-2 flex-wrap">
+                    {% for skill in piece.skills.all %}
+                        <li class="rounded border border-pink-500 bg-pink-200 shadow hover:border-pink-300 hover:bg-pink-100 hover:text-slate-800 hover:shadow-lg">
+                            <a href="{{ skill.get_absolute_url }}"
+                               hx-get="{{ skill.get_absolute_url }}"
+                               hx-push-url="{{ skill.get_absolute_url }}"
+                               hx-target="#main-content"
+                               hx-swap="outerHTML swap:300ms"
+                               class="block p-1">{{ skill.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        {% endif %}
+        <div id="modal"></div>
     </div>
 </main>
 {# vim: se ft=htmldjango : #}

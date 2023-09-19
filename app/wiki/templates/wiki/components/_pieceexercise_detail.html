@@ -1,0 +1,65 @@
+<div class="relative z-10 fade-in fade-out"
+     aria-labelledby="modal-title"
+     role="dialog"
+     aria-modal="true"
+     id="exercise-{{ pieceexercise.pk }}-modal">
+    <div class="fixed inset-0 bg-azure-100 backdrop-blur-sm bg-opacity-75 fade-in fade-out"></div>
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex flex-col min-h-full items-center justify-end p-4 gap-2 text-center sm:justify-center sm:p-0 w-full">
+            <div class="relative transform overflow-hidden max-w-full sm:my-8 sm:w-full sm:max-w-lg sm:p-6 rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all flex flex-col gap-2 sm:gap-4">
+                <header class="flex justify-between w-full" id="modal-title">
+                    <h3 class="text-xl font-bold leading-6 text-gray-900 text-left"
+                        id="modal-title">
+                        {% if pieceexercise.nickname %}
+                            Exercise: {{ pieceexercise.nickname }}
+                        {% else %}
+                            Exercise
+                        {% endif %}
+                    </h3>
+                    <a href="{% url 'piece_detail' pieceexercise.piece.pk %}"
+                       hx-get="{% url 'piece_detail' pieceexercise.piece.pk %}"
+                       hx-swap="delete swap:300ms"
+                       hx-target="#exercise-{{ pieceexercise.pk }}-modal"
+                       hx-trigger="click"
+                       hx-push-url="{% url 'piece_detail' pieceexercise.piece.pk %}"
+                       class="justify-self-end text-rose-500 hover:text-rose-300">
+                        <span class="sr-only">Close</span>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke-width="1.5"
+                             stroke="currentColor"
+                             class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </a>
+                </header>
+                <p class="mt-1">{{ pieceexercise.description }}</p>
+                {% if pieceexercise.abc_notation %}
+                    {% include "wiki/components/_abcjs_viewer.html" with viewer_id=exercise_notes_id notes=pieceexercise.abc_notation %}
+                {% endif %}
+                {% if pieceexercise.recording %}
+                    <div class="text-xl text-black font-bold flex gap-2 justify-start sm:items-center flex-col sm:flex-row">
+                        Listen:
+                        <audio controls class="max-w-full">
+                            <source src="{{ pieceexercise.recording.file.url }}" type="audio/mpeg" />
+                        </audio>
+                    </div>
+                {% endif %}
+                {% if pieceexercise.skills %}
+                    <div class="flex gap-2">
+                        <h4 class="text-lg">Skills</h4>
+                        <ul class="flex gap-2 flex-wrap">
+                            {% for skill in pieceexercise.skills.all %}
+                                <li class="text-sm rounded border border-pink-500 bg-pink-200 shadow-lg hover:border-pink-300 hover:bg-pink-100 hover:text-slate-800">
+                                    <a href="{{ skill.get_absolute_url }}" class="block p-0.5">{{ skill.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{# vim: se ft=htmldjango : #}
