@@ -182,9 +182,7 @@ class SpotDetailView(generic.DetailView[Spot]):
         context["piece"] = self.object.piece
         # type: ignore
         context["steps"] = self.object.steps.order_by("order")
-        context[
-            "spot_notes_id"
-        ] = f"spot-{self.object.piece.id}-{self.kwargs['pk']}-notes"
+        context["spot_notes_id"] = f"spot{self.object.piece.id}{self.kwargs['pk']}notes"
         return context
 
 
@@ -208,7 +206,7 @@ class PieceExerciseDetailView(generic.DetailView[PieceExercise]):
         # type: ignore
         context[
             "exercise_notes_id"
-        ] = f"spot-{self.object.piece.id}-{self.kwargs['pk']}-notes"
+        ] = f"exercise{self.object.piece.id}{self.kwargs['pk']}notes"
         return context
 
 

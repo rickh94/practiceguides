@@ -1,5 +1,7 @@
 {% extends "base_external.html" %}
+{% load static %}
 {% block content %}
+    <script src="{% static 'abcjs-basic-min.js' %}"></script>
     {% include "wiki/components/_pieceexercise_detail.html" %}
     {% include "wiki/components/_piece_detail.html" %}
 {% endblock content %}

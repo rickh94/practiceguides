@@ -122,7 +122,7 @@ class Step(models.Model):
 
     @property
     def notes_id(self):
-        return f"step-{self.spot.piece.id}-{self.spot.id}-{self.pk}-notes"
+        return f"step{self.spot.piece.id}{self.spot.id}{self.pk}notes"
 
 
 class Skill(models.Model):

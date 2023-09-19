@@ -5,10 +5,10 @@
      id="exercise-{{ pieceexercise.pk }}-modal">
     <div class="fixed inset-0 bg-azure-100 backdrop-blur-sm bg-opacity-75 fade-in fade-out"></div>
     <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-        <div class="flex flex-col min-h-full items-center justify-end p-4 gap-2 text-center sm:justify-center sm:p-0 w-full">
-            <div class="relative transform overflow-hidden max-w-full sm:my-8 sm:w-full sm:max-w-lg sm:p-6 rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all flex flex-col gap-2 sm:gap-4">
+        <div class="flex flex-col min-h-full items-center justify-end p-4  text-center sm:justify-center sm:p-0 w-full">
+            <div class="relative transform overflow-hidden max-w-full sm:my-8 sm:w-full sm:max-w-lg sm:p-6 rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all flex flex-col gap-2">
                 <header class="flex justify-between w-full" id="modal-title">
-                    <h3 class="text-xl font-bold leading-6 text-gray-900 text-left"
+                    <h3 class="text-2xl font-bold leading-6 text-byzantium-500 border-b-2 border-byzantium-500 text-left"
                         id="modal-title">
                         {% if pieceexercise.nickname %}
                             Exercise: {{ pieceexercise.nickname }}
@@ -34,7 +34,13 @@
                         </svg>
                     </a>
                 </header>
-                <p class="mt-1">{{ pieceexercise.description }}</p>
+                <p class="-mt-1">{{ pieceexercise.description }}</p>
+                {% if pieceexercise.instructions %}
+                    <div>
+                        <h4 class="text-lg text-black font-bold">Instructions</h4>
+                        <p>{{ pieceexercise.instructions }}</p>
+                    </div>
+                {% endif %}
                 {% if pieceexercise.abc_notation %}
                     {% include "wiki/components/_abcjs_viewer.html" with viewer_id=exercise_notes_id notes=pieceexercise.abc_notation %}
                 {% endif %}
