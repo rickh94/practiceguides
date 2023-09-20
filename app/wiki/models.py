@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.urls import reverse
@@ -8,7 +9,7 @@ from .util import truncate_words
 
 
 class Composer(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -47,6 +48,11 @@ class Recording(models.Model):
         return self.name
 
 
+def validate_positive(value):
+    if value and value <= 0:
+        raise ValidationError("Must be a positive number")
+
+
 class Piece(models.Model):
     title = models.CharField(max_length=255)
     composer = models.ForeignKey(
@@ -69,15 +75,34 @@ class Piece(models.Model):
     amazon_music_link = models.URLField(null=True, blank=True)
     skills = models.ManyToManyField("Skill")
     large_sections = models.TextField(null=True, blank=True)
-    order = models.IntegerField(null=True, blank=True)
+    order = models.IntegerField(null=True, blank=True, validators=[validate_positive])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.title} - {self.composer.name}"
+        if self.composer:
+            return f"{self.title} - {self.composer.name}"
+        return f"{self.title} - Unknown"
 
     def get_absolute_url(self):
         return reverse("piece_detail", kwargs={"pk": self.pk})
+
+    def clean(self):
+        if not self.order and not self.book:
+            return
+        if self.order and not self.book:
+            raise ValidationError("Order is meaningless without a book")
+        orders = [p.order for p in self.book.pieces.all()]
+        suggested_order = max(orders) + 1
+        if self.book and not self.order:
+            raise ValidationError(
+                f"Pieces in a book must have an order. The next available is {suggested_order}."
+            )
+        if self.order in orders:
+            raise ValidationError(
+                f"Order {self.order} is taken, you must choose another. The next available is {suggested_order}."
+            )
+        super().clean()
 
 
 class Spot(models.Model):
@@ -128,7 +153,7 @@ class Step(models.Model):
 
 
 class Skill(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     description = models.TextField(null=True, blank=True)
     read_more_link = models.URLField(null=True, blank=True)
 
@@ -188,12 +213,31 @@ class StandaloneExercise(models.Model):
         "Recording", on_delete=models.CASCADE, null=True, blank=True, related_name="+"
     )
     skills = models.ManyToManyField("Skill")
-    order = models.IntegerField(null=True, blank=True)
+    order = models.IntegerField(null=True, blank=True, validators=[validate_positive])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.title} - {self.book} - {self.composer}"
+        composer = self.composer.name if self.composer else "Unknown"
+        book = self.book.title if self.composer else "Unknown"
+        return f"{self.title} - {book} - {composer}"
+
+    def clean(self):
+        if not self.order and not self.book:
+            return
+        if self.order and not self.book:
+            raise ValidationError("Order is meaningless without a book")
+        orders = [e.order for e in self.book.standaloneexercises.all()]
+        suggested_order = max(orders) + 1
+        if self.book and not self.order:
+            raise ValidationError(
+                f"Exercises in a book must have an order. The next available is {suggested_order}."
+            )
+        if self.order in orders:
+            raise ValidationError(
+                f"Order {self.order} is taken, you must choose another. The next available is {suggested_order}."
+            )
+        super().clean()
 
     def get_absolute_url(self):
         return reverse("standaloneexercise_detail", kwargs={"pk": self.pk})

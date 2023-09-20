@@ -18,7 +18,11 @@ from .models import (
 
 
 class SearchForm(forms.Form):
-    q = forms.CharField(label="Search", max_length=255)
+    q = forms.CharField(
+        label="Search",
+        max_length=255,
+        widget=forms.TextInput(attrs={"placeholder": "Type to search…"}),
+    )
 
 
 def index(request: HttpRequest) -> HttpResponse:

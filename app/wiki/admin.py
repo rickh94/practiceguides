@@ -4,10 +4,7 @@ from django.utils.html import format_html
 from . import models
 from .util import truncate_words
 
-# Register your models here.
 admin.site.register(models.Composer)
-admin.site.register(models.Book)
-admin.site.register(models.Skill)
 
 
 class RecordingAdmin(admin.ModelAdmin):
@@ -37,14 +34,23 @@ class RecordingPlayerMixin:
     player.__name__ = "Current Audio"
 
 
-class SpotAdmin(admin.ModelAdmin, RecordingPlayerMixin):
-    list_display = ["nickname", "piece", "order", "description"]
+class TruncatedDescriptionMixin:
+    def truncated_description(self, obj):
+        return truncate_words(obj.description)
+
+    truncated_description.__name__ = "Description"
+
+
+class SpotAdmin(admin.ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin):
+    list_display = ["nickname", "piece", "order", "truncated_description"]
     readonly_fields = ["player"]
     change_form_template = "wiki/admin/abcjs_change_form.html"
 
 
-class PieceExerciseAdmin(admin.ModelAdmin, RecordingPlayerMixin):
-    list_display = ["nickname", "piece", "description"]
+class PieceExerciseAdmin(
+    admin.ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin
+):
+    list_display = ["nickname", "piece", "truncated_description"]
     readonly_fields = ["player"]
     change_form_template = "wiki/admin/abcjs_change_form.html"
 
@@ -60,15 +66,25 @@ class StepAdmin(admin.ModelAdmin, RecordingPlayerMixin):
     truncated_instructions.__name__ = "Instructions"
 
 
-class PieceAdmin(admin.ModelAdmin, RecordingPlayerMixin):
-    list_display = ["title", "composer", "description", "order"]
+class PieceAdmin(admin.ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin):
+    list_display = ["title", "composer", "truncated_description", "order"]
     readonly_fields = ["player"]
     # change_form_template = "wiki/admin/abcjs_change_form.html"
 
 
-class StandaloneExerciseAdmin(admin.ModelAdmin, RecordingPlayerMixin):
-    list_display = ["title", "composer", "description", "order"]
+class StandaloneExerciseAdmin(
+    admin.ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin
+):
+    list_display = ["title", "composer", "truncated_description", "order"]
     readonly_fields = ["player"]
+
+
+class BookAdmin(admin.ModelAdmin, TruncatedDescriptionMixin):
+    list_display = ["title", "composer", "truncated_description"]
+
+
+class SkillAdmin(admin.ModelAdmin, TruncatedDescriptionMixin):
+    list_display = ["name", "truncated_description"]
 
 
 admin.site.register(models.Recording, RecordingAdmin)
@@ -77,3 +93,5 @@ admin.site.register(models.Step, StepAdmin)
 admin.site.register(models.Piece, PieceAdmin)
 admin.site.register(models.StandaloneExercise, StandaloneExerciseAdmin)
 admin.site.register(models.PieceExercise, PieceExerciseAdmin)
+admin.site.register(models.Book, BookAdmin)
+admin.site.register(models.Skill, SkillAdmin)

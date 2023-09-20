@@ -10,7 +10,7 @@
     {% csrf_token %}
     <label for="{{ form.q.id_for_label }}"
            class="flex-0 text-2xl font-bold text-azure-700 font-playfair">{{ form.q.label }}:</label>
-    {{ form.q|addclass:"flex-1 rounded border-2 shadow border-azure-500 focus:border-azure-200 focus:ring-2 focus:ring-azure-200 focus:bg-azure-50 focus:outline-none focus:shadow-lg px-2 py-1" }}
+    {{ form.q|addclass:"flex-1 rounded border-2 border-azure-500 focus:border-azure-300 focus:ring-2 focus:ring-azure-300 focus:bg-azure-50 focus:outline-none focus:shadow px-2 py-1" }}
     <button type="submit"
             class="px-2 py-1 rounded border border-azure-500 bg-azure-200 shadow hover:shadow-lg hover:border-azure-300 hover:bg-azure-100 text-azure-900 hover:text-azure-700 font-bold">
         <span class="sr-only sm:hidden">Search</span>
