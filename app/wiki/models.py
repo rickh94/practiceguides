@@ -106,8 +106,9 @@ class Piece(models.Model):
 
 
 class Spot(models.Model):
+    piece = models.ForeignKey(Piece, on_delete=models.CASCADE, related_name="spots")
     nickname = models.CharField(max_length=255, null=True, blank=True)
-    order = models.IntegerField(null=True, blank=True)
+    order = models.IntegerField(validators=[validate_positive])
     description = models.TextField(null=True, blank=True)
     measures = models.CharField(max_length=255, null=True, blank=True)
     skills = models.ManyToManyField("Skill")
@@ -115,7 +116,6 @@ class Spot(models.Model):
     recording = models.ForeignKey(
         "Recording", on_delete=models.CASCADE, null=True, blank=True
     )
-    piece = models.ForeignKey(Piece, on_delete=models.CASCADE, related_name="spots")
 
     def __str__(self):
         if self.nickname:
@@ -134,10 +134,23 @@ class Spot(models.Model):
             or f"{self.piece.title} - {self.order}"
         )
 
+    def clean(self):
+        orders = [p.order for p in self.piece.spots.all()]
+        suggested_order = max(orders) + 1
+        if self.piece and not self.order:
+            raise ValidationError(
+                f"Spots in a book must have an order. The next available is {suggested_order}."
+            )
+        if self.order in orders:
+            raise ValidationError(
+                f"Order {self.order} is taken, you must choose another. The next available is {suggested_order}."
+            )
+        super().clean()
+
 
 class Step(models.Model):
     spot = models.ForeignKey(Spot, on_delete=models.CASCADE, related_name="steps")
-    order = models.IntegerField()
+    order = models.IntegerField(validators=[validate_positive])
     instructions = models.TextField()
     abc_notation = models.TextField(null=True, blank=True)
     recording = models.ForeignKey(
@@ -150,6 +163,15 @@ class Step(models.Model):
     @property
     def notes_id(self):
         return f"step{self.spot.piece.id}{self.spot.id}{self.pk}notes"
+
+    def clean(self):
+        orders = [p.order for p in self.spot.steps.all()]
+        suggested_order = max(orders) + 1
+        if self.order in orders:
+            raise ValidationError(
+                f"Order {self.order} is taken, you must choose another. The next available is {suggested_order}."
+            )
+        super().clean()
 
 
 class Skill(models.Model):

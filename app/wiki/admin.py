@@ -4,8 +4,6 @@ from django.utils.html import format_html
 from . import models
 from .util import truncate_words
 
-admin.site.register(models.Composer)
-
 
 class RecordingAdmin(admin.ModelAdmin):
     list_display = ["name", "description", "player"]
@@ -43,6 +41,7 @@ class TruncatedDescriptionMixin:
 
 class SpotAdmin(admin.ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin):
     list_display = ["nickname", "piece", "order", "truncated_description"]
+    list_filter = ["piece"]
     readonly_fields = ["player"]
     change_form_template = "wiki/admin/abcjs_change_form.html"
 
@@ -51,12 +50,17 @@ class PieceExerciseAdmin(
     admin.ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin
 ):
     list_display = ["nickname", "piece", "truncated_description"]
+    list_filter = ["piece"]
     readonly_fields = ["player"]
     change_form_template = "wiki/admin/abcjs_change_form.html"
 
 
+# TODO: suggest next step number in the admin or set it automatically
+
+
 class StepAdmin(admin.ModelAdmin, RecordingPlayerMixin):
     list_display = ["spot", "order", "truncated_instructions", "player"]
+    list_filter = ["spot", "spot__piece"]
     readonly_fields = ["player"]
     change_form_template = "wiki/admin/abcjs_change_form.html"
 
@@ -69,6 +73,7 @@ class StepAdmin(admin.ModelAdmin, RecordingPlayerMixin):
 class PieceAdmin(admin.ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin):
     list_display = ["title", "composer", "truncated_description", "order"]
     readonly_fields = ["player"]
+    list_filter = ["composer", "book", "skills"]
     # change_form_template = "wiki/admin/abcjs_change_form.html"
 
 
@@ -76,6 +81,7 @@ class StandaloneExerciseAdmin(
     admin.ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin
 ):
     list_display = ["title", "composer", "truncated_description", "order"]
+    list_filter = ["composer", "book", "skills"]
     readonly_fields = ["player"]
 
 
@@ -85,6 +91,12 @@ class BookAdmin(admin.ModelAdmin, TruncatedDescriptionMixin):
 
 class SkillAdmin(admin.ModelAdmin, TruncatedDescriptionMixin):
     list_display = ["name", "truncated_description"]
+    list_filter = ["piece", "spot", "pieceexercise", "standaloneexercise"]
+
+
+class ComposerAdmin(admin.ModelAdmin):
+    list_display = ["name"]
+    list_filter = ["pieces", "books", "standaloneexercises"]
 
 
 admin.site.register(models.Recording, RecordingAdmin)
@@ -95,3 +107,4 @@ admin.site.register(models.StandaloneExercise, StandaloneExerciseAdmin)
 admin.site.register(models.PieceExercise, PieceExerciseAdmin)
 admin.site.register(models.Book, BookAdmin)
 admin.site.register(models.Skill, SkillAdmin)
+admin.site.register(models.Composer, ComposerAdmin)
