@@ -88,7 +88,8 @@ class Piece(models.Model):
         return reverse("piece_detail", kwargs={"pk": self.pk})
 
     def clean(self):
-        if not self.order and not self.book:
+        if not self.order and not self.book or self.pk:
+            super().clean()
             return
         if self.order and not self.book:
             raise ValidationError("Order is meaningless without a book")
@@ -135,6 +136,9 @@ class Spot(models.Model):
         )
 
     def clean(self):
+        if self.pk:
+            super().clean()
+            return
         orders = [p.order for p in self.piece.spots.all()]
         suggested_order = max(orders) + 1
         if self.piece and not self.order:
@@ -165,13 +169,15 @@ class Step(models.Model):
         return f"step{self.spot.piece.id}{self.spot.id}{self.pk}notes"
 
     def clean(self):
+        super().clean()
+        if self.pk:
+            return
         orders = [p.order for p in self.spot.steps.all()]
         suggested_order = max(orders) + 1
         if self.order in orders:
             raise ValidationError(
                 f"Order {self.order} is taken, you must choose another. The next available is {suggested_order}."
             )
-        super().clean()
 
 
 class Skill(models.Model):
@@ -245,6 +251,9 @@ class StandaloneExercise(models.Model):
         return f"{self.title} - {book} - {composer}"
 
     def clean(self):
+        if self.pk:
+            super().clean()
+            return
         if not self.order and not self.book:
             return
         if self.order and not self.book:
