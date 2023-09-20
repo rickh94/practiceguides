@@ -94,7 +94,7 @@ class Piece(models.Model):
         if self.order and not self.book:
             raise ValidationError("Order is meaningless without a book")
         orders = [p.order for p in self.book.pieces.all()]
-        suggested_order = max(orders) + 1
+        suggested_order = max(orders) + 1 if orders else 1
         if self.book and not self.order:
             raise ValidationError(
                 f"Pieces in a book must have an order. The next available is {suggested_order}."
@@ -173,7 +173,7 @@ class Step(models.Model):
         if self.pk:
             return
         orders = [p.order for p in self.spot.steps.all()]
-        suggested_order = max(orders) + 1
+        suggested_order = max(orders) + 1 if orders else 1
         if self.order in orders:
             raise ValidationError(
                 f"Order {self.order} is taken, you must choose another. The next available is {suggested_order}."
@@ -259,7 +259,7 @@ class StandaloneExercise(models.Model):
         if self.order and not self.book:
             raise ValidationError("Order is meaningless without a book")
         orders = [e.order for e in self.book.standaloneexercises.all()]
-        suggested_order = max(orders) + 1
+        suggested_order = max(orders) + 1 if orders else 1
         if self.book and not self.order:
             raise ValidationError(
                 f"Exercises in a book must have an order. The next available is {suggested_order}."

@@ -31,7 +31,12 @@ DEBUG = os.getenv("DEBUG", None) is not None
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
-ADMINS = os.getenv("ADMINS", "").split(",")
+ADMINS = list(
+    zip(
+        os.getenv("ADMIN_NAMES", "").split(","),
+        os.getenv("ADMIN_EMAILS", "").split(","),
+    )
+)
 
 
 # Application definition
