@@ -140,7 +140,7 @@ class Spot(models.Model):
             super().clean()
             return
         orders = [p.order for p in self.piece.spots.all()]
-        suggested_order = max(orders) + 1
+        suggested_order = max(orders) + 1 if orders else 1
         if self.piece and not self.order:
             raise ValidationError(
                 f"Spots in a book must have an order. The next available is {suggested_order}."

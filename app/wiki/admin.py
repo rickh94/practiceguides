@@ -40,7 +40,7 @@ class TruncatedDescriptionMixin:
 
 
 class SpotAdmin(admin.ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin):
-    list_display = ["nickname", "piece", "order", "truncated_description"]
+    list_display = ["nickname", "piece", "order", "truncated_description", "player"]
     list_filter = ["piece"]
     readonly_fields = ["player"]
     change_form_template = "wiki/admin/abcjs_change_form.html"
