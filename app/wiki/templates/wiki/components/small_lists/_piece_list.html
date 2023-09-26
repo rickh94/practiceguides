@@ -14,7 +14,12 @@
                    hx-push-url="{{ piece.get_absolute_url }}"
                    hx-swap="outerHTML swap:300ms">
                     <h3 class="text-xl font-bold">
-                        <span class="underline">{{ piece.title }}</span> - {{ piece.composer.name }}
+                        <span class="underline">{{ piece.title }}</span> -
+                        {% if piece.composer %}
+                            {{ piece.composer.name }}
+                        {% else %}
+                            Unknown Composer
+                        {% endif %}
                     </h3>
                     <p class="text-sm">{{ piece.description }}</p>
                 </a>

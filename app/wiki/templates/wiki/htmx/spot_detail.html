@@ -1,4 +1,12 @@
 {% extends "base_htmx.html" %}
+{% block title %}
+    {% if spot.nickname %}
+        Spot: {{ spot.nickname }}
+    {% else %}
+        Spot: {{ spot.order }}
+    {% endif %}
+    | {{ spot.piece.title }}
+{% endblock title %}
 {% block content %}
     {% include "wiki/components/_spot_modal.html" %}
 {% endblock content %}

@@ -1,4 +1,7 @@
 {% extends "base_htmx.html" %}
+{% block title %}
+    {{ composer.name }}
+{% endblock title %}
 {% block content %}
     {% include "wiki/components/_composer_detail.html" %}
 {% endblock content %}

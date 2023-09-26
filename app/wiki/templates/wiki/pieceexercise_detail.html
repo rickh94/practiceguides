@@ -1,5 +1,17 @@
 {% extends "base_external.html" %}
 {% load static %}
+{% block title %}
+    {% if pieceexercise.nickname %}
+        Exercise: {{ pieceexercise.nickname }}
+    {% else %}
+        Exercise for {{ pieceexercise.piece.title }}
+    {% endif %}
+{% endblock title %}
+{% block description %}
+    Practice Exercise
+    {% if pieceexercise.nickname %}“{{ pieceexercise.nickname }}”{% endif %}
+    for {{ pieceexercise.piece.title }}.
+{% endblock description %}
 {% block content %}
     <script src="{% static 'abcjs-basic-min.js' %}"></script>
     {% include "wiki/components/_pieceexercise_detail.html" %}

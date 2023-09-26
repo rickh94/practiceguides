@@ -235,6 +235,7 @@ class SearchView(generic.TemplateView):
         context["form"] = form
         if form.is_valid():
             q = form.cleaned_data["q"]
+            context["q"] = q
             context["piece_list"] = Piece.objects.filter(
                 Q(title__icontains=q)
                 | Q(skills__name__icontains=q)

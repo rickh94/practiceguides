@@ -60,7 +60,7 @@ class PieceExerciseAdmin(
 
 class StepAdmin(admin.ModelAdmin, RecordingPlayerMixin):
     list_display = ["spot", "order", "truncated_instructions", "player"]
-    list_filter = ["spot", "spot__piece"]
+    list_filter = ["spot__piece", "spot"]
     readonly_fields = ["player"]
     change_form_template = "wiki/admin/abcjs_change_form.html"
 

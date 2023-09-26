@@ -1,4 +1,12 @@
 {% extends "base_external.html" %}
+{% block title %}
+    {{ piece.title }}
+{% endblock title %}
+{% block description %}
+    Practice guide for {{ piece.title }}
+    {% if piece.composer %}by {{ piece.composer.name }}{% endif %}
+    {% if piece.book %}from {{ piece.book.title }}{% endif %}
+{% endblock description %}
 {% block content %}
     {% include "wiki/components/_piece_detail.html" %}
 {% endblock content %}

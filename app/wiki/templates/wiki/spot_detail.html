@@ -1,5 +1,25 @@
 {% extends "base_external.html" %}
-{% load static %}
+{% load static customfilters %}
+{% block title %}
+    {% if spot.nickname %}
+        Spot: {{ spot.nickname }}
+    {% else %}
+        Spot: {{ spot.order }}
+    {% endif %}
+    | {{ spot.piece.title }}
+{% endblock title %}
+{% block description %}
+    Practice guide for spot
+    {% if spot.nickname %}
+        {{ spot.nickname }}
+    {% else %}
+        {{ spot.order }}
+    {% endif %}
+    in {{ spot.piece.title }}
+    {% if spot.piece.composer %}by {{ spot.piece.composer.name }}{% endif %}
+    from
+    {% if spot.piece.book %}{{ spot.piece.book.title }}{% endif %}
+{% endblock description %}
 {% block content %}
     <script src="{% static 'abcjs-basic-min.js' %}"></script>
     {% include "wiki/components/_spot_modal.html" %}

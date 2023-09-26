@@ -1,4 +1,11 @@
 {% extends "base_htmx.html" %}
+{% block title %}
+    {% if pieceexercise.nickname %}
+        Exercise: {{ pieceexercise.nickname }}
+    {% else %}
+        Exercise for {{ pieceexercise.piece.title }}
+    {% endif %}
+{% endblock title %}
 {% block content %}
     {% include "wiki/components/_pieceexercise_detail.html" %}
 {% endblock content %}

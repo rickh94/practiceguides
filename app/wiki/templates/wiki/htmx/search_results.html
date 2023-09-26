@@ -1,5 +1,12 @@
 {% extends "base_htmx.html" %}
 {% load customfilters %}
+{% block title %}
+    {% if q %}
+        Results for: {{ q }}
+    {% else %}
+        Search | Rick’s Violin Teaching Wiki
+    {% endif %}
+{% endblock title %}
 {% block content %}
     {% include "wiki/components/_search_results.html" %}
 {% endblock content %}

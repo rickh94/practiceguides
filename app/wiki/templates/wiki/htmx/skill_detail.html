@@ -1,4 +1,7 @@
 {% extends "base_htmx.html" %}
+{% block title %}
+    Skill: {{ skill.name }}
+{% endblock title %}
 {% block content %}
     {% include "wiki/components/_skill_detail.html" %}
 {% endblock content %}

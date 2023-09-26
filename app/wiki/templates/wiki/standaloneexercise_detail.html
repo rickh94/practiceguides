@@ -1,4 +1,12 @@
 {% extends "base_external.html" %}
+{% block title %}
+    {{ standaloneexercise.title }}
+{% endblock title %}
+{% block description %}
+    Practice guide for {{ standaloneexercise.title }}
+    {% if standaloneexercise.composer %}by {{ standaloneexercise.composer.name }}{% endif %}
+    {% if standaloneexercise.book %}from {{ standaloneexercise.book.title }}{% endif %}
+{% endblock description %}
 {% block content %}
     {% include "wiki/components/_standaloneexercise_detail.html" %}
 {% endblock content %}
