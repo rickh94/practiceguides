@@ -10,7 +10,6 @@ from wiki.sitemap import (
     ComposersSitemap,
     PiecesSitemap,
     SkillsSitemap,
-    SpotListSitemap,
     SpotsSitemap,
     StandaloneExercisesSitemap,
 )
@@ -18,7 +17,6 @@ from wiki.sitemap import (
 sitemaps = {
     "basic": BasicSitemap,
     "pieces": PiecesSitemap,
-    "spot_lists": SpotListSitemap,
     "standalone_exercises": StandaloneExercisesSitemap,
     "composers": ComposersSitemap,
     "skills": SkillsSitemap,

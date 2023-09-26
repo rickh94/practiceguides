@@ -39,17 +39,6 @@ class StandaloneExercisesSitemap(sitemaps.Sitemap):
         return StandaloneExercise.objects.all()
 
 
-class SpotListSitemap(sitemaps.Sitemap):
-    priority = 0.5
-    changefreq = "monthly"
-
-    def items(self):
-        return Piece.objects.all()
-
-    def location(self, item):
-        return reverse("spot_list", kwargs={"piece_id": item.pk})
-
-
 class SkillsSitemap(sitemaps.Sitemap):
     priority = 0.5
     changefreq = "monthly"
