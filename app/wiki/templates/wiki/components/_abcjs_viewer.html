@@ -1,6 +1,6 @@
 {% load static %}
 <div id="{{ viewer_id }}"></div>
-<script data-viewer-id="{{ viewer_id }}" data-notes="{{ notes }}" id="script-{{ viewer_id }}">
+<script data-viewer-id="{{ viewer_id }}" data-notes="{{ notes }}" id="script-{{ viewer_id }}" data-width="{% if width %}{{ width }}{% else %}540{% endif %}">
     ABCJS.renderAbc(
         document.currentScript.dataset.viewerId,
         document.currentScript.dataset.notes, {
@@ -12,11 +12,11 @@
             paddingtop: 0,
             viewportHorizontal: true,
             scrollHorizontal: true,
-            staffwidth: 381,
+            staffwidth: document.currentScript.dataset.width,
             wrap: {
                 minSpacing: 1.4,
                 maxSpacing: 2.7,
-                preferredMeasuresPerLine: 2,
+                preferredMeasuresPerLine: 4,
             },
             responsive: "resize",
         },

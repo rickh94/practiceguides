@@ -34,7 +34,7 @@ class RecordingPlayerMixin:
 
 class TruncatedDescriptionMixin:
     def truncated_description(self, obj):
-        return truncate_words(obj.description)
+        return truncate_words(obj.description, 10)
 
     truncated_description.__name__ = "Description"
 
