@@ -190,7 +190,6 @@ class SpotDetailView(generic.DetailView[Spot]):
         return context
 
 
-# TODO: make this nice like the spots
 class PieceExerciseDetailView(generic.DetailView[PieceExercise]):
     model = PieceExercise
 

@@ -5,8 +5,6 @@ from django.urls import reverse
 
 from .util import truncate_words
 
-# TODO: custom validator that makes sure steps and spot orders are unique and sequential
-
 
 class Composer(models.Model):
     name = models.CharField(max_length=255, unique=True)
