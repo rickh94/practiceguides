@@ -129,10 +129,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
-
 STATIC_HOST = "" if DEBUG else os.getenv("STATIC_HOST", "")
 
 MEDIA_PARENT = BASE_DIR if DEBUG else Path("/")
@@ -141,9 +137,6 @@ MEDIA_PATH = "media/"
 MEDIA_URL = STATIC_HOST + MEDIA_PATH
 
 STATIC_URL = STATIC_HOST + "/static/"
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
