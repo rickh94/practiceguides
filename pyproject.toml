@@ -15,6 +15,7 @@ webauthn = "^1.10.1"
 django-htmx = "^1.16.0"
 django-stubs = {version = "^4.2.4", extras = ["compatible-mypy"]}
 django-stubs-ext = "^4.2.2"
+django-unfold = "^0.13.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"

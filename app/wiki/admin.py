@@ -1,8 +1,18 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import User
 from django.utils.html import format_html
+from unfold.admin import ModelAdmin
 
 from . import models
 from .util import truncate_words
+
+admin.site.unregister(User)
+
+
+@admin.register(User)
+class UserAdmin(BaseUserAdmin, ModelAdmin):
+    pass
 
 
 class RecordingPlayerMixin:
@@ -25,7 +35,7 @@ class TruncatedDescriptionMixin:
 
 
 @admin.register(models.Recording)
-class RecordingAdmin(admin.ModelAdmin):
+class RecordingAdmin(ModelAdmin):
     list_display = ["name", "description", "player"]
     readonly_fields = ["player"]
     search_fields = ["name"]
@@ -42,7 +52,7 @@ class RecordingAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.Spot)
-class SpotAdmin(admin.ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin):
+class SpotAdmin(ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin):
     list_display = [
         "nickname",
         "piece",
@@ -51,6 +61,7 @@ class SpotAdmin(admin.ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixi
         "player",
     ]
     list_filter = ["piece", "skills__name"]
+    autocomplete_fields = ["recording", "piece"]
     readonly_fields = ["player"]
     change_form_template = "wiki/admin/abcjs_change_form.html"
     search_fields = [
@@ -62,11 +73,10 @@ class SpotAdmin(admin.ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixi
 
 
 @admin.register(models.PieceExercise)
-class PieceExerciseAdmin(
-    admin.ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin
-):
+class PieceExerciseAdmin(ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin):
     list_display = ["nickname", "piece", "truncated_description"]
     list_filter = ["piece"]
+    autocomplete_fields = ["recording", "piece"]
     readonly_fields = ["player"]
     change_form_template = "wiki/admin/abcjs_change_form.html"
     search_fields = [
@@ -78,12 +88,13 @@ class PieceExerciseAdmin(
 
 
 @admin.register(models.Step)
-class StepAdmin(admin.ModelAdmin, RecordingPlayerMixin):
+class StepAdmin(ModelAdmin, RecordingPlayerMixin):
     list_display = ["spot", "order", "truncated_instructions", "player"]
     list_filter = ["spot__piece", "spot"]
     readonly_fields = ["player"]
     change_form_template = "wiki/admin/abcjs_change_form.html"
     search_fields = ["spot__piece__title", "spot__piece__composer__name"]
+    autocomplete_fields = ["spot", "recording"]
 
     def truncated_instructions(self, obj):
         return truncate_words(obj.instructions)
@@ -92,39 +103,42 @@ class StepAdmin(admin.ModelAdmin, RecordingPlayerMixin):
 
 
 @admin.register(models.Piece)
-class PieceAdmin(admin.ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin):
+class PieceAdmin(ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin):
     list_display = ["title", "composer", "truncated_description", "order"]
     readonly_fields = ["player"]
     list_filter = ["composer", "book", "skills"]
     search_fields = ["title", "composer__name", "skills__name"]
+    autocomplete_fields = ["composer", "book", "recording"]
     # change_form_template = "wiki/admin/abcjs_change_form.html"
 
 
 @admin.register(models.StandaloneExercise)
 class StandaloneExerciseAdmin(
-    admin.ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin
+    ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin
 ):
     list_display = ["title", "composer", "truncated_description", "order"]
     list_filter = ["composer", "book", "skills"]
     readonly_fields = ["player"]
     search_fields = ["title", "composer__name", "skills__name", "book__title"]
+    autocomplete_fields = ["composer", "book", "recording"]
 
 
 @admin.register(models.Book)
 class BookAdmin(admin.ModelAdmin, TruncatedDescriptionMixin):
     list_display = ["title", "composer", "truncated_description"]
     search_fields = ["title", "composer__name"]
+    autocomplete_fields = ["composer"]
 
 
 @admin.register(models.Skill)
-class SkillAdmin(admin.ModelAdmin, TruncatedDescriptionMixin):
+class SkillAdmin(ModelAdmin, TruncatedDescriptionMixin):
     list_display = ["name", "truncated_description"]
     list_filter = ["piece", "spot", "pieceexercise", "standaloneexercise"]
     search_fields = ["name", "piece__title", "piece__composer__name"]
 
 
 @admin.register(models.Composer)
-class ComposerAdmin(admin.ModelAdmin):
+class ComposerAdmin(ModelAdmin):
     list_display = ["name"]
     list_filter = ["pieces", "books", "standaloneexercises"]
     search_fields = ["name", "pieces__title"]

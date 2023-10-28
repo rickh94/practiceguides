@@ -533,6 +533,21 @@ django = "*"
 typing-extensions = "*"
 
 [[package]]
+name = "django-unfold"
+version = "0.13.0"
+description = "Clean & minimal Django admin theme based on Tailwind CSS"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "django_unfold-0.13.0-py3-none-any.whl", hash = "sha256:1d951910223292ff1baad5bd8b8683424a38f1552e0f7a81a9de98b7f68a5c8c"},
+    {file = "django_unfold-0.13.0.tar.gz", hash = "sha256:6cd92802136de5aeb2f01a448e89902827bcbc61b04dd99cec0fc01381a4cf87"},
+]
+
+[package.dependencies]
+django = ">=3.2"
+importlib-metadata = "6.7.0"
+
+[[package]]
 name = "djhtml"
 version = "3.0.6"
 description = "Django/Jinja template indenter"
@@ -648,6 +663,25 @@ files = [
 
 [package.extras]
 license = ["ukkonen"]
+
+[[package]]
+name = "importlib-metadata"
+version = "6.7.0"
+description = "Read metadata from Python packages"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "importlib_metadata-6.7.0-py3-none-any.whl", hash = "sha256:cb52082e659e97afc5dac71e79de97d8681de3aa07ff18578330904a9d18e5b5"},
+    {file = "importlib_metadata-6.7.0.tar.gz", hash = "sha256:1aaf550d4f73e5d6783e7acb77aec43d49da8017410afae93822cc9cca98c4d4"},
+]
+
+[package.dependencies]
+zipp = ">=0.5"
+
+[package.extras]
+docs = ["furo", "jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-lint"]
+perf = ["ipython"]
+testing = ["flufl.flake8", "importlib-resources (>=1.3)", "packaging", "pyfakefs", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.3)", "pytest-mypy (>=0.9.1)", "pytest-perf (>=0.9.2)", "pytest-ruff"]
 
 [[package]]
 name = "isort"
@@ -1531,7 +1565,22 @@ files = [
     {file = "wrapt-1.15.0.tar.gz", hash = "sha256:d06730c6aed78cee4126234cf2d071e01b44b915e725a6cb439a879ec9754a3a"},
 ]
 
+[[package]]
+name = "zipp"
+version = "3.17.0"
+description = "Backport of pathlib-compatible object wrapper for zip files"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "zipp-3.17.0-py3-none-any.whl", hash = "sha256:0e923e726174922dce09c53c59ad483ff7bbb8e572e00c7f7c46b88556409f31"},
+    {file = "zipp-3.17.0.tar.gz", hash = "sha256:84e64a1c28cf7e91ed2078bb8cc8c259cb19b76942096c8d7b84947690cabaf0"},
+]
+
+[package.extras]
+docs = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (<7.2.5)", "sphinx (>=3.5)", "sphinx-lint"]
+testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=2.2)", "pytest-ignore-flaky", "pytest-mypy (>=0.9.1)", "pytest-ruff"]
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "e3215a8eb626528146341bfcb8252e1d2c7f0873fbab95dff38e8970316d6531"
+content-hash = "d558499692257844753da631aefb80526e491d5684d8801b4a0fd83e6d129671"
