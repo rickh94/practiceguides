@@ -57,7 +57,7 @@
                         <h4 class="text-lg">Skills</h4>
                         <ul class="flex gap-2 flex-wrap">
                             {% for skill in pieceexercise.skills.all %}
-                                <li class="text-sm rounded border border-pink-500 bg-pink-200 shadow-lg hover:border-pink-300 hover:bg-pink-100 hover:text-neutral-800">
+                                <li class="text-sm rounded border border-pink-500 bg-pink-200 shadow-lg hover:border-pink-300 hover:bg-pink-100 hover:text-gray-800">
                                     <a href="{{ skill.get_absolute_url }}" class="block p-0.5">{{ skill.name }}</a>
                                 </li>
                             {% endfor %}

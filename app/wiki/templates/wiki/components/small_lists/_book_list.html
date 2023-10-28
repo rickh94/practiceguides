@@ -6,7 +6,7 @@
     </div>
     <ul class="space-y-2">
         {% for book in book_list %}
-            <li class="rounded border border-emerald-500 bg-emerald-200 shadow-lg hover:border-emerald-300 hover:bg-emerald-100 hover:text-neutral-800">
+            <li class="rounded border border-emerald-500 bg-emerald-200 shadow-lg hover:border-emerald-300 hover:bg-emerald-100 hover:text-gray-800">
                 <a href="{{ book.get_absolute_url }}"
                    hx-get="{{ book.get_absolute_url }}"
                    hx-push-url="{{ book.get_absolute_url }}"
@@ -21,7 +21,7 @@
             </li>
         {% endfor %}
         {% if showlink %}
-            <li class="rounded border border-neutral-500 bg-neutral-200 shadow hover:border-neutral-300 hover:bg-neutral-100 hover:text-neutral-800 hover:shadow-lg">
+            <li class="rounded border border-gray-500 bg-gray-200 shadow hover:border-gray-300 hover:bg-gray-100 hover:text-gray-800 hover:shadow-lg">
                 <a href="{% url 'book_list' %}"
                    hx-get="{% url 'book_list' %}"
                    hx-push-url="{% url 'book_list' %}"

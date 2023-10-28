@@ -1,6 +1,6 @@
 {% block pagination %}
     {% if is_paginated %}
-        {% with disabled_class="border-neutral-100 bg-neutral-100 pointer-events-none text-neutral-400" enabled_class="text-black border-neutral-500 bg-neutral-200 hover:border-neutral-300 hover:bg-neutral-100 hover:text-neutral-800 hover:shadow-lg shadow" %}
+        {% with disabled_class="border-gray-100 bg-gray-100 pointer-events-none text-gray-400" enabled_class="text-black border-gray-500 bg-gray-200 hover:border-gray-300 hover:bg-gray-100 hover:text-gray-800 hover:shadow-lg shadow" %}
             <div class="w-full flex justify-between mt-4">
                 <a class="block rounded border {% if page_obj.has_previous %} {{ enabled_class }} {% else %} {{ disabled_class }} {% endif %} py-1 px-2"
                    {% if page_obj.has_previous %} href="{{ request.path }}?page={{ page_obj.previous_page_number }}" hx-get="{{ request.path }}?page={{ page_obj.previous_page_number }}" hx-push-url="{{ request.path }}?page={{ page_obj.previous_page_number }}" hx-swap="outerHTML swap:300ms" hx-target="#main-content" {% else %} href="#" disabled {% endif %}>Previous Page</a>

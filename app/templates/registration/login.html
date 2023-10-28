@@ -16,14 +16,14 @@
                   method="post"
                   x-data="{usePassword: false}">
                 {% csrf_token %}
-                <h1 class="mt-10 text-4xl sm:text-6xl text-center font-bold teko leading-tight text-neutral-800">Login</h1>
+                <h1 class="mt-10 text-4xl sm:text-6xl text-center font-bold teko leading-tight text-gray-800">Login</h1>
                 <div class="text-tomato-500 text-sm">{{ form.non_field_errors }}</div>
                 <div class="my-1 flex flex-col">
                     <div class="text-tomato-500 text-sm">{{ form.username.errors }}</div>
                     <label for="{{ field.id_for_label }}" class="teko font-bold text-2xl">{{ form.username.label }}</label>
                     {{ form.username|addclass:"form-control" }}
                     {% if form.username.help_text %}
-                        <div class="text-sm montserrat text-neutral-700">{{ form.username.help_text }}</div>
+                        <div class="text-sm montserrat text-gray-700">{{ form.username.help_text }}</div>
                     {% endif %}
                 </div>
                 <div class="my-1 flex flex-col" x-cloak x-show="usePassword == true">
@@ -31,7 +31,7 @@
                     <label for="{{ field.id_for_label }}" class="teko font-bold text-2xl">{{ form.password.label }}</label>
                     {{ form.password|addclass:"form-control" }}
                     {% if form.password.help_text %}
-                        <div class="text-sm montserrat text-neutral-700">{{ form.password.help_text }}</div>
+                        <div class="text-sm montserrat text-gray-700">{{ form.password.help_text }}</div>
                     {% endif %}
                 </div>
                 <div class="my-1 flex flex-col justify-between"

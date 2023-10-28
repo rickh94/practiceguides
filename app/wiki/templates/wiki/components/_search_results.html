@@ -14,7 +14,7 @@
         </div>
     </header>
     {% if not piece_list and not composer_list and not standaloneexercise_list and not skill_list and not book_list %}
-        <p class="text-lg text-neutral-900">No results found</p>
+        <p class="text-lg text-gray-900">No results found</p>
     {% endif %}
     {% if piece_list %}
         {% with showlink=True list_title="Pieces" %}
@@ -30,7 +30,7 @@
             </div>
             <ul class="flex flex-wrap gap-2">
                 {% for skill in skill_list %}
-                    <li class="rounded border border-pink-500 bg-pink-200 shadow hover:shadow-lg hover:border-pink-300 hover:bg-pink-100 hover:text-neutral-800">
+                    <li class="rounded border border-pink-500 bg-pink-200 shadow hover:shadow-lg hover:border-pink-300 hover:bg-pink-100 hover:text-gray-800">
                         <a href="{{ skill.get_absolute_url }}"
                            hx-get="{{ skill.get_absolute_url }}"
                            hx-push-url="{{ skill.get_absolute_url }}"
@@ -51,7 +51,7 @@
             </div>
             <ul class="space-y-2">
                 {% for book in book_list %}
-                    <li class="rounded border border-emerald-500 bg-emerald-200 shadow-lg hover:border-emerald-300 hover:bg-emerald-100 hover:text-neutral-800">
+                    <li class="rounded border border-emerald-500 bg-emerald-200 shadow-lg hover:border-emerald-300 hover:bg-emerald-100 hover:text-gray-800">
                         <a href="{{ book.get_absolute_url }}"
                            hx-get="{{ book.get_absolute_url }}"
                            hx-push-url="{{ book.get_absolute_url }}"
@@ -77,7 +77,7 @@
             </div>
             <ul class="flex flex-wrap gap-2">
                 {% for composer in composer_list %}
-                    <li class="rounded border border-orange-500 bg-orange-200 shadow-lg hover:border-orange-300 hover:bg-orange-100 hover:text-neutral-800">
+                    <li class="rounded border border-orange-500 bg-orange-200 shadow-lg hover:border-orange-300 hover:bg-orange-100 hover:text-gray-800">
                         <a href="{{ composer.get_absolute_url }}"
                            hx-get="{{ composer.get_absolute_url }}"
                            hx-push-url="{{ composer.get_absolute_url }}"

@@ -32,7 +32,7 @@
                     {% endif %}
                 </div>
             </div>
-            <p class="text-lg text-neutral-900">{{ standaloneexercise.description }}</p>
+            <p class="text-lg text-gray-900">{{ standaloneexercise.description }}</p>
             {% if standaloneexercise.recording %}
                 <div class="text-2xl text-black font-bold flex gap-2 items-center">
                     Listen:
@@ -62,13 +62,13 @@
         </header>
         <section id="standaloneexercise-practice-notes" class="flex flex-col gap-2">
             <h3 class="text-3xl font-bold">Practicing</h3>
-            <p class="text-lg text-neutral-900">{{ standaloneexercise.practice_notes }}</p>
+            <p class="text-lg text-gray-900">{{ standaloneexercise.practice_notes }}</p>
             {% if standaloneexercise.skills %}
                 <div class="flex flex-col gap-2">
                     <h4 class="text-xl">Skills</h4>
                     <ul class="flex gap-2 flex-wrap">
                         {% for skill in standaloneexercise.skills.all %}
-                            <li class="rounded border border-pink-500 bg-pink-200 shadow hover:border-pink-300 hover:bg-pink-100 hover:text-neutral-800 hover:shadow-lg">
+                            <li class="rounded border border-pink-500 bg-pink-200 shadow hover:border-pink-300 hover:bg-pink-100 hover:text-gray-800 hover:shadow-lg">
                                 <a href="{{ skill.get_absolute_url }}"
                                    hx-get="{{ skill.get_absolute_url }}"
                                    hx-push-url="{{ skill.get_absolute_url }}"

@@ -14,7 +14,7 @@
             </div>
             <ul class="flex flex-wrap gap-2">
                 {% for skill in skill_list %}
-                    <li class="rounded border border-pink-500 bg-pink-200 shadow hover:shadow-lg hover:border-pink-300 hover:bg-pink-100 hover:text-neutral-800">
+                    <li class="rounded border border-pink-500 bg-pink-200 shadow hover:shadow-lg hover:border-pink-300 hover:bg-pink-100 hover:text-gray-800">
                         <a href="{{ skill.get_absolute_url }}"
                            class="block p-1"
                            hx-get="{{ skill.get_absolute_url }}"
@@ -23,7 +23,7 @@
                            hx-swap="outerHTML swap:300ms">{{ skill.name }}</a>
                     </li>
                 {% endfor %}
-                <li class="rounded border border-neutral-500 bg-neutral-200 shadow hover:border-neutral-300 hover:bg-neutral-100 hover:text-neutral-800 hover:shadow-lg">
+                <li class="rounded border border-gray-500 bg-gray-200 shadow hover:border-gray-300 hover:bg-gray-100 hover:text-gray-800 hover:shadow-lg">
                     <a href="{% url 'skill_list' %}"
                        class="flex flex-col p-1"
                        hx-get="{% url 'skill_list' %}"
@@ -46,7 +46,7 @@
             </div>
             <ul class="flex flex-wrap gap-2">
                 {% for composer in composer_list %}
-                    <li class="rounded border border-orange-500 bg-orange-200 shadow-lg hover:border-orange-300 hover:bg-orange-100 hover:text-neutral-800">
+                    <li class="rounded border border-orange-500 bg-orange-200 shadow-lg hover:border-orange-300 hover:bg-orange-100 hover:text-gray-800">
                         <a href="{{ composer.get_absolute_url }}"
                            hx-get="{{ composer.get_absolute_url }}"
                            hx-push-url="{{ composer.get_absolute_url }}"
@@ -55,7 +55,7 @@
                            class="block p-1">{{ composer.name }}</a>
                     </li>
                 {% endfor %}
-                <li class="rounded border border-neutral-500 bg-neutral-200 shadow hover:border-neutral-300 hover:bg-neutral-100 hover:text-neutral-800 hover:shadow-lg">
+                <li class="rounded border border-gray-500 bg-gray-200 shadow hover:border-gray-300 hover:bg-gray-100 hover:text-gray-800 hover:shadow-lg">
                     <a href="{% url 'composer_list' %}"
                        hx-get="{% url 'composer_list' %}"
                        hx-push-url="{% url 'composer_list' %}"
