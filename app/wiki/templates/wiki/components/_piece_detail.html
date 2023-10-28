@@ -17,7 +17,7 @@
                                hx-push-url="{{ piece.composer.get_absolute_url }}"
                                hx-target="#main-content"
                                hx-swap="outerHTML swap:300ms"
-                               class="italic underline text-azure-700 hover:text-azure-400">{{ piece.composer.name }}</a>
+                               class="italic underline text-blue-700 hover:text-blue-400">{{ piece.composer.name }}</a>
                         </div>
                     {% endif %}
                     {% if piece.book %}
@@ -28,7 +28,7 @@
                                hx-push-url="{{ piece.book.get_absolute_url }}"
                                hx-target="#main-content"
                                hx-swap="outerHTML swap:300ms"
-                               class="italic underline text-azure-700 hover:text-azure-400">{{ piece.book.title }}</a>
+                               class="italic underline text-blue-700 hover:text-blue-400">{{ piece.book.title }}</a>
                         </div>
                     {% endif %}
                 </div>
@@ -93,7 +93,7 @@
                 <ul class="flex flex-wrap gap-2">
                     {% for spot in piece.spots|order_by:'order' %}
                         <li>
-                            <a class="block border-azure-200 border rounded p-4 shadow bg-azure-100/50 hover:shadow-lg hover:bg-white"
+                            <a class="block border-blue-200 border rounded p-4 shadow bg-blue-100/50 hover:shadow-lg hover:bg-white"
                                href="{{ spot.get_absolute_url }}"
                                hx-get="{{ spot.get_absolute_url }}"
                                hx-push-url="{{ spot.get_absolute_url }}"

@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block layout %}
     <header class="z-10 font-playfair">
-        <nav class="flex flex-col sm:flex-row items-center justify-between px-4 pt-6 pb-4 mb-4 lg:px-8 xl:px-12 font-playfair shadow bg-gradient-to-tl from-azure-100 to-transparent"
+        <nav class="flex flex-col sm:flex-row items-center justify-between px-4 pt-6 pb-4 mb-4 lg:px-8 xl:px-12 font-playfair shadow bg-gradient-to-tl from-blue-100 to-transparent"
              aria-label="Global">
-            <a class="hover:underline hover:text-azure-500 flex-0"
+            <a class="hover:underline hover:text-blue-500 flex-0"
                href="{% url 'index' %}"
                hx-get="{% url 'index' %}"
                hx-push-url="{% url 'index' %}"
@@ -18,7 +18,7 @@
                        hx-push-url="{% url 'search' %}"
                        hx-target="#main-content"
                        hx-swap="outerHTML swap:300ms"
-                       class="hover:underline hover:text-azure-500">Search</a>
+                       class="hover:underline hover:text-blue-500">Search</a>
                 </li>
                 <li>
                     <a href="{% url 'skill_list' %}"
@@ -26,7 +26,7 @@
                        hx-push-url="{% url 'skill_list' %}"
                        hx-target="#main-content"
                        hx-swap="outerHTML swap:300ms"
-                       class="hover:underline hover:text-azure-500">Skills</a>
+                       class="hover:underline hover:text-blue-500">Skills</a>
                 </li>
                 <li>
                     <a href="{% url 'piece_list' %}"
@@ -34,7 +34,7 @@
                        hx-push-url="{% url 'piece_list' %}"
                        hx-target="#main-content"
                        hx-swap="outerHTML swap:300ms"
-                       class="hover:underline hover:text-azure-500">Pieces</a>
+                       class="hover:underline hover:text-blue-500">Pieces</a>
                 </li>
                 <li>
                     <a href="{% url 'standaloneexercise_list' %}"
@@ -42,7 +42,7 @@
                        hx-push-url="{% url 'standaloneexercise_list' %}"
                        hx-target="#main-content"
                        hx-swap="outerHTML swap:300ms"
-                       class="hover:underline hover:text-azure-500">Etudes</a>
+                       class="hover:underline hover:text-blue-500">Etudes</a>
                 </li>
                 <li>
                     <a href="{% url 'book_list' %}"
@@ -50,7 +50,7 @@
                        hx-push-url="{% url 'book_list' %}"
                        hx-target="#main-content"
                        hx-swap="outerHTML swap:300ms"
-                       class="hover:underline hover:text-azure-500">Books</a>
+                       class="hover:underline hover:text-blue-500">Books</a>
                 </li>
             </ul>
         </nav>
@@ -59,12 +59,12 @@
         <main id="main-content" class="container mx-4 sm:mx-auto flex-1">
         </main>
     {% endblock content %}
-    <footer class="text-white flex-0 bg-gradient-to-b from-transparent to-azure-100/50 w-screen pt-4">
+    <footer class="text-white flex-0 bg-gradient-to-b from-transparent to-blue-100/50 w-screen pt-4">
         <div class="flex flex-col justify-between items-center sm:flex-row max-w-4xl mx-auto px-4">
             <div class="text-gray-800 italic text-center sm:text-left">
                 Want something like this for your own teaching? <a target="_blank"
     rel="noopener noreferrer"
-    class="underline hover:text-azure-500"
+    class="underline hover:text-blue-500"
     href="https://rickhenry.dev/contact">Reach out on my main website</a>.
             </div>
             <div class="py-4 px-4 sm:px-0 flex items-center justify-center">

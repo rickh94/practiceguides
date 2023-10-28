@@ -4,7 +4,7 @@
      aria-modal="true"
      x-data="{currentStep: 1}"
      id="spot-{{ spot.pk }}-modal">
-    <div class="fixed inset-0 bg-azure-100 backdrop-blur-sm bg-opacity-75 fade-in fade-out"></div>
+    <div class="fixed inset-0 bg-blue-100 backdrop-blur-sm bg-opacity-75 fade-in fade-out"></div>
     <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div class="flex flex-col min-h-full items-center justify-end p-4 gap-2 text-center sm:justify-center sm:p-0 w-full">
             <div class="relative transform overflow-hidden max-w-full sm:my-8 sm:w-full sm:max-w-2xl sm:p-6 rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all flex flex-col gap-2 sm:gap-4">
@@ -100,7 +100,7 @@
                         {% endif %}
                     </div>
                     <div class="flex w-full justify-between">
-                        <button class="{% if forloop.first %}bg-gray-500 pointer-events-none{% else %}bg-azure-500 hover:bg-azure-700{% endif %} text-white font-bold py-2 px-6 rounded"
+                        <button class="{% if forloop.first %}bg-gray-500 pointer-events-none{% else %}bg-blue-500 hover:bg-blue-700{% endif %} text-white font-bold py-2 px-6 rounded"
                                 {% if forloop.first %}disabled{% endif %}
                                 type="button"
                                 @click="currentStep--">Previous</button>
@@ -113,7 +113,7 @@
                                hx-trigger="click"
                                hx-push-url="{% url 'piece_detail' spot.piece.pk %}">Done</a>
                         {% else %}
-                            <button class="bg-azure-500 hover:bg-azure-700 text-white font-bold py-2 px-4 rounded"
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                     type="button"
                                     @click="currentStep++">Next</button>
                         {% endif %}

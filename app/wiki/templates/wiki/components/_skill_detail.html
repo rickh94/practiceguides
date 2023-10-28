@@ -21,7 +21,7 @@
                 {% endif %}
                 {% if skill.read_more_link %}
                     <a href="{{ skill.read_more_link }}"
-                       class="underline text-lg text-azure-700 hover:text-azure-400"
+                       class="underline text-lg text-blue-700 hover:text-blue-400"
                        target="_blank"
                        rel="noreferrer noopener">
                         {% if skill.description %}
@@ -55,7 +55,7 @@
                 <ul class="flex flex-wrap gap-2">
                     {% for spot in skill.spot_set.all %}
                         <li>
-                            <a class="block border-azure-200 border rounded p-4 shadow bg-azure-100/50 hover:shadow-lg hover:bg-white"
+                            <a class="block border-blue-200 border rounded p-4 shadow bg-blue-100/50 hover:shadow-lg hover:bg-white"
                                href="{{ spot.get_absolute_url }}">{{ spot }}</a>
                         </li>
                     {% endfor %}
@@ -74,7 +74,7 @@
                 <ul class="flex flex-wrap gap-2">
                     {% for exercise in skill.pieceexercise_set.all %}
                         <li>
-                            <a class="block border-azure-200 border rounded p-4 shadow bg-azure-100/50 hover:shadow-lg hover:bg-white"
+                            <a class="block border-blue-200 border rounded p-4 shadow bg-blue-100/50 hover:shadow-lg hover:bg-white"
                                href="{{ exercise.get_absolute_url }}">{{ exercise }}</a>
                         </li>
                     {% endfor %}

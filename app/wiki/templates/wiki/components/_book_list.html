@@ -9,7 +9,7 @@
             </div>
             <ul class="space-y-2">
                 {% for book in book_list %}
-                    <li class="rounded border border-azure-500 bg-azure-200 shadow-lg hover:border-azure-300 hover:bg-azure-100 hover:text-gray-800">
+                    <li class="rounded border border-blue-500 bg-blue-200 shadow-lg hover:border-blue-300 hover:bg-blue-100 hover:text-gray-800">
                         <a href="{{ book.get_absolute_url }}"
                            hx-get="{{ book.get_absolute_url }}"
                            hx-push-url="{{ book.get_absolute_url }}"
