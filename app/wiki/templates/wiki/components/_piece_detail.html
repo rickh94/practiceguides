@@ -4,9 +4,7 @@
         <header class="flex flex-col gap-2 col-span-full" id="piece-header">
             <div class="flex flex-col gap-4 flex-wrap items-center justify-center">
                 <div>
-                    <h2 class="text-5xl font-bold text-purple-700 border-b-2 border-purple-700 px-2 font-playfair">
-                        {{ piece.title }}
-                    </h2>
+                    <h2 class="text-5xl font-bold text-purple-700 border-b-2 border-purple-700 px-2 font-playfair">{{ piece.title }}</h2>
                 </div>
                 <div class="flex flex-wrap gap-4">
                     {% if piece.composer %}
@@ -36,17 +34,13 @@
         </header>
         <section id="about-piece" class="flex flex-col gap-2">
             <div class="flex">
-                <h3 class="text-4xl font-bold text-purple-700 border-b-2 border-purple-700 pl-2 pr-4 mb-2 font-playfair">
-                    About
-                </h3>
+                <h3 class="text-4xl font-bold text-purple-700 border-b-2 border-purple-700 pl-2 pr-4 mb-2 font-playfair">About</h3>
             </div>
             <p class="text-lg text-gray-900">{{ piece.description }}</p>
         </section>
         <section id="piece-recordings" class="flex flex-col gap-2">
             <div class="flex">
-                <h3 class="text-4xl font-bold text-purple-700 border-b-2 border-purple-700 pl-2 pr-4 mb-2 font-playfair">
-                    Listen
-                </h3>
+                <h3 class="text-4xl font-bold text-purple-700 border-b-2 border-purple-700 pl-2 pr-4 mb-2 font-playfair">Listen</h3>
             </div>
             {% if piece.recording %}
                 <div class="text-2xl text-black font-bold flex gap-2 items-center">
@@ -77,7 +71,7 @@
                     <a href="{{ piece.amazon_music_link }}"
                        target="_blank"
                        rel="noopener noreferrer"
-                       class="rounded text-base text-white font-bold px-4 py-2 bg-yellow-600 shadow hover:shadow-lg hover:bg-yellow-400">
+                       class="rounded text-base text-black font-bold px-4 py-2 bg-[#fcd200] shadow hover:shadow-lg hover:bg-yellow-300">
                         Amazon Music
                     </a>
                 {% endif %}
@@ -86,9 +80,7 @@
         {% if piece.spots.all %}
             <section id="piece-spots" class="flex flex-col gap-2">
                 <div class="flex">
-                    <h3 class="text-4xl font-bold text-purple-700 border-b-2 border-purple-700 pl-2 pr-4 mb-2 font-playfair">
-                        Spots
-                    </h3>
+                    <h3 class="text-4xl font-bold text-purple-700 border-b-2 border-purple-700 pl-2 pr-4 mb-2 font-playfair">Spots</h3>
                 </div>
                 <ul class="flex flex-wrap gap-2">
                     {% for spot in piece.spots|order_by:'order' %}
@@ -107,9 +99,7 @@
         {% if piece.exercises.all %}
             <section id="piece-exercises" class="flex flex-col gap-2">
                 <div class="flex">
-                    <h3 class="text-4xl font-bold text-purple-700 border-b-2 border-purple-700 pl-2 pr-4 mb-2 font-playfair">
-                        Exercises
-                    </h3>
+                    <h3 class="text-4xl font-bold text-purple-700 border-b-2 border-purple-700 pl-2 pr-4 mb-2 font-playfair">Exercises</h3>
                 </div>
                 <ul class="flex flex-wrap gap-2">
                     {% for exercise in piece.exercises.all %}
