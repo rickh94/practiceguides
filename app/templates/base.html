@@ -12,10 +12,25 @@
             {% endblock title %}
         </title>
         <link rel="stylesheet" href="{% static 'main.css' %}">
-        <script defer
-                src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.0/dist/cdn.min.js"></script>
+        {% comment %}
+          <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.0/dist/cdn.min.js"></script>
+        {% endcomment %}
+        <script src="{% static 'alpine.js' %}" defer></script>
         <script src="{% static 'htmx.min.js' %}" defer></script>
+        <script src="{% static 'preload.js' %}" defer></script>
         <script src="{% static 'abcjs-basic-min.js' %}" defer></script>
+        <link rel="apple-touch-icon"
+              sizes="180x180"
+              href="{% static 'icons/apple-touch-icon.png' %}">
+        <link rel="icon"
+              type="image/png"
+              sizes="32x32"
+              href="{% static 'icons/favicon-32x32.png' %}">
+        <link rel="icon"
+              type="image/png"
+              sizes="16x16"
+              href="{% static 'icons/favicon-16x16.png' %}">
+        <link rel="manifest" href="{% static 'icons/site.webmanifest' %}">
         {% block head %}
         {% endblock head %}
         <style>
@@ -24,7 +39,8 @@
             }
         </style>
     </head>
-    <body class="{% block body_class %}{% endblock body_class %} h-full min-h-screen flex flex-col body-background">
+    <body class="{% block body_class %}{% endblock body_class %} h-full min-h-screen flex flex-col body-background max-w-screen"
+          hx-ext="preload">
         <a tabindex="0"
            href="#main-content"
            role="button"

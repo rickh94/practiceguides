@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "whitenoise.runserver_nostatic",
     "django_htmx",
-    "passkey_auth",
     "wiki",
 ]
 
@@ -171,7 +170,6 @@ STORAGES = {
 }
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    "passkey_auth.backend.PasskeyBackend",
 ]
 
 WEBAUTHN_RP_ID = os.getenv("WEBAUTHN_RP_ID")

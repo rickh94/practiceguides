@@ -4,7 +4,10 @@ from django import forms
 from django.db.models import Count, Q, QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
 from django.views import generic
+from django.views.decorators.cache import cache_control, cache_page
+from django.views.decorators.vary import vary_on_headers
 
 from .models import (
     Book,
@@ -16,6 +19,12 @@ from .models import (
     StandaloneExercise,
 )
 
+# just enough caching to allow preload to work
+decorators = [
+    vary_on_headers("HX-Request"),
+    cache_control(max_age=60),
+]
+
 
 class SearchForm(forms.Form):
     q = forms.CharField(
@@ -25,6 +34,8 @@ class SearchForm(forms.Form):
     )
 
 
+@cache_control(max_age=60 * 5)
+@vary_on_headers("HX-Request")
 def index(request: HttpRequest) -> HttpResponse:
     """Render the index page."""
     piece_list = Piece.objects.order_by("-created_at")[:5]
@@ -53,6 +64,7 @@ def index(request: HttpRequest) -> HttpResponse:
     )
 
 
+@method_decorator(decorators, name="dispatch")
 class PieceDetailView(generic.DetailView[Piece]):
     model = Piece
 
@@ -63,6 +75,7 @@ class PieceDetailView(generic.DetailView[Piece]):
             return ["wiki/piece_detail.html"]
 
 
+@method_decorator(decorators, name="dispatch")
 class PieceListView(generic.ListView[Piece]):
     model = Piece
     paginate_by = 20
@@ -77,6 +90,7 @@ class PieceListView(generic.ListView[Piece]):
             return ["wiki/piece_list.html"]
 
 
+@method_decorator(decorators, name="dispatch")
 class StandaloneExerciseDetailView(generic.DetailView[StandaloneExercise]):
     model = StandaloneExercise
 
@@ -87,6 +101,7 @@ class StandaloneExerciseDetailView(generic.DetailView[StandaloneExercise]):
             return ["wiki/standaloneexercise_detail.html"]
 
 
+@method_decorator(decorators, name="dispatch")
 class StandaloneExerciseListView(generic.ListView[StandaloneExercise]):
     model = StandaloneExercise
     paginate_by = 20
@@ -101,6 +116,7 @@ class StandaloneExerciseListView(generic.ListView[StandaloneExercise]):
             return ["wiki/standaloneexercise_list.html"]
 
 
+@method_decorator(decorators, name="dispatch")
 class SkillDetailView(generic.DetailView[Skill]):
     model = Skill
 
@@ -111,6 +127,7 @@ class SkillDetailView(generic.DetailView[Skill]):
             return ["wiki/skill_detail.html"]
 
 
+@method_decorator(decorators, name="dispatch")
 class SkillListView(generic.ListView[Skill]):
     model = Skill
     paginate_by = 50
@@ -125,6 +142,7 @@ class SkillListView(generic.ListView[Skill]):
             return ["wiki/skill_list.html"]
 
 
+@method_decorator(decorators, name="dispatch")
 class BookDetailView(generic.DetailView[Book]):
     model = Book
 
@@ -135,8 +153,10 @@ class BookDetailView(generic.DetailView[Book]):
             return ["wiki/book_detail.html"]
 
 
+@method_decorator(decorators, name="dispatch")
 class BookListView(generic.ListView[Book]):
     model = Book
+    paginate_by = 20
 
     def get_template_names(self) -> list[str]:
         if self.request.htmx and not self.request.htmx.boosted:
@@ -145,6 +165,7 @@ class BookListView(generic.ListView[Book]):
             return ["wiki/book_list.html"]
 
 
+@method_decorator(decorators, name="dispatch")
 class ComposerDetailView(generic.DetailView[Composer]):
     model = Composer
 
@@ -155,6 +176,7 @@ class ComposerDetailView(generic.DetailView[Composer]):
             return ["wiki/composer_detail.html"]
 
 
+@method_decorator(decorators, name="dispatch")
 class ComposerListView(generic.ListView[Composer]):
     model = Composer
     paginate_by = 50
@@ -169,6 +191,7 @@ class ComposerListView(generic.ListView[Composer]):
             return ["wiki/composer_list.html"]
 
 
+@method_decorator(decorators, name="dispatch")
 class SpotDetailView(generic.DetailView[Spot]):
     model = Spot
 
@@ -190,6 +213,7 @@ class SpotDetailView(generic.DetailView[Spot]):
         return context
 
 
+@method_decorator(decorators, name="dispatch")
 class PieceExerciseDetailView(generic.DetailView[PieceExercise]):
     model = PieceExercise
 
@@ -213,6 +237,7 @@ class PieceExerciseDetailView(generic.DetailView[PieceExercise]):
         return context
 
 
+@method_decorator(decorators, name="get")
 class SearchView(generic.TemplateView):
     @property
     def template_name(self) -> str:
