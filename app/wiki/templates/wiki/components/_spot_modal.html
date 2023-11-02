@@ -1,3 +1,4 @@
+{# TODO: test with skills and make better, maybe limit height/width of abc notation#}
 <div class="relative z-10 fade-in fade-out"
      aria-labelledby="modal-title"
      role="dialog"
@@ -6,7 +7,7 @@
      id="spot-{{ spot.pk }}-modal">
     <div class="fixed inset-0 bg-blue-100 backdrop-blur-sm bg-opacity-75 fade-in fade-out"></div>
     <div class="fixed inset-0 z-10 mt-10 w-screen overflow-hidden bg-white max-h-screen shadow-lg border-t-2 border-blue-300 transform transition-all slide-up">
-        <div class="h-1/2 relative transform overflow-hidden w-full rounded-lg px-4 sm:px-8 pb-4 pt-5 text-left flex flex-col gap-2 sm:gap-4 md:max-w-5xl md:mx-auto">
+        <div class="h-1/2 relative transform overflow-hidden w-full rounded-lg px-4 sm:px-8 pb-4 pt-5 text-left flex flex-col gap-2 md:max-w-5xl md:mx-auto">
             <header class="flex justify-center w-full" id="modal-title">
                 <h3 class="text-xl sm:text-2xl font-bold leading-6 text-purple-700 border-b-2 border-purple-700 text-center"
                     id="modal-title">
@@ -27,9 +28,9 @@
                     {% include "wiki/icons/x-mark-circle.html" with class="h-8 w-8" %}
                 </a>
             </header>
-            <div class="flex flex-col gap-2 sm:gap-4">
-                <p class="mt-1">{{ spot.description|linebreaks }}</p>
-                {% if spot.measures %}<p class="mt-1">{{ spot.measures }}</p>{% endif %}
+            <div class="flex flex-col flex-shrink gap-2 sm:gap-4">
+                <p class="mt-1 flex-shrink">{{ spot.description|linebreaks }}</p>
+                {% if spot.measures %}<p class="mt-1 flex-shrink">{{ spot.measures }}</p>{% endif %}
                 {% if spot.abc_notation %}
                     {% include "wiki/components/_abcjs_viewer.html" with viewer_id=spot_notes_id notes=spot.abc_notation %}
                 {% endif %}
@@ -42,7 +43,7 @@
                     </div>
                 {% endif %}
                 {% if spot.skills %}
-                    <div class="flex gap-2">
+                    <div class="flex gap-2 flex-shrink-0">
                         <h4 class="text-lg">Skills</h4>
                         <ul class="flex gap-2 flex-wrap">
                             {% for skill in spot.skills.all %}
