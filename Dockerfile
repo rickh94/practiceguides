@@ -1,12 +1,12 @@
-FROM oven/bun:latest as builder1
+FROM node:latest as tailwind-builder
 
 WORKDIR /app
 COPY ./app/package.json ./app/bun.lockb .
-RUN bun install
+RUN npm install
 COPY ./app/. .
-RUN bun run build
+RUN npm run build
 
-FROM python:3.10-slim-buster
+FROM python:3.11-slim-buster
 
 #RUN useradd django
 
