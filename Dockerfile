@@ -40,7 +40,7 @@ WORKDIR /app
 
 #COPY --chown=django:django ./app/. .
 COPY ./app/. .
-COPY --from=builder1 /app/static/main.css /app/static/main.css
+COPY --from=tailwind-builder /app/static/main.css /app/static/main.css
 
 #USER django
 
