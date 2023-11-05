@@ -42,6 +42,7 @@ ADMINS = list(
 # Application definition
 
 INSTALLED_APPS = [
+    # "django_fastdev",
     "unfold",
     "django.contrib.admin",
     "django.contrib.auth",

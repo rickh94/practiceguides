@@ -6,8 +6,8 @@
      x-data="{currentStep: 1}"
      id="spot-{{ spot.pk }}-modal">
     <div class="fixed inset-0 bg-blue-100 backdrop-blur-sm bg-opacity-75 fade-in fade-out"></div>
-    <div class="fixed inset-0 z-10 mt-10 w-screen overflow-hidden bg-white max-h-screen shadow-lg border-t-2 border-blue-300 transform transition-all slide-up">
-        <div class="h-1/2 relative transform overflow-hidden w-full rounded-lg px-4 sm:px-8 pb-4 pt-5 text-left flex flex-col gap-2 md:max-w-5xl md:mx-auto">
+    <div class="fixed inset-0 z-10 mt-10 w-screen overflow-scroll bg-white shadow-lg border-t-2 border-blue-300 transform transition-all slide-up">
+        <div class="transform overflow-hidden w-full rounded-lg px-4 sm:px-8 pb-4 pt-5 text-left flex flex-col gap-2 md:max-w-5xl md:mx-auto">
             <header class="flex justify-center w-full" id="modal-title">
                 <h3 class="text-xl sm:text-2xl font-bold leading-6 text-purple-700 border-b-2 border-purple-700 text-center"
                     id="modal-title">
@@ -28,12 +28,14 @@
                     {% include "wiki/icons/x-mark-circle.html" with class="h-8 w-8" %}
                 </a>
             </header>
-            <div class="flex flex-col flex-shrink gap-2 sm:gap-4">
+            <div class="flex flex-col flex-shrink gap-2">
                 <p class="mt-1 flex-shrink">{{ spot.description|linebreaks }}</p>
                 {% if spot.measures %}<p class="mt-1 flex-shrink">{{ spot.measures }}</p>{% endif %}
-                {% if spot.abc_notation %}
-                    {% include "wiki/components/_abcjs_viewer.html" with viewer_id=spot_notes_id notes=spot.abc_notation %}
-                {% endif %}
+                <div class="max-w-full flex-grow">
+                    {% if spot.abc_notation %}
+                        {% include "wiki/components/_abcjs_viewer.html" with viewer_id=spot_notes_id notes=spot.abc_notation %}
+                    {% endif %}
+                </div>
                 {% if spot.recording %}
                     <div class="text-xl text-black font-bold flex gap-2 justify-start sm:items-center flex-col sm:flex-row">
                         Listen:
@@ -56,9 +58,9 @@
                 {% endif %}
             </div>
         </div>
-        <div class="relative h-1/2 lg:max-w-5xl lg:mx-auto">
+        <div class="lg:max-w-5xl lg:mx-auto">
             {% for step in spot.steps.all %}
-                <div class="absolute overflow-scroll w-full px-4 text-left flex gap-2 sm:gap-4 h-full"
+                <div class="overflow-scroll w-full px-4 text-left flex gap-2 sm:gap-4 h-full"
                      id="step-{{ step.order }}"
                      x-show="currentStep === {{ step.order }}"
                      x-cloak>
@@ -71,7 +73,7 @@
                             Previous
                         </button>
                     </div>
-                    <div class="flex flex-col flex-grow max-w-screen gap-2 sm:gap-4">
+                    <div class="flex flex-col flex-grow w-full gap-2">
                         <header class="flex justify-between w-full" id="modal-title">
                             <h3 class="text-xl font-bold leading-6 text-gray-900 text-center">Step {{ step.order }}</h3>
                         </header>
