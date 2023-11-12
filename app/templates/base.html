@@ -1,5 +1,6 @@
 {% load static customfilters %}
 <!DOCTYPE html>
+{# TODO: reuse description in opengraph tags #}
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -12,6 +13,17 @@
             {% endblock title %}
         </title>
         <link rel="stylesheet" href="{% static 'main.css' %}">
+        <meta property="og:title" content="Violin Teaching Wiki" />
+        <meta property="og:description"
+              content="My Personal Violin Teaching Wiki with detailed practicing guides for all the music that I teach." />
+        <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+        <meta property="og:image" content="{% static 'og-image.png' %}" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Violin Teaching Wiki" />
+        <meta property="twitter:description"
+              content="My Personal Violin Teaching Wiki with detailed practicing guides for all the music that I teach." />
+        <meta name="twitter:image" content="{% static 'og-image.png' %}" />
         {% comment %}
           <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.0/dist/cdn.min.js"></script>
         {% endcomment %}
