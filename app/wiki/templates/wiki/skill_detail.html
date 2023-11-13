@@ -1,7 +1,7 @@
 {% extends "base_external.html" %}
-{% block title %}
-    Skill: {{ skill.name }}
-{% endblock title %}
+{% block og %}
+    {% include "snippets/_og.html" with title="Skill: "|add:skill.name description=skill.description custom_image=True %}
+{% endblock og %}
 {% block description %}
     Information and practice for “{{ skill.name }}” on the violin.
 {% endblock description %}

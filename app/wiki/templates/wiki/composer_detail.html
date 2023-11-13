@@ -1,7 +1,7 @@
 {% extends "base_external.html" %}
-{% block title %}
-    {{ composer.name }}
-{% endblock title %}
+{% block og %}
+    {% include "snippets/_og.html" with title="Composer: "|add:composer.name description="Composer Page" custom_image=True %}
+{% endblock og %}
 {% block description %}
     Information about and pieces by {{ composer.name }}
 {% endblock description %}

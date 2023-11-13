@@ -1,7 +1,7 @@
 {% extends "base_external.html" %}
-{% block title %}
-    {{ standaloneexercise.title }}
-{% endblock title %}
+{% block og %}
+    {% include "snippets/_og.html" with title=standaloneexercise.title description="Practice guide for: "|add:standaloneexercise.title custom_image=True %}
+{% endblock og %}
 {% block description %}
     Practice guide for {{ standaloneexercise.title }}
     {% if standaloneexercise.composer %}by {{ standaloneexercise.composer.name }}{% endif %}

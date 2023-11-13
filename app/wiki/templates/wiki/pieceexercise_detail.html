@@ -1,12 +1,12 @@
 {% extends "base_external.html" %}
 {% load static %}
-{% block title %}
+{% block og %}
     {% if pieceexercise.nickname %}
-        Exercise: {{ pieceexercise.nickname }}
+        {% include "snippets/_og.html" with title=pieceexercise.nickname description=piece.description custom_image=True %}
     {% else %}
-        Exercise for {{ pieceexercise.piece.title }}
+        {% include "snippets/_og.html" with title="Exercise for "|add:pieceexercise.piece.title description=piece.description custom_image=True %}
     {% endif %}
-{% endblock title %}
+{% endblock og %}
 {% block description %}
     Practice Exercise
     {% if pieceexercise.nickname %}“{{ pieceexercise.nickname }}”{% endif %}

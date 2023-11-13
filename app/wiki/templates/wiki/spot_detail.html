@@ -1,13 +1,12 @@
 {% extends "base_external.html" %}
 {% load static customfilters %}
-{% block title %}
+{% block og %}
     {% if spot.nickname %}
-        Spot: {{ spot.nickname }}
+        {% include "snippets/_og.html" with title="Spot: "|add:spot.nickname|add:" | "|add:spot.piece.title description=spot.description custom_image=True %}
     {% else %}
-        Spot: {{ spot.order }}
+        {% include "snippets/_og.html" with title="Spot: "|add:spot.order|add:" | "|add:spot.piece.title description=spot.description custom_image=True %}
     {% endif %}
-    | {{ spot.piece.title }}
-{% endblock title %}
+{% endblock og %}
 {% block description %}
     Practice guide for spot
     {% if spot.nickname %}

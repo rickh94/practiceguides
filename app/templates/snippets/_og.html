@@ -1,0 +1,16 @@
+<title>{{ title }}</title>
+<meta property="og:title" content="{{ title }}" />
+<meta property="og:description" content="{{ description }}" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+<meta
+  property="og:image"
+  content="{% if custom_image %}https://og.rickhenry.dev/wiki/{{ title }}/opengraph-image{% else %}https://og.rickhenry.dev/wiki/opengraph-image{% endif %}"
+/>
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{ title }}" />
+<meta property="twitter:description" content="{{ description }}" />
+<meta
+  name="twitter:image"
+  content="{% if custom_image %}https://og.rickhenry.dev/wiki/{{ title }}/opengraph-image{% else %}https://og.rickhenry.dev/wiki/opengraph-image{% endif %}"
+/>
