@@ -1,12 +1,12 @@
 {% load customfilters %}
 <main id="main-content"
-      class="flex-1 font-lato px-2 fade-out fade-in"
+      class="flex-1 px-2 font-lato fade-out fade-in"
       preload>
-    <div class="max-w-4xl mx-auto px-4 pt-3 pb-4 shadow rounded grid grid-cols-1 sm:grid-cols-2 gap-8 bg-white">
-        <header class="flex flex-col gap-2 col-span-full" id="piece-header">
-            <div class="flex flex-col gap-4 flex-wrap items-center justify-center">
+    <div class="grid grid-cols-1 gap-8 px-4 pt-3 pb-4 mx-auto max-w-4xl bg-white rounded shadow sm:grid-cols-2">
+        <header class="flex flex-col col-span-full gap-2" id="piece-header">
+            <div class="flex flex-col flex-wrap gap-4 justify-center items-center">
                 <div>
-                    <h2 class="text-5xl font-bold text-purple-700 border-b-2 border-purple-700 px-2 font-playfair">{{ piece.title }}</h2>
+                    <h2 class="px-2 text-5xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">{{ piece.title }}</h2>
                 </div>
                 <div class="flex flex-wrap gap-4">
                     {% if piece.composer %}
@@ -17,7 +17,7 @@
                                hx-push-url="{{ piece.composer.get_absolute_url }}"
                                hx-target="#main-content"
                                hx-swap="outerHTML swap:300ms"
-                               class="italic underline text-blue-700 hover:text-blue-400">{{ piece.composer.name }}</a>
+                               class="italic text-blue-700 underline hover:text-blue-400">{{ piece.composer.name }}</a>
                         </div>
                     {% endif %}
                     {% if piece.book %}
@@ -28,7 +28,7 @@
                                hx-push-url="{{ piece.book.get_absolute_url }}"
                                hx-target="#main-content"
                                hx-swap="outerHTML swap:300ms"
-                               class="italic underline text-blue-700 hover:text-blue-400">{{ piece.book.title }}</a>
+                               class="italic text-blue-700 underline hover:text-blue-400">{{ piece.book.title }}</a>
                         </div>
                     {% endif %}
                 </div>
@@ -36,28 +36,28 @@
         </header>
         <section id="about-piece" class="flex flex-col gap-2">
             <div class="flex">
-                <h3 class="text-4xl font-bold text-purple-700 border-b-2 border-purple-700 pl-2 pr-4 mb-2 font-playfair">About</h3>
+                <h3 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">About</h3>
             </div>
             <p class="text-lg text-gray-900">{{ piece.description }}</p>
         </section>
         <section id="piece-recordings" class="flex flex-col gap-2">
             <div class="flex">
-                <h3 class="text-4xl font-bold text-purple-700 border-b-2 border-purple-700 pl-2 pr-4 mb-2 font-playfair">Listen</h3>
+                <h3 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">Listen</h3>
             </div>
             {% if piece.recording %}
-                <div class="text-2xl text-black font-bold flex gap-2 items-center">
+                <div class="flex gap-2 items-center text-2xl font-bold text-black">
                     Listen:
                     <audio controls>
                         <source src="{{ piece.recording.file.url }}" type="audio/mpeg" />
                     </audio>
                 </div>
             {% endif %}
-            <div class="flex gap-2 flex-wrap">
+            <div class="flex flex-wrap gap-2">
                 {% if piece.spotify_link %}
                     <a href="{{ piece.spotify_link }}"
                        target="_blank"
                        rel="noopener noreferrer"
-                       class="rounded text-base text-white font-bold px-4 py-2 bg-green-600 shadow hover:shadow-lg hover:bg-green-400">
+                       class="py-2 px-4 text-base font-bold text-white bg-green-600 rounded shadow hover:bg-green-400 hover:shadow-lg">
                         Spotify
                     </a>
                 {% endif %}
@@ -65,7 +65,7 @@
                     <a href="{{ piece.apple_music_link }}"
                        target="_blank"
                        rel="noopener noreferrer"
-                       class="rounded text-base text-white font-bold px-4 py-2 bg-rose-600 shadow hover:shadow-lg hover:bg-rose-400">
+                       class="py-2 px-4 text-base font-bold text-white bg-rose-600 rounded shadow hover:bg-rose-400 hover:shadow-lg">
                         Apple Music
                     </a>
                 {% endif %}
@@ -82,12 +82,12 @@
         {% if piece.spots.all %}
             <section id="piece-spots" class="flex flex-col gap-2">
                 <div class="flex">
-                    <h3 class="text-4xl font-bold text-purple-700 border-b-2 border-purple-700 pl-2 pr-4 mb-2 font-playfair">Spots</h3>
+                    <h3 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">Spots</h3>
                 </div>
                 <ul class="flex flex-wrap gap-2">
                     {% for spot in piece.spots|order_by:'order' %}
                         <li>
-                            <a class="block border-blue-200 border rounded p-4 shadow bg-blue-100/50 hover:shadow-lg hover:bg-white"
+                            <a class="block p-4 rounded border border-blue-200 shadow hover:bg-white hover:shadow-lg bg-blue-100/50"
                                preload="preload:init"
                                href="{{ spot.get_absolute_url }}"
                                hx-get="{{ spot.get_absolute_url }}"
@@ -102,12 +102,12 @@
         {% if piece.exercises.all %}
             <section id="piece-exercises" class="flex flex-col gap-2">
                 <div class="flex">
-                    <h3 class="text-4xl font-bold text-purple-700 border-b-2 border-purple-700 pl-2 pr-4 mb-2 font-playfair">Exercises</h3>
+                    <h3 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">Exercises</h3>
                 </div>
                 <ul class="flex flex-wrap gap-2">
                     {% for exercise in piece.exercises.all %}
                         <li>
-                            <a class="block border-teal-200 border rounded p-4 shadow bg-teal-100/50 hover:shadow-lg hover:bg-white"
+                            <a class="block p-4 rounded border border-teal-200 shadow hover:bg-white hover:shadow-lg bg-teal-100/50"
                                href="{{ exercise.get_absolute_url }}"
                                hx-get="{{ exercise.get_absolute_url }}"
                                hx-push-url="{{ exercise.get_absolute_url }}"
@@ -121,7 +121,7 @@
         {% if piece.practice_notes %}
             <section id="piece-practice-notes" class="flex flex-col gap-2">
                 <div class="flex">
-                    <h3 class="text-3xl font-bold text-purple-700 border-b-2 border-purple-700 pl-2 pr-4 mb-2 font-playfair">
+                    <h3 class="pr-4 pl-2 mb-2 text-3xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">
                         Notes on Practicing
                     </h3>
                 </div>
@@ -131,13 +131,13 @@
         {% if piece.skills %}
             <section class="flex flex-col gap-2">
                 <div class="flex">
-                    <h3 class="text-3xl font-bold text-purple-700 border-b-2 border-purple-700 pl-2 pr-4 mb-2 font-playfair">
+                    <h3 class="pr-4 pl-2 mb-2 text-3xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">
                         Skills Covered
                     </h3>
                 </div>
-                <ul class="flex gap-2 flex-wrap">
+                <ul class="flex flex-wrap gap-2">
                     {% for skill in piece.skills.all %}
-                        <li class="rounded border border-pink-500 bg-pink-200 shadow hover:border-pink-300 hover:bg-pink-100 hover:text-gray-800 hover:shadow-lg">
+                        <li class="bg-pink-200 rounded border border-pink-500 shadow hover:text-gray-800 hover:bg-pink-100 hover:border-pink-300 hover:shadow-lg">
                             <a href="{{ skill.get_absolute_url }}"
                                hx-get="{{ skill.get_absolute_url }}"
                                hx-push-url="{{ skill.get_absolute_url }}"

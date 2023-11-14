@@ -1,6 +1,11 @@
+from django.conf import settings
 from django.urls import path
 
 from . import views
+
+debug_patterns = [
+    path("404/", views.not_found, name="404"),
+]
 
 urlpatterns = [
     path("", views.index, name="index"),
@@ -36,3 +41,6 @@ urlpatterns = [
     ),
     path("search/", views.SearchView.as_view(), name="search"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += debug_patterns

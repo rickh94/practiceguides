@@ -10,10 +10,10 @@ readme = "README.md"
 python = "^3.10"
 Django = "^4.2.5"
 dj-database-url = "^2.1.0"
-whitenoise = {extras = ["brotli"], version = "^6.5.0"}
+whitenoise = { extras = ["brotli"], version = "^6.5.0" }
 webauthn = "^1.10.1"
 django-htmx = "^1.16.0"
-django-stubs = {version = "^4.2.4", extras = ["compatible-mypy"]}
+django-stubs = { version = "^4.2.4", extras = ["compatible-mypy"] }
 django-stubs-ext = "^4.2.2"
 django-unfold = "^0.15.1"
 django-compression-middleware = "^0.5.0"
@@ -26,8 +26,9 @@ mypy = "^1.5.1"
 pylint = "^2.17.5"
 djlint = "^1.32.1"
 pre-commit = "^3.4.0"
-pyproject-flake8 = "^6.0.0.post1"
+pyproject-flake8 = "^6.0.1"
 djhtml = "^3.0.6"
+python-lsp-server = {extras = ["all"], version = "^1.9.0"}
 
 [build-system]
 requires = ["poetry-core"]

@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 {% block layout %}
     <header class="z-10 font-playfair">
-        <nav class="flex flex-col sm:flex-row items-center justify-between px-4 pt-6 pb-4 mb-4 lg:px-8 xl:px-12 font-playfair shadow bg-gradient-to-tl from-blue-100 to-transparent"
+        <nav class="flex flex-col justify-between items-center px-4 pt-6 pb-4 mb-4 bg-gradient-to-tl from-blue-100 to-transparent shadow sm:flex-row lg:px-8 xl:px-12 font-playfair"
              aria-label="Global">
-            <a class="hover:underline hover:text-blue-500 flex-0"
+            <a class="hover:text-blue-500 hover:underline flex-0"
                href="{% url 'index' %}"
                hx-get="{% url 'index' %}"
                hx-push-url="{% url 'index' %}"
                hx-target="#main-content"
                hx-swap="outerHTML swap:300ms">
-                <h1 class="font-bold text-4xl">Violin Wiki</h1>
+                <h1 class="text-4xl font-bold">Violin Wiki</h1>
             </a>
-            <ul class="flex-1 flex items-center justify-center sm:justify-end gap-4 text-lg sm:text-2xl">
+            <ul class="flex flex-1 gap-4 justify-center items-center text-lg sm:justify-end sm:text-2xl">
                 <li>
                     <a href="{% url 'search' %}"
                        hx-get="{% url 'search' %}"
                        hx-push-url="{% url 'search' %}"
                        hx-target="#main-content"
                        hx-swap="outerHTML swap:300ms"
-                       class="hover:underline hover:text-blue-500">Search</a>
+                       class="hover:text-blue-500 hover:underline">Search</a>
                 </li>
                 <li>
                     <a href="{% url 'skill_list' %}"
@@ -26,7 +26,7 @@
                        hx-push-url="{% url 'skill_list' %}"
                        hx-target="#main-content"
                        hx-swap="outerHTML swap:300ms"
-                       class="hover:underline hover:text-blue-500">Skills</a>
+                       class="hover:text-blue-500 hover:underline">Skills</a>
                 </li>
                 <li>
                     <a href="{% url 'piece_list' %}"
@@ -34,7 +34,7 @@
                        hx-push-url="{% url 'piece_list' %}"
                        hx-target="#main-content"
                        hx-swap="outerHTML swap:300ms"
-                       class="hover:underline hover:text-blue-500">Pieces</a>
+                       class="hover:text-blue-500 hover:underline">Pieces</a>
                 </li>
                 <li>
                     <a href="{% url 'standaloneexercise_list' %}"
@@ -42,7 +42,7 @@
                        hx-push-url="{% url 'standaloneexercise_list' %}"
                        hx-target="#main-content"
                        hx-swap="outerHTML swap:300ms"
-                       class="hover:underline hover:text-blue-500">Etudes</a>
+                       class="hover:text-blue-500 hover:underline">Etudes</a>
                 </li>
                 <li>
                     <a href="{% url 'book_list' %}"
@@ -50,24 +50,24 @@
                        hx-push-url="{% url 'book_list' %}"
                        hx-target="#main-content"
                        hx-swap="outerHTML swap:300ms"
-                       class="hover:underline hover:text-blue-500">Books</a>
+                       class="hover:text-blue-500 hover:underline">Books</a>
                 </li>
             </ul>
         </nav>
     </header>
     {% block content %}
-        <main id="main-content" class="container px-4 sm:mx-auto flex-1">
+        <main id="main-content" class="container flex-1 px-4 sm:mx-auto">
         </main>
     {% endblock content %}
-    <footer class="text-white flex-0 bg-gradient-to-b from-transparent to-blue-100/50 max-w-screen pt-4">
-        <div class="flex flex-col justify-between items-center sm:flex-row sm:max-w-4xl sm:mx-auto px-4 max-w-screen">
-            <div class="text-gray-800 italic text-center sm:text-left ">
+    <footer class="pt-4 text-white bg-gradient-to-b from-transparent flex-0 to-blue-100/50 max-w-screen">
+        <div class="flex flex-col justify-between items-center px-4 sm:flex-row sm:mx-auto sm:max-w-4xl max-w-screen">
+            <div class="italic text-center text-gray-800 sm:text-left">
                 Want something like this for your own teaching? <a target="_blank"
     rel="noopener noreferrer"
     class="underline hover:text-blue-500"
     href="https://rickhenry.dev/contact">Reach out on my main website</a>.
             </div>
-            <div class="py-4 px-4 sm:px-0 flex items-center justify-center">
+            <div class="flex justify-center items-center py-4 px-4 sm:px-0">
                 <a href="https://rickhenry.dev"
                    title="Rick Henry Development"
                    target="_blank"
@@ -75,7 +75,7 @@
                     <svg viewBox="40.415 128.482 434.004 263.019"
                          data-svgdocument=""
                          id="_lozZXmrQ4Bjc2v8Jjk5tP"
-                         class="h-20 w-auto"
+                         class="w-auto h-20"
                          x="0"
                          y="0"
                          xmlns="http://www.w3.org/2000/svg"

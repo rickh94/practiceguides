@@ -1,9 +1,9 @@
-<main id="main-content" class="flex-1 font-lato px-2 fade-in fade-out">
-    <div class="mx-auto max-w-4xl mt-4 px-4 pt-3 pb-4 shadow gap-2 rounded bg-white">
-        <header class="flex flex-col gap-2 col-span-full" id="skill-header">
-            <div class="flex flex-col gap-4 flex-wrap items-center justify-center">
+<main id="main-content" class="flex-1 px-2 font-lato fade-in fade-out">
+    <div class="gap-2 px-4 pt-3 pb-4 mx-auto mt-4 max-w-4xl bg-white rounded shadow">
+        <header class="flex flex-col col-span-full gap-2" id="skill-header">
+            <div class="flex flex-col flex-wrap gap-4 justify-center items-center">
                 <div>
-                    <h2 class="text-3xl sm:text-5xl font-bold text-purple-700 border-b-2 border-purple-700 px-2 font-playfair">
+                    <h2 class="px-2 text-3xl font-bold text-purple-700 border-b-2 border-purple-700 sm:text-5xl font-playfair">
                         Book: {{ book.title }}
                     </h2>
                 </div>
@@ -12,7 +12,7 @@
                 {% if book.description %}<p class="text-lg text-gray-900">{{ book.description }}</p>{% endif %}
                 {% if book.link %}
                     <a href="{{ book.link }}"
-                       class="underline text-lg text-blue-700 hover:text-blue-400"
+                       class="text-lg text-blue-700 underline hover:text-blue-400"
                        target="_blank"
                        rel="noreferrer noopener">Get the book</a>
                 {% endif %}

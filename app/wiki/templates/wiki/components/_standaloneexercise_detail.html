@@ -1,9 +1,9 @@
-<main id="main-content" class="flex-1 font-lato px-2 fade-in fade-out">
-    <div class="max-w-4xl mx-auto px-4 pt-3 pb-4 shadow rounded flex flex-col gap-8 bg-white">
+<main id="main-content" class="flex-1 px-2 font-lato fade-in fade-out">
+    <div class="flex flex-col gap-8 px-4 pt-3 pb-4 mx-auto max-w-4xl bg-white rounded shadow">
         <header class="flex flex-col gap-2" id="standaloneexercise-header">
-            <div class="flex flex-col gap-4 flex-wrap items-center justify-center">
+            <div class="flex flex-col flex-wrap gap-4 justify-center items-center">
                 <div>
-                    <h2 class="text-5xl font-bold text-purple-700 border-b-2 border-purple-700 px-2 font-playfair">
+                    <h2 class="px-2 text-5xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">
                         {{ standaloneexercise.title }}
                     </h2>
                 </div>
@@ -16,7 +16,7 @@
                                hx-push-url="{{ standaloneexercise.composer.get_absolute_url }}"
                                hx-target="#main-content"
                                hx-swap="outerHTML swap:300ms"
-                               class="italic underline text-blue-700 hover:text-blue-400">{{ standaloneexercise.composer.name }}</a>
+                               class="italic text-blue-700 underline hover:text-blue-400">{{ standaloneexercise.composer.name }}</a>
                         </div>
                     {% endif %}
                     {% if standaloneexercise.book %}
@@ -27,14 +27,14 @@
                                hx-push-url="{{ standaloneexercise.book.get_absolute_url }}"
                                hx-target="#main-content"
                                hx-swap="outerHTML swap:300ms"
-                               class="italic underline text-blue-700 hover:text-blue-400">{{ standaloneexercise.book.title }}</a>
+                               class="italic text-blue-700 underline hover:text-blue-400">{{ standaloneexercise.book.title }}</a>
                         </div>
                     {% endif %}
                 </div>
             </div>
             <p class="text-lg text-gray-900">{{ standaloneexercise.description }}</p>
             {% if standaloneexercise.recording %}
-                <div class="text-2xl text-black font-bold flex gap-2 items-center">
+                <div class="flex gap-2 items-center text-2xl font-bold text-black">
                     Listen:
                     <audio controls>
                         <source src="{{ standaloneexercise.recording.file.url }}" type="audio/mpeg" />
@@ -46,7 +46,7 @@
                     <a href="{{ standaloneexercise.spotify_link }}"
                        target="_blank"
                        rel="noopener noreferrer"
-                       class="rounded text-xl text-white font-bold px-4 py-2 bg-green-600 shadow hover:shadow-lg hover:bg-green-400">
+                       class="py-2 px-4 text-xl font-bold text-white bg-green-600 rounded shadow hover:bg-green-400 hover:shadow-lg">
                         Listen on Spotify
                     </a>
                 {% endif %}
@@ -54,7 +54,7 @@
                     <a href="{{ standaloneexercise.apple_music_link }}"
                        target="_blank"
                        rel="noopener noreferrer"
-                       class="rounded text-xl text-white font-bold px-4 py-2 bg-rose-600 shadow hover:shadow-lg hover:bg-rose-400">
+                       class="py-2 px-4 text-xl font-bold text-white bg-rose-600 rounded shadow hover:bg-rose-400 hover:shadow-lg">
                         Listen on Apple Music
                     </a>
                 {% endif %}
@@ -66,9 +66,9 @@
             {% if standaloneexercise.skills %}
                 <div class="flex flex-col gap-2">
                     <h4 class="text-xl">Skills</h4>
-                    <ul class="flex gap-2 flex-wrap">
+                    <ul class="flex flex-wrap gap-2">
                         {% for skill in standaloneexercise.skills.all %}
-                            <li class="rounded border border-pink-500 bg-pink-200 shadow hover:border-pink-300 hover:bg-pink-100 hover:text-gray-800 hover:shadow-lg">
+                            <li class="bg-pink-200 rounded border border-pink-500 shadow hover:text-gray-800 hover:bg-pink-100 hover:border-pink-300 hover:shadow-lg">
                                 <a href="{{ skill.get_absolute_url }}"
                                    hx-get="{{ skill.get_absolute_url }}"
                                    hx-push-url="{{ skill.get_absolute_url }}"

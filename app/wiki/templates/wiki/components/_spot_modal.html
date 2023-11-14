@@ -5,11 +5,11 @@
      aria-modal="true"
      x-data="{currentStep: 1}"
      id="spot-{{ spot.pk }}-modal">
-    <div class="fixed inset-0 bg-blue-100 backdrop-blur-sm bg-opacity-75 fade-in fade-out"></div>
-    <div class="fixed inset-0 z-10 mt-10 w-screen overflow-scroll bg-white shadow-lg border-t-2 border-blue-300 transform transition-all slide-up">
-        <div class="transform overflow-hidden w-full rounded-lg px-4 sm:px-8 pb-4 pt-5 text-left flex flex-col gap-2 md:max-w-5xl md:mx-auto">
+    <div class="fixed inset-0 bg-blue-100 bg-opacity-75 backdrop-blur-sm fade-in fade-out"></div>
+    <div class="overflow-scroll fixed inset-0 z-10 mt-10 w-screen bg-white border-t-2 border-blue-300 shadow-lg transition-all transform slide-up">
+        <div class="flex overflow-hidden flex-col gap-2 px-4 pt-5 pb-4 w-full text-left rounded-lg transform sm:px-8 md:mx-auto md:max-w-5xl">
             <header class="flex justify-center w-full" id="modal-title">
-                <h3 class="text-xl sm:text-2xl font-bold leading-6 text-purple-700 border-b-2 border-purple-700 text-center"
+                <h3 class="text-xl font-bold leading-6 text-center text-purple-700 border-b-2 border-purple-700 sm:text-2xl"
                     id="modal-title">
                     {% if spot.nickname %}
                         Spot: {{ spot.nickname }}
@@ -23,21 +23,21 @@
                    hx-target="#spot-{{ spot.pk }}-modal"
                    hx-trigger="click"
                    hx-push-url="{% url 'piece_detail' spot.piece.pk %}"
-                   class="absolute top-0 right-0 m-4 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-xl z-20">
+                   class="absolute top-0 right-0 z-20 m-4 text-rose-500 rounded-xl hover:text-rose-700 hover:bg-rose-50">
                     <span class="sr-only">Close</span>
-                    {% include "wiki/icons/x-mark-circle.html" with class="h-8 w-8" %}
+                    {% include "wiki/icons/x-mark-circle.html" with class="w-8 h-8" %}
                 </a>
             </header>
             <div class="flex flex-col flex-shrink gap-2">
-                <p class="mt-1 flex-shrink">{{ spot.description|linebreaks }}</p>
-                {% if spot.measures %}<p class="mt-1 flex-shrink">{{ spot.measures }}</p>{% endif %}
-                <div class="max-w-full flex-grow">
+                <p class="flex-shrink mt-1">{{ spot.description|linebreaks }}</p>
+                {% if spot.measures %}<p class="flex-shrink mt-1">{{ spot.measures }}</p>{% endif %}
+                <div class="flex-grow max-w-full">
                     {% if spot.abc_notation %}
                         {% include "wiki/components/_abcjs_viewer.html" with viewer_id=spot_notes_id notes=spot.abc_notation %}
                     {% endif %}
                 </div>
                 {% if spot.recording %}
-                    <div class="text-xl text-black font-bold flex gap-2 justify-start sm:items-center flex-col sm:flex-row">
+                    <div class="flex flex-col gap-2 justify-start text-xl font-bold text-black sm:flex-row sm:items-center">
                         Listen:
                         <audio controls class="max-w-full">
                             <source src="{{ spot.recording.file.url }}" type="audio/mpeg" />
@@ -45,11 +45,11 @@
                     </div>
                 {% endif %}
                 {% if spot.skills %}
-                    <div class="flex gap-2 flex-shrink-0">
+                    <div class="flex flex-shrink-0 gap-2">
                         <h4 class="text-lg">Skills</h4>
-                        <ul class="flex gap-2 flex-wrap">
+                        <ul class="flex flex-wrap gap-2">
                             {% for skill in spot.skills.all %}
-                                <li class="text-sm rounded border border-pink-500 bg-pink-200 shadow-lg hover:border-pink-300 hover:bg-pink-100 hover:text-gray-800">
+                                <li class="text-sm bg-pink-200 rounded border border-pink-500 shadow-lg hover:text-gray-800 hover:bg-pink-100 hover:border-pink-300">
                                     <a href="{{ skill.get_absolute_url }}" class="block p-0.5">{{ skill.name }}</a>
                                 </li>
                             {% endfor %}
@@ -58,83 +58,83 @@
                 {% endif %}
             </div>
         </div>
-        <div class="lg:max-w-5xl lg:mx-auto">
+        <div class="lg:mx-auto lg:max-w-5xl">
             {% for step in spot.steps.all %}
-                <div class="overflow-scroll w-full px-4 text-left flex gap-2 sm:gap-4 h-full"
+                <div class="flex overflow-scroll gap-2 px-4 w-full h-full text-left sm:gap-4"
                      id="step-{{ step.order }}"
                      x-show="currentStep === {{ step.order }}"
                      x-cloak>
-                    <div class="h-full justify-center items-center hidden sm:flex">
+                    <div class="hidden justify-center items-center h-full sm:flex">
                         <button class="{% if forloop.first %}text-gray-500 pointer-events-none{% else %}text-blue-500 hover:text-blue-700 hover:bg-blue-50{% endif %} font-bold rounded-xl w-32 flex flex-col justify-center items-center transition-all py-12"
                                 {% if forloop.first %}disabled{% endif %}
                                 type="button"
                                 @click="currentStep--">
-                            {% include "wiki/icons/chevron-left.html" with class="h-12 w-12" %}
+                            {% include "wiki/icons/chevron-left.html" with class="w-12 h-12" %}
                             Previous
                         </button>
                     </div>
-                    <div class="flex flex-col flex-grow w-full gap-2">
+                    <div class="flex flex-col flex-grow gap-2 w-full">
                         <header class="flex justify-between w-full" id="modal-title">
-                            <h3 class="text-xl font-bold leading-6 text-gray-900 text-center">Step {{ step.order }}</h3>
+                            <h3 class="text-xl font-bold leading-6 text-center text-gray-900">Step {{ step.order }}</h3>
                         </header>
                         <p class="mt-1">{{ step.instructions|linebreaks }}</p>
                         {% if step.recording %}
-                            <div class="text-xl text-black font-bold flex gap-2 justify-start sm:items-center flex-col sm:flex-row">
+                            <div class="flex flex-col gap-2 justify-start text-xl font-bold text-black sm:flex-row sm:items-center">
                                 Listen:
                                 <audio controls class="max-w-full">
                                     <source src="{{ step.recording.file.url }}" type="audio/mpeg" />
                                 </audio>
                             </div>
                         {% endif %}
-                        <div class="max-w-full flex-grow">
+                        <div class="flex-grow max-w-full">
                             {% if step.abc_notation %}
                                 {% include "wiki/components/_abcjs_viewer.html" with viewer_id=step.notes_id notes=step.abc_notation %}
                             {% endif %}
                         </div>
-                        <div class="flex sm:hidden justify-between w-full px-2">
+                        <div class="flex justify-between px-2 w-full sm:hidden">
                             <button class="{% if forloop.first %}text-gray-500 pointer-events-none{% else %}text-blue-500 hover:text-blue-700 hover:bg-blue-50{% endif %} font-bold rounded-lg flex justify-center items-center transition-all py-2 px-4"
                                     {% if forloop.first %}disabled{% endif %}
                                     type="button"
                                     @click="currentStep--">
-                                {% include "wiki/icons/chevron-left.html" with class="h-6 w-6" %}
+                                {% include "wiki/icons/chevron-left.html" with class="w-6 h-6" %}
                                 Previous
                             </button>
                             {% if forloop.last %}
-                                <a class="flex items-center justify-center text-teal-600 hover:text-teal-800 hover:bg-teal-50 font-bold py-2 px-4 rounded-xl"
+                                <a class="flex justify-center items-center py-2 px-4 font-bold text-teal-600 rounded-xl hover:text-teal-800 hover:bg-teal-50"
                                    href="{% url 'piece_detail' spot.piece.pk %}"
                                    hx-get="{% url 'piece_detail' spot.piece.pk %}"
                                    hx-swap="delete swap:300ms"
                                    hx-target="#spot-{{ spot.pk }}-modal"
                                    hx-trigger="click"
                                    hx-push-url="{% url 'piece_detail' spot.piece.pk %}">
-                                    {% include "wiki/icons/check-icon.html" with class="h-6 w-6" %}
+                                    {% include "wiki/icons/check-icon.html" with class="w-6 h-6" %}
                                 Done</a>
                             {% else %}
-                                <button class="text-blue-500 hover:text-blue-700 hover:bg-blue-50 font-bold rounded-xl flex justify-center items-center transition-all py-2 px-4"
+                                <button class="flex justify-center items-center py-2 px-4 font-bold text-blue-500 rounded-xl transition-all hover:text-blue-700 hover:bg-blue-50"
                                         type="button"
                                         @click="currentStep++">
                                     Next
-                                    {% include "wiki/icons/chevron-right.html" with class="h-6 w-6" %}
+                                    {% include "wiki/icons/chevron-right.html" with class="w-6 h-6" %}
                                 </button>
                             {% endif %}
                         </div>
                     </div>
-                    <div class="h-full hidden sm:flex justify-center items-center">
+                    <div class="hidden justify-center items-center h-full sm:flex">
                         {% if forloop.last %}
-                            <a class="flex flex-col items-center justify-center text-teal-600 hover:text-teal-800 hover:bg-teal-50 font-bold py-12 px-4 rounded-xl w-32"
+                            <a class="flex flex-col justify-center items-center py-12 px-4 w-32 font-bold text-teal-600 rounded-xl hover:text-teal-800 hover:bg-teal-50"
                                href="{% url 'piece_detail' spot.piece.pk %}"
                                hx-get="{% url 'piece_detail' spot.piece.pk %}"
                                hx-swap="delete swap:300ms"
                                hx-target="#spot-{{ spot.pk }}-modal"
                                hx-trigger="click"
                                hx-push-url="{% url 'piece_detail' spot.piece.pk %}">
-                                {% include "wiki/icons/check-icon.html" with class="h-12 w-12" %}
+                                {% include "wiki/icons/check-icon.html" with class="w-12 h-12" %}
                             Done</a>
                         {% else %}
-                            <button class="text-blue-500 hover:text-blue-700 hover:bg-blue-50 font-bold rounded-xl w-32 flex flex-col justify-center items-center transition-all py-12"
+                            <button class="flex flex-col justify-center items-center py-12 w-32 font-bold text-blue-500 rounded-xl transition-all hover:text-blue-700 hover:bg-blue-50"
                                     type="button"
                                     @click="currentStep++">
-                                {% include "wiki/icons/chevron-right.html" with class="h-12 w-12" %}
+                                {% include "wiki/icons/chevron-right.html" with class="w-12 h-12" %}
                                 Next
                             </button>
                         {% endif %}

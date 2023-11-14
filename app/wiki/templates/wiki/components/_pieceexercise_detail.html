@@ -3,12 +3,12 @@
      role="dialog"
      aria-modal="true"
      id="exercise-{{ pieceexercise.pk }}-modal">
-    <div class="fixed inset-0 bg-blue-100 backdrop-blur-sm bg-opacity-75 fade-in fade-out"></div>
-    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-        <div class="flex flex-col min-h-full items-center justify-end p-4  text-center sm:justify-center sm:p-0 w-full">
-            <div class="relative transform overflow-hidden max-w-full sm:my-8 sm:w-full sm:max-w-lg sm:p-6 rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all flex flex-col gap-2">
+    <div class="fixed inset-0 bg-blue-100 bg-opacity-75 backdrop-blur-sm fade-in fade-out"></div>
+    <div class="overflow-y-auto fixed inset-0 z-10 w-screen">
+        <div class="flex flex-col justify-end items-center p-4 w-full min-h-full text-center sm:justify-center sm:p-0">
+            <div class="flex overflow-hidden relative flex-col gap-2 px-4 pt-5 pb-4 max-w-full text-left bg-white rounded-lg shadow-xl transition-all transform sm:p-6 sm:my-8 sm:w-full sm:max-w-lg">
                 <header class="flex justify-between w-full" id="modal-title">
-                    <h3 class="text-2xl font-bold leading-6 text-purple-700 border-b-2 border-purple-700 text-left"
+                    <h3 class="text-2xl font-bold leading-6 text-left text-purple-700 border-b-2 border-purple-700"
                         id="modal-title">
                         {% if pieceexercise.nickname %}
                             Exercise: {{ pieceexercise.nickname }}
@@ -37,7 +37,7 @@
                 <p class="-mt-1">{{ pieceexercise.description }}</p>
                 {% if pieceexercise.instructions %}
                     <div>
-                        <h4 class="text-lg text-black font-bold">Instructions</h4>
+                        <h4 class="text-lg font-bold text-black">Instructions</h4>
                         <p>{{ pieceexercise.instructions }}</p>
                     </div>
                 {% endif %}
@@ -45,7 +45,7 @@
                     {% include "wiki/components/_abcjs_viewer.html" with viewer_id=exercise_notes_id notes=pieceexercise.abc_notation %}
                 {% endif %}
                 {% if pieceexercise.recording %}
-                    <div class="text-xl text-black font-bold flex gap-2 justify-start sm:items-center flex-col sm:flex-row">
+                    <div class="flex flex-col gap-2 justify-start text-xl font-bold text-black sm:flex-row sm:items-center">
                         Listen:
                         <audio controls class="max-w-full">
                             <source src="{{ pieceexercise.recording.file.url }}" type="audio/mpeg" />
@@ -55,17 +55,17 @@
                 {% if pieceexercise.skills %}
                     <div class="flex gap-2">
                         <h4 class="text-lg">Skills</h4>
-                        <ul class="flex gap-2 flex-wrap">
+                        <ul class="flex flex-wrap gap-2">
                             {% for skill in pieceexercise.skills.all %}
-                                <li class="text-sm rounded border border-pink-500 bg-pink-200 shadow-lg hover:border-pink-300 hover:bg-pink-100 hover:text-gray-800">
+                                <li class="text-sm bg-pink-200 rounded border border-pink-500 shadow-lg hover:text-gray-800 hover:bg-pink-100 hover:border-pink-300">
                                     <a href="{{ skill.get_absolute_url }}" class="block p-0.5">{{ skill.name }}</a>
                                 </li>
                             {% endfor %}
                         </ul>
                     </div>
                 {% endif %}
-                <div class="flex w-full justify-end">
-                    <a class="block bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
+                <div class="flex justify-end w-full">
+                    <a class="block py-2 px-4 font-bold text-white bg-teal-500 rounded hover:bg-teal-700"
                        href="{% url 'piece_detail' pieceexercise.piece.pk %}"
                        hx-get="{% url 'piece_detail' pieceexercise.piece.pk %}"
                        hx-swap="delete swap:300ms"
