@@ -74,6 +74,102 @@
   font-weight: 800;
   src: url("/static/fonts/playfair-v2-latin-800.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
+/* vollkorn-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Vollkorn";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/static/fonts/vollkorn-v23-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* vollkorn-italic - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Vollkorn";
+  font-style: italic;
+  font-weight: 400;
+  src: url("/static/fonts/vollkorn-v23-latin-italic.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* vollkorn-500 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Vollkorn";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/static/fonts/vollkorn-v23-latin-500.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* vollkorn-500italic - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Vollkorn";
+  font-style: italic;
+  font-weight: 500;
+  src: url("/static/fonts/vollkorn-v23-latin-500italic.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* vollkorn-600 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Vollkorn";
+  font-style: normal;
+  font-weight: 600;
+  src: url("/static/fonts/vollkorn-v23-latin-600.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* vollkorn-600italic - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Vollkorn";
+  font-style: italic;
+  font-weight: 600;
+  src: url("/static/fonts/vollkorn-v23-latin-600italic.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* vollkorn-700 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Vollkorn";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/static/fonts/vollkorn-v23-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* vollkorn-700italic - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Vollkorn";
+  font-style: italic;
+  font-weight: 700;
+  src: url("/static/fonts/vollkorn-v23-latin-700italic.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* vollkorn-800 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Vollkorn";
+  font-style: normal;
+  font-weight: 800;
+  src: url("/static/fonts/vollkorn-v23-latin-800.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* vollkorn-800italic - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Vollkorn";
+  font-style: italic;
+  font-weight: 800;
+  src: url("/static/fonts/vollkorn-v23-latin-800italic.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* vollkorn-900 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Vollkorn";
+  font-style: normal;
+  font-weight: 900;
+  src: url("/static/fonts/vollkorn-v23-latin-900.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* vollkorn-900italic - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Vollkorn";
+  font-style: italic;
+  font-weight: 900;
+  src: url("/static/fonts/vollkorn-v23-latin-900italic.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
 
 .font-lato {
   font-family: "Lato", sans-serif;
@@ -81,6 +177,10 @@
 
 .font-playfair {
   font-family: "Playfair", serif;
+}
+
+.font-vollkorn {
+  font-family: "Vollkorn", serif;
 }
 
 .fade-out.htmx-swapping {
@@ -98,7 +198,7 @@
 }
 
 body {
-	overscroll-behavior: none;
+  overscroll-behavior: none;
   scrollbar-gutter: auto | stable && both-edges?;
 }
 
@@ -119,7 +219,7 @@ body {
 }
 
 .slide-up {
-  @apply opacity-100 translate-y-0
+  @apply opacity-100 translate-y-0;
 }
 
 .htmx-added .slide-up {
@@ -168,9 +268,8 @@ body {
 /* Hero pattern texture  fill is sky-400 */
 .body-background {
   @apply bg-gray-50;
-background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%2338bdf8' fill-opacity='0.08' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%2338bdf8' fill-opacity='0.08' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
 }
-
 
 @media screen(sm) {
   .scale-in {
@@ -188,4 +287,17 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   .scale-out.htmx-swapping {
     @apply opacity-0 translate-y-0 scale-95;
   }
+}
+
+.card {
+  @apply bg-white rounded-lg border-2 shadow-sm;
+}
+
+.card:hover {
+  @apply shadow;
+}
+
+.focusable:focus-visible,
+.focusable:has(:focus-visible) {
+  @apply outline outline-offset-2 outline-slate-800;
 }

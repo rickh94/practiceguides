@@ -1,5 +1,5 @@
 <main id="main-content" class="flex-1 px-2 font-lato fade-in fade-out">
-    <div class="flex flex-col gap-8 px-4 pt-3 pb-4 mx-auto max-w-4xl bg-white rounded shadow">
+    <div class="flex flex-col gap-8 px-4 pt-3 pb-4 mx-auto max-w-6xl bg-white rounded shadow">
         <header class="flex flex-col gap-2" id="standaloneexercise-header">
             <div class="flex flex-col flex-wrap gap-4 justify-center items-center">
                 <div>
@@ -68,14 +68,7 @@
                     <h4 class="text-xl">Skills</h4>
                     <ul class="flex flex-wrap gap-2">
                         {% for skill in standaloneexercise.skills.all %}
-                            <li class="bg-pink-200 rounded border border-pink-500 shadow hover:text-gray-800 hover:bg-pink-100 hover:border-pink-300 hover:shadow-lg">
-                                <a href="{{ skill.get_absolute_url }}"
-                                   hx-get="{{ skill.get_absolute_url }}"
-                                   hx-push-url="{{ skill.get_absolute_url }}"
-                                   hx-target="#main-content"
-                                   hx-swap="outerHTML swap:300ms"
-                                   class="block p-1">{{ skill.name }}</a>
-                            </li>
+                            {% include "wiki/components/cards/_skill_card.html" %}
                         {% endfor %}
                     </ul>
                 </div>

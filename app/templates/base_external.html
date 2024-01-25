@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block layout %}
-    <header class="z-10 font-playfair">
-        <nav class="flex flex-col justify-between items-center px-4 pt-6 pb-4 mb-4 bg-gradient-to-tl from-blue-100 to-transparent shadow sm:flex-row lg:px-8 xl:px-12 font-playfair"
+    <header class="z-10 font-vollkorn">
+        <nav class="flex flex-col justify-between items-center px-4 pt-6 pb-4 mb-4 shadow sm:flex-row lg:px-8 xl:px-12 bg-slate-50 shadow-blue-400/20 font-vollkorn"
              aria-label="Global">
             <a class="hover:text-blue-500 hover:underline flex-0"
                href="{% url 'index' %}"
@@ -9,7 +9,7 @@
                hx-push-url="{% url 'index' %}"
                hx-target="#main-content"
                hx-swap="outerHTML swap:300ms">
-                <h1 class="text-4xl font-bold">Violin Wiki</h1>
+                <h1 class="text-4xl font-bold">Practice Guides</h1>
             </a>
             <ul class="flex flex-1 gap-4 justify-center items-center text-lg sm:justify-end sm:text-2xl">
                 <li>
@@ -60,7 +60,7 @@
         </main>
     {% endblock content %}
     <footer class="pt-4 text-white bg-gradient-to-b from-transparent flex-0 to-blue-100/50 max-w-screen">
-        <div class="flex flex-col justify-between items-center px-4 sm:flex-row sm:mx-auto sm:max-w-4xl max-w-screen">
+        <div class="flex flex-col justify-between items-center px-4 sm:flex-row sm:mx-auto sm:max-w-6xl max-w-screen">
             <div class="italic text-center text-gray-800 sm:text-left">
                 Want something like this for your own teaching? <a target="_blank"
     rel="noopener noreferrer"

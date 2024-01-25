@@ -25,7 +25,7 @@
                    hx-push-url="{% url 'piece_detail' spot.piece.pk %}"
                    class="absolute top-0 right-0 z-20 m-4 text-rose-500 rounded-xl hover:text-rose-700 hover:bg-rose-50">
                     <span class="sr-only">Close</span>
-                    {% include "wiki/icons/x-mark-circle.html" with class="w-8 h-8" %}
+                    <span class="size-8 icon-[heroicons--x-circle-solid]" aria-hidden="true"></span>
                 </a>
             </header>
             <div class="flex flex-col flex-shrink gap-2">
@@ -69,7 +69,8 @@
                                 {% if forloop.first %}disabled{% endif %}
                                 type="button"
                                 @click="currentStep--">
-                            {% include "wiki/icons/chevron-left.html" with class="w-12 h-12" %}
+                            <span class="size-12 icon-[heroicons--chevron-left-solid]"
+                                  aria-hidden="true"></span>
                             Previous
                         </button>
                     </div>
@@ -96,7 +97,8 @@
                                     {% if forloop.first %}disabled{% endif %}
                                     type="button"
                                     @click="currentStep--">
-                                {% include "wiki/icons/chevron-left.html" with class="w-6 h-6" %}
+                                <span class="size-6 icon-[heroicons--chevron-left-solid]"
+                                      aria-hidden="true"></span>
                                 Previous
                             </button>
                             {% if forloop.last %}
@@ -107,14 +109,15 @@
                                    hx-target="#spot-{{ spot.pk }}-modal"
                                    hx-trigger="click"
                                    hx-push-url="{% url 'piece_detail' spot.piece.pk %}">
-                                    {% include "wiki/icons/check-icon.html" with class="w-6 h-6" %}
+                                    <span class="size-6 icon-[heroicons--check-solid]" aria-hidden="true"></span>
                                 Done</a>
                             {% else %}
                                 <button class="flex justify-center items-center py-2 px-4 font-bold text-blue-500 rounded-xl transition-all hover:text-blue-700 hover:bg-blue-50"
                                         type="button"
                                         @click="currentStep++">
                                     Next
-                                    {% include "wiki/icons/chevron-right.html" with class="w-6 h-6" %}
+                                    <span class="size-6 icon-[heroicons--chevron-right-solid]"
+                                          aria-hidden="true"></span>
                                 </button>
                             {% endif %}
                         </div>
@@ -128,13 +131,14 @@
                                hx-target="#spot-{{ spot.pk }}-modal"
                                hx-trigger="click"
                                hx-push-url="{% url 'piece_detail' spot.piece.pk %}">
-                                {% include "wiki/icons/check-icon.html" with class="w-12 h-12" %}
+                                <span class="size-12 icon-[heroicons--check-solid]" aria-hidden="true"></span>
                             Done</a>
                         {% else %}
                             <button class="flex flex-col justify-center items-center py-12 w-32 font-bold text-blue-500 rounded-xl transition-all hover:text-blue-700 hover:bg-blue-50"
                                     type="button"
                                     @click="currentStep++">
-                                {% include "wiki/icons/chevron-right.html" with class="w-12 h-12" %}
+                                <span class="size-12 icon-[heroicons--chevron-right-solid]"
+                                      aria-hidden="true"></span>
                                 Next
                             </button>
                         {% endif %}

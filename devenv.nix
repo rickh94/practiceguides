@@ -12,7 +12,7 @@
   ];
 
   certificates = [
-    "wiki.localhost"
+    "guides.localhost"
   ];
 
   languages = {
@@ -30,7 +30,7 @@
 
   services.caddy = {
     enable = true;
-    virtualHosts."wiki.localhost" = {
+    virtualHosts."guides.localhost" = {
       extraConfig = ''
         reverse_proxy :8000
       '';

@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="{% static 'main.css' %}">
         {# OPENGRAPH  TAGS #}
         {% block og %}
-            {% include "snippets/_og.html" with title="Violin Teaching Wiki" description="My Personal Violin Teaching Wiki with detailed practicing guides for all the music that I teach." custom_image=False %}
+            {% include "snippets/_og.html" with title="Practice Guides" description="Practice guides for the different pieces that I teach." custom_image=False %}
         {% endblock og %}
         {# SCRIPT TAGS #}
         <script src="{% static 'alpine.js' %}" defer></script>
@@ -39,7 +39,7 @@
             }
         </style>
     </head>
-    <body class="{% block body_class %}{% endblock body_class %} h-full min-h-screen flex flex-col body-background max-w-screen"
+    <body class="{% block body_class %}{% endblock body_class %} h-full min-h-screen flex flex-col bg-white max-w-screen"
           hx-ext="preload">
         <a tabindex="0"
            href="#main-content"

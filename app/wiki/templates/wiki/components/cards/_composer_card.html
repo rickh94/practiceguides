@@ -1,0 +1,14 @@
+<li
+  class="border-orange-500 hover:bg-orange-50 hover:border-orange-600 card shadow-orange-400/20 hover:shadow-orange-400/30 focusable"
+>
+  <a
+    href="{{ composer.get_absolute_url }}"
+    preload
+    class="block px-2 pt-2 pb-1 focus:outline-none"
+    hx-get="{{ composer.get_absolute_url }}"
+    hx-push-url="{{ composer.get_absolute_url }}"
+    hx-target="#main-content"
+    hx-swap="outerHTML swap:300ms"
+    >{{ composer.name }}</a
+  >
+</li>

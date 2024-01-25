@@ -4,38 +4,19 @@
             {{ list_title }}
         </h2>
     </div>
-    <ul class="space-y-2" preload>
+    <ul class="flex flex-col gap-2" preload>
         {% for piece in piece_list %}
-            <li class="bg-blue-200 rounded border border-blue-500 shadow hover:text-gray-800 hover:bg-blue-100 hover:border-blue-300 hover:shadow-lg">
-                <a href="{{ piece.get_absolute_url }}"
-                   class="flex flex-col p-2"
-                   hx-get="{{ piece.get_absolute_url }}"
-                   hx-target="#main-content"
-                   hx-push-url="{{ piece.get_absolute_url }}"
-                   hx-swap="outerHTML swap:300ms">
-                    <h3 class="text-xl font-bold">
-                        <span class="underline">{{ piece.title }}</span> -
-                        {% if piece.composer %}
-                            {{ piece.composer.name }}
-                        {% else %}
-                            Unknown Composer
-                        {% endif %}
-                    </h3>
-                    <p class="text-sm">{{ piece.description }}</p>
-                </a>
-            </li>
+            {% include "wiki/components/cards/_piece_card.html" %}
         {% endfor %}
         {% if showlink and list_view %}
-            <li class="bg-gray-200 rounded border border-gray-500 shadow hover:text-gray-800 hover:bg-gray-100 hover:border-gray-300 hover:shadow-lg">
+            <li class="flex items-center hover:text-black card border-slate-500 hover:border-slate-600 hover:bg-slate-100 focusable">
                 <a href="{% url list_view %}"
                    preload
-                   class="flex flex-col p-2"
+                   class="p-2 pb-3 pl-3 -mb-1 w-full h-full text-lg font-medium focus:outline-none"
                    hx-get="{% url list_view %}"
                    hx-target="#main-content"
                    hx-push-url="{% url list_view %}"
-                   hx-swap="outerHTML swap:300ms">
-                    <h3 class="text-lg italic">View All {{ list_title }}…</h3>
-                </a>
+                   hx-swap="outerHTML swap:300ms">View All {{ list_title }}…</a>
             </li>
         {% endif %}
     </ul>

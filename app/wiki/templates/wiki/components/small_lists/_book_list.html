@@ -2,32 +2,18 @@
     <div class="flex">
         <h2 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">Books</h2>
     </div>
-    <ul class="space-y-2" preload>
+    <ul class="flex flex-col gap-2" preload>
         {% for book in book_list %}
-            <li class="bg-emerald-200 rounded border border-emerald-500 shadow-lg hover:text-gray-800 hover:bg-emerald-100 hover:border-emerald-300">
-                <a href="{{ book.get_absolute_url }}"
-                   hx-get="{{ book.get_absolute_url }}"
-                   hx-push-url="{{ book.get_absolute_url }}"
-                   hx-target="#main-content"
-                   hx-swap="outerHTML swap:300ms"
-                   class="flex flex-col p-2">
-                    <h3 class="text-xl font-bold">
-                        <span class="underline">{{ book.title }}</span> - {{ book.composer.name }}
-                    </h3>
-                    <p class="text-sm">{{ book.description }}</p>
-                </a>
-            </li>
+            {% include "wiki/components/cards/_book_card.html" %}
         {% endfor %}
         {% if showlink %}
-            <li class="bg-gray-200 rounded border border-gray-500 shadow hover:text-gray-800 hover:bg-gray-100 hover:border-gray-300 hover:shadow-lg">
+            <li class="flex items-center hover:text-black card border-slate-500 hover:border-slate-600 hover:bg-slate-100 focusable">
                 <a href="{% url 'book_list' %}"
                    hx-get="{% url 'book_list' %}"
                    hx-push-url="{% url 'book_list' %}"
                    hx-target="#main-content"
                    hx-swap="outerHTML swap:300ms"
-                   class="flex flex-col p-2">
-                    <h3 class="text-lg italic">View All Books…</h3>
-                </a>
+                   class="p-2 pb-3 pl-3 -mb-1 w-full h-full text-lg font-medium focus:outline-none">View All Books…</a>
             </li>
         {% endif %}
     </ul>
