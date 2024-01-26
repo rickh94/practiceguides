@@ -103,12 +103,21 @@ class Piece(models.Model):
             )
         super().clean()
 
+    def should_display_listen(self):
+        return (
+            self.recording
+            or self.spotify_link
+            or self.apple_music_link
+            or self.amazon_music_link
+        )
+
 
 class Spot(models.Model):
     piece = models.ForeignKey(Piece, on_delete=models.CASCADE, related_name="spots")
     nickname = models.CharField(max_length=255, null=True, blank=True)
     order = models.IntegerField(validators=[validate_positive])
     description = models.TextField(null=True, blank=True)
+    instructions = models.TextField(null=True, blank=True)
     measures = models.CharField(max_length=255, null=True, blank=True)
     skills = models.ManyToManyField("Skill")
     abc_notation = models.TextField(null=True, blank=True)
@@ -148,34 +157,6 @@ class Spot(models.Model):
                 f"Order {self.order} is taken, you must choose another. The next available is {suggested_order}."
             )
         super().clean()
-
-
-class Step(models.Model):
-    spot = models.ForeignKey(Spot, on_delete=models.CASCADE, related_name="steps")
-    order = models.IntegerField(validators=[validate_positive])
-    instructions = models.TextField()
-    abc_notation = models.TextField(null=True, blank=True)
-    recording = models.ForeignKey(
-        "Recording", on_delete=models.CASCADE, null=True, blank=True
-    )
-
-    def __str__(self):
-        return f"{self.spot} - Step {self.order}"
-
-    @property
-    def notes_id(self):
-        return f"step{self.spot.piece.id}{self.spot.id}{self.pk}notes"
-
-    def clean(self):
-        super().clean()
-        if self.pk:
-            return
-        orders = [p.order for p in self.spot.steps.all()]
-        suggested_order = max(orders) + 1 if orders else 1
-        if self.order in orders:
-            raise ValidationError(
-                f"Order {self.order} is taken, you must choose another. The next available is {suggested_order}."
-            )
 
 
 class Skill(models.Model):

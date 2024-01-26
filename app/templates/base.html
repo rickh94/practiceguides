@@ -38,6 +38,7 @@
                 display: none;
             }
         </style>
+        {% component_css_dependencies %}
     </head>
     <body class="{% block body_class %}{% endblock body_class %} h-full min-h-screen flex flex-col bg-white max-w-screen"
           hx-ext="preload">
@@ -51,5 +52,6 @@
         {% endblock layout %}
         {% block script %}
         {% endblock script %}
+        {% component_js_dependencies %}
     </body>
 </html>

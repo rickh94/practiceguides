@@ -15,9 +15,10 @@ webauthn = "^1.10.1"
 django-htmx = "^1.16.0"
 django-stubs = { version = "^4.2.4", extras = ["compatible-mypy"] }
 django-stubs-ext = "^4.2.2"
-django-unfold = "^0.15.1"
+django-unfold = "^0.20.1"
 django-compression-middleware = "^0.5.0"
 django-fastdev = "^1.8.0"
+django-components = "^0.33"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
@@ -28,7 +29,7 @@ djlint = "^1.32.1"
 pre-commit = "^3.4.0"
 pyproject-flake8 = "^6.0.1"
 djhtml = "^3.0.6"
-python-lsp-server = {extras = ["all"], version = "^1.9.0"}
+python-lsp-server = { extras = ["all"], version = "^1.9.0" }
 
 [build-system]
 requires = ["poetry-core"]

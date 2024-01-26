@@ -1,0 +1,19 @@
+<a href="{{ book.get_absolute_url }}"
+   hx-get="{{ book.get_absolute_url }}"
+   hx-push-url="{{ book.get_absolute_url }}"
+   hx-target="#main-content"
+   hx-swap="outerHTML swap:300ms"
+   class="flex gap-2 items-center px-2 pt-2 pb-1 border-emerald-500 hover:text-emerald-900 hover:bg-emerald-50 hover:border-emerald-600 focus:outline-none card shadow-emerald-400/20 hover:shadow-emerald-400/30 focusable">
+    <span class="flex flex-col flex-grow">
+        <h3 class="text-xl font-medium">{{ book.title }}</h3>
+        {% if not abbreviated %}
+            <span class="text-sm italic text-slate-700">{{ book.composer.name }}</span>
+            <p class="text-sm">{{ book.description }}</p>
+        {% endif %}
+    </span>
+    {% if icon %}
+        <span class="hidden flex-shrink-0 mr-1 text-emerald-700 icon-[mdi--book-music-outline] size-12 xs:block"
+              aria-hidden="true"></span>
+    {% endif %}
+</a>
+{# vim: se ft=htmldjango : #}

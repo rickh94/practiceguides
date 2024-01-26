@@ -87,21 +87,6 @@ class PieceExerciseAdmin(ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionM
     ]
 
 
-@admin.register(models.Step)
-class StepAdmin(ModelAdmin, RecordingPlayerMixin):
-    list_display = ["spot", "order", "truncated_instructions", "player"]
-    list_filter = ["spot__piece", "spot"]
-    readonly_fields = ["player"]
-    change_form_template = "wiki/admin/abcjs_change_form.html"
-    search_fields = ["spot__piece__title", "spot__piece__composer__name"]
-    autocomplete_fields = ["spot", "recording"]
-
-    def truncated_instructions(self, obj):
-        return truncate_words(obj.instructions)
-
-    truncated_instructions.__name__ = "Instructions"
-
-
 @admin.register(models.Piece)
 class PieceAdmin(ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin):
     list_display = ["title", "composer", "truncated_description", "order"]

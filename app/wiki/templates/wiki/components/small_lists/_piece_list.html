@@ -1,12 +1,10 @@
 <div class="flex flex-col p-1">
     <div class="flex">
-        <h2 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">
-            {{ list_title }}
-        </h2>
+        <h2 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700">{{ list_title }}</h2>
     </div>
     <ul class="flex flex-col gap-2" preload>
         {% for piece in piece_list %}
-            {% include "wiki/components/cards/_piece_card.html" %}
+            <li class="focusable">{% component "piece_card" piece=piece %}</li>
         {% endfor %}
         {% if showlink and list_view %}
             <li class="flex items-center hover:text-black card border-slate-500 hover:border-slate-600 hover:bg-slate-100 focusable">

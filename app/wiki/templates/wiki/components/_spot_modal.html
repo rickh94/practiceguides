@@ -3,7 +3,6 @@
      aria-labelledby="modal-title"
      role="dialog"
      aria-modal="true"
-     x-data="{currentStep: 1}"
      id="spot-{{ spot.pk }}-modal">
     <div class="fixed inset-0 bg-blue-100 bg-opacity-75 backdrop-blur-sm fade-in fade-out"></div>
     <div class="overflow-scroll fixed inset-0 z-10 mt-10 w-screen bg-white border-t-2 border-blue-300 shadow-lg transition-all transform slide-up">
@@ -29,7 +28,7 @@
                 </a>
             </header>
             <div class="flex flex-col flex-shrink gap-2">
-                <p class="flex-shrink mt-1">{{ spot.description|linebreaks }}</p>
+                <div class="flex-shrink mt-1">{{ spot.description|linebreaks }}</div>
                 {% if spot.measures %}<p class="flex-shrink mt-1">{{ spot.measures }}</p>{% endif %}
                 <div class="flex-grow max-w-full">
                     {% if spot.abc_notation %}
@@ -49,103 +48,12 @@
                         <h4 class="text-lg">Skills</h4>
                         <ul class="flex flex-wrap gap-2">
                             {% for skill in spot.skills.all %}
-                                <li class="text-sm bg-pink-200 rounded border border-pink-500 shadow-lg hover:text-gray-800 hover:bg-pink-100 hover:border-pink-300">
-                                    <a href="{{ skill.get_absolute_url }}" class="block p-0.5">{{ skill.name }}</a>
-                                </li>
+                                <li>{% component "skill_card" skill=skill %}</li>
                             {% endfor %}
                         </ul>
                     </div>
                 {% endif %}
             </div>
-        </div>
-        <div class="lg:mx-auto lg:max-w-5xl">
-            {% for step in spot.steps.all %}
-                <div class="flex overflow-scroll gap-2 px-4 w-full h-full text-left sm:gap-4"
-                     id="step-{{ step.order }}"
-                     x-show="currentStep === {{ step.order }}"
-                     x-cloak>
-                    <div class="hidden justify-center items-center h-full sm:flex">
-                        <button class="{% if forloop.first %}text-gray-500 pointer-events-none{% else %}text-blue-500 hover:text-blue-700 hover:bg-blue-50{% endif %} font-bold rounded-xl w-32 flex flex-col justify-center items-center transition-all py-12"
-                                {% if forloop.first %}disabled{% endif %}
-                                type="button"
-                                @click="currentStep--">
-                            <span class="size-12 icon-[heroicons--chevron-left-solid]"
-                                  aria-hidden="true"></span>
-                            Previous
-                        </button>
-                    </div>
-                    <div class="flex flex-col flex-grow gap-2 w-full">
-                        <header class="flex justify-between w-full" id="modal-title">
-                            <h3 class="text-xl font-bold leading-6 text-center text-gray-900">Step {{ step.order }}</h3>
-                        </header>
-                        <p class="mt-1">{{ step.instructions|linebreaks }}</p>
-                        {% if step.recording %}
-                            <div class="flex flex-col gap-2 justify-start text-xl font-bold text-black sm:flex-row sm:items-center">
-                                Listen:
-                                <audio controls class="max-w-full">
-                                    <source src="{{ step.recording.file.url }}" type="audio/mpeg" />
-                                </audio>
-                            </div>
-                        {% endif %}
-                        <div class="flex-grow max-w-full">
-                            {% if step.abc_notation %}
-                                {% include "wiki/components/_abcjs_viewer.html" with viewer_id=step.notes_id notes=step.abc_notation %}
-                            {% endif %}
-                        </div>
-                        <div class="flex justify-between px-2 w-full sm:hidden">
-                            <button class="{% if forloop.first %}text-gray-500 pointer-events-none{% else %}text-blue-500 hover:text-blue-700 hover:bg-blue-50{% endif %} font-bold rounded-lg flex justify-center items-center transition-all py-2 px-4"
-                                    {% if forloop.first %}disabled{% endif %}
-                                    type="button"
-                                    @click="currentStep--">
-                                <span class="size-6 icon-[heroicons--chevron-left-solid]"
-                                      aria-hidden="true"></span>
-                                Previous
-                            </button>
-                            {% if forloop.last %}
-                                <a class="flex justify-center items-center py-2 px-4 font-bold text-teal-600 rounded-xl hover:text-teal-800 hover:bg-teal-50"
-                                   href="{% url 'piece_detail' spot.piece.pk %}"
-                                   hx-get="{% url 'piece_detail' spot.piece.pk %}"
-                                   hx-swap="delete swap:300ms"
-                                   hx-target="#spot-{{ spot.pk }}-modal"
-                                   hx-trigger="click"
-                                   hx-push-url="{% url 'piece_detail' spot.piece.pk %}">
-                                    <span class="size-6 icon-[heroicons--check-solid]" aria-hidden="true"></span>
-                                Done</a>
-                            {% else %}
-                                <button class="flex justify-center items-center py-2 px-4 font-bold text-blue-500 rounded-xl transition-all hover:text-blue-700 hover:bg-blue-50"
-                                        type="button"
-                                        @click="currentStep++">
-                                    Next
-                                    <span class="size-6 icon-[heroicons--chevron-right-solid]"
-                                          aria-hidden="true"></span>
-                                </button>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="hidden justify-center items-center h-full sm:flex">
-                        {% if forloop.last %}
-                            <a class="flex flex-col justify-center items-center py-12 px-4 w-32 font-bold text-teal-600 rounded-xl hover:text-teal-800 hover:bg-teal-50"
-                               href="{% url 'piece_detail' spot.piece.pk %}"
-                               hx-get="{% url 'piece_detail' spot.piece.pk %}"
-                               hx-swap="delete swap:300ms"
-                               hx-target="#spot-{{ spot.pk }}-modal"
-                               hx-trigger="click"
-                               hx-push-url="{% url 'piece_detail' spot.piece.pk %}">
-                                <span class="size-12 icon-[heroicons--check-solid]" aria-hidden="true"></span>
-                            Done</a>
-                        {% else %}
-                            <button class="flex flex-col justify-center items-center py-12 w-32 font-bold text-blue-500 rounded-xl transition-all hover:text-blue-700 hover:bg-blue-50"
-                                    type="button"
-                                    @click="currentStep++">
-                                <span class="size-12 icon-[heroicons--chevron-right-solid]"
-                                      aria-hidden="true"></span>
-                                Next
-                            </button>
-                        {% endif %}
-                    </div>
-                </div>
-            {% endfor %}
-            <!-- </div> -->
         </div>
     </div>
 </div>

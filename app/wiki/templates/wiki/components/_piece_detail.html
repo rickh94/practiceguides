@@ -1,155 +1,124 @@
 {% load customfilters %}
-<main id="main-content"
-      class="flex-1 px-2 font-lato fade-out fade-in"
-      preload>
-    <div class="grid grid-cols-1 gap-8 px-4 pt-3 pb-4 mx-auto max-w-6xl bg-white rounded shadow sm:grid-cols-2">
-        <header class="flex flex-col col-span-full gap-2" id="piece-header">
-            <div class="flex flex-col flex-wrap gap-4 justify-center items-center">
-                <div>
-                    <h2 class="px-2 text-5xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">{{ piece.title }}</h2>
-                </div>
-                <div class="flex flex-wrap gap-4">
-                    {% if piece.composer %}
-                        <div class="text-2xl">
-                            by
-                            <a href="{{ piece.composer.get_absolute_url }}"
-                               hx-get="{{ piece.composer.get_absolute_url }}"
-                               hx-push-url="{{ piece.composer.get_absolute_url }}"
-                               hx-target="#main-content"
-                               hx-swap="outerHTML swap:300ms"
-                               class="italic text-blue-700 underline hover:text-blue-400">{{ piece.composer.name }}</a>
-                        </div>
-                    {% endif %}
-                    {% if piece.book %}
-                        <div class="text-2xl">
-                            from
-                            <a href="{{ piece.book.get_absolute_url }}"
-                               hx-get="{{ piece.book.get_absolute_url }}"
-                               hx-push-url="{{ piece.book.get_absolute_url }}"
-                               hx-target="#main-content"
-                               hx-swap="outerHTML swap:300ms"
-                               class="italic text-blue-700 underline hover:text-blue-400">{{ piece.book.title }}</a>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-        </header>
-        <section id="about-piece" class="flex flex-col gap-2">
-            <div class="flex">
-                <h3 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">About</h3>
-            </div>
-            <p class="text-lg text-gray-900">{{ piece.description }}</p>
-        </section>
-        <section id="piece-recordings" class="flex flex-col gap-2">
-            <div class="flex">
-                <h3 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">Listen</h3>
-            </div>
-            {% if piece.recording %}
-                <div class="flex gap-2 items-center text-2xl font-bold text-black">
-                    Listen:
-                    <audio controls>
-                        <source src="{{ piece.recording.file.url }}" type="audio/mpeg" />
-                    </audio>
-                </div>
+{% component_block "main" %}
+{% component_block "panel" id="piece-detail" %}
+<header class="flex flex-col col-span-full gap-2" id="piece-header">
+    <div class="flex flex-col flex-wrap gap-4 justify-center items-center">
+        <div>
+            <h2 class="px-2 text-5xl font-bold text-purple-700 border-b-2 border-purple-700">{{ piece.title }}</h2>
+        </div>
+        <div class="flex flex-wrap gap-4">
+            {% if piece.composer %}
+                {% component "composer_card" composer=piece.composer %}
             {% endif %}
-            <div class="flex flex-wrap gap-2">
-                {% if piece.spotify_link %}
-                    <a href="{{ piece.spotify_link }}"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       class="py-2 px-4 text-base font-bold text-white bg-green-600 rounded shadow hover:bg-green-400 hover:shadow-lg">
-                        Spotify
-                    </a>
-                {% endif %}
-                {% if piece.apple_music_link %}
-                    <a href="{{ piece.apple_music_link }}"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       class="py-2 px-4 text-base font-bold text-white bg-rose-600 rounded shadow hover:bg-rose-400 hover:shadow-lg">
-                        Apple Music
-                    </a>
-                {% endif %}
-                {% if piece.amazon_music_link %}
-                    <a href="{{ piece.amazon_music_link }}"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       class="rounded text-base text-black font-bold px-4 py-2 bg-[#fcd200] shadow hover:shadow-lg hover:bg-yellow-300">
-                        Amazon Music
-                    </a>
-                {% endif %}
-            </div>
-        </section>
-        {% if piece.spots.all %}
-            <section id="piece-spots" class="flex flex-col gap-2">
-                <div class="flex">
-                    <h3 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">Spots</h3>
-                </div>
-                <ul class="flex flex-wrap gap-2">
-                    {% for spot in piece.spots|order_by:'order' %}
-                        <li>
-                            <a class="block p-4 rounded border border-blue-200 shadow hover:bg-white hover:shadow-lg bg-blue-100/50"
-                               preload="preload:init"
-                               href="{{ spot.get_absolute_url }}"
-                               hx-get="{{ spot.get_absolute_url }}"
-                               hx-push-url="{{ spot.get_absolute_url }}"
-                               hx-target="#modal"
-                               hx-swap="innerHTML swap:300ms">{{ spot.display_name }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </section>
-        {% endif %}
-        {% if piece.exercises.all %}
-            <section id="piece-exercises" class="flex flex-col gap-2">
-                <div class="flex">
-                    <h3 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">Exercises</h3>
-                </div>
-                <ul class="flex flex-wrap gap-2">
-                    {% for exercise in piece.exercises.all %}
-                        <li>
-                            <a class="block p-4 rounded border border-teal-200 shadow hover:bg-white hover:shadow-lg bg-teal-100/50"
-                               href="{{ exercise.get_absolute_url }}"
-                               hx-get="{{ exercise.get_absolute_url }}"
-                               hx-push-url="{{ exercise.get_absolute_url }}"
-                               hx-target="#modal"
-                               hx-swap="innerHTML swap:300ms">{{ exercise.display_name }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </section>
-        {% endif %}
-        {% if piece.practice_notes %}
-            <section id="piece-practice-notes" class="flex flex-col gap-2">
-                <div class="flex">
-                    <h3 class="pr-4 pl-2 mb-2 text-3xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">
-                        Notes on Practicing
-                    </h3>
-                </div>
-                <p class="text-lg text-gray-900">{{ piece.practice_notes }}</p>
-            </section>
-        {% endif %}
-        {% if piece.skills %}
-            <section class="flex flex-col gap-2">
-                <div class="flex">
-                    <h3 class="pr-4 pl-2 mb-2 text-3xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">
-                        Skills Covered
-                    </h3>
-                </div>
-                <ul class="flex flex-wrap gap-2">
-                    {% for skill in piece.skills.all %}
-                        <li class="bg-pink-200 rounded border border-pink-500 shadow hover:text-gray-800 hover:bg-pink-100 hover:border-pink-300 hover:shadow-lg">
-                            <a href="{{ skill.get_absolute_url }}"
-                               hx-get="{{ skill.get_absolute_url }}"
-                               hx-push-url="{{ skill.get_absolute_url }}"
-                               hx-target="#main-content"
-                               hx-swap="outerHTML swap:300ms"
-                               class="block p-1">{{ skill.name }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </section>
-        {% endif %}
-        <div id="modal"></div>
+            {% if piece.book %}
+                {% component "book_card" book=piece.book icon=False abbreviated=True %}
+            {% endif %}
+        </div>
     </div>
-</main>
+</header>
+<section id="about-piece" class="flex flex-col gap-2">
+    <div class="flex">
+        <h3 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700">About</h3>
+    </div>
+    <p class="text-lg text-gray-900">{{ piece.description }}</p>
+</section>
+{% if piece.should_display_listen %}
+    <section id="piece-recordings" class="flex flex-col gap-2">
+        <div class="flex">
+            <h3 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700">Listen</h3>
+        </div>
+        {% if piece.recording %}
+            <div class="flex gap-2 items-center text-2xl font-bold text-black">
+                Listen:
+                <audio controls>
+                    <source src="{{ piece.recording.file.url }}" type="audio/mpeg" />
+                </audio>
+            </div>
+        {% endif %}
+        <div class="flex flex-wrap gap-2">
+            {% if piece.spotify_link %}
+                <a href="{{ piece.spotify_link }}"
+                   target="_blank"
+                   preload="false"
+                   hx-boost="false"
+                   rel="noopener noreferrer"
+                   class="py-2 px-2 text-lg font-medium text-green-400 bg-green-50 rounded-lg border-2 border-green-400 shadow-sm hover:bg-green-100 hover:shadow shadow-green-900/20 hover:shadow-green-900/30 focusable">
+                    <span class="sr-only">Spotify</span>
+                    <span class="-mb-2 -ml-1 w-28 h-8 icon-[logos--spotify]" aria-hidden="true"></span>
+                </a>
+            {% endif %}
+            {% if piece.apple_music_link %}
+                <a href="{{ piece.apple_music_link }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   preload="false"
+                   hx-boost="false"
+                   class="flex gap-2 items-center py-2 px-3 font-sans text-xl font-medium text-rose-600 bg-rose-50 rounded-lg border-2 border-rose-400 shadow-sm hover:bg-rose-100 hover:shadow shadow-rose-900/20 hover:shadow-rose-900/30 focusable">
+                    <span class="-ml-1 icon-[simple-icons--applemusic] size-8"
+                          aria-hidden="true"></span>
+                    Apple Music
+                </a>
+            {% endif %}
+            {% if piece.amazon_music_link %}
+                <a href="{{ piece.amazon_music_link }}"
+                   target="_blank"
+                   preload="false"
+                   hx-boost="false"
+                   rel="noopener noreferrer"
+                   class="flex gap-2 items-center py-2 px-3 font-sans text-xl font-medium text-yellow-600 bg-yellow-50 rounded-lg border-2 border-yellow-400 shadow-sm hover:bg-yellow-100 hover:shadow shadow-yellow-900/20 hover:shadow-yellow-900/30 focusable">
+                    <span class="-ml-1 icon-[arcticons--amazon-music] size-8"
+                          aria-hidden="true"></span>
+                    Amazon Music
+                </a>
+            {% endif %}
+        </div>
+    </section>
+{% endif %}
+{% if piece.exercises.all %}
+    <section id="piece-exercises" class="flex flex-col gap-2">
+        <div class="flex">
+            <h3 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700">Exercises</h3>
+        </div>
+        <ul class="flex flex-wrap gap-2">
+            {% for exercise in piece.exercises.all %}
+                <li class="focusable">{% component "exercise_card" exercise=exercise %}</li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endif %}
+{% if piece.spots.all %}
+    <section id="piece-spots" class="flex flex-col gap-2">
+        <div class="flex">
+            <h3 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700">Spots</h3>
+        </div>
+        <ul class="flex flex-wrap gap-2">
+            {% for spot in piece.spots|order_by:'order' %}
+                <li class="focusable">{% component "spot_card" spot=spot %}</li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endif %}
+{% if piece.practice_notes %}
+    <section id="piece-practice-notes" class="flex flex-col gap-2">
+        <div class="flex">
+            <h3 class="pr-4 pl-2 mb-2 text-3xl font-bold text-purple-700 border-b-2 border-purple-700">Notes on Practicing</h3>
+        </div>
+        <p class="text-lg text-gray-900">{{ piece.practice_notes }}</p>
+    </section>
+{% endif %}
+{% if piece.skills %}
+    <section class="flex flex-col gap-2">
+        <div class="flex">
+            <h3 class="pr-4 pl-2 mb-2 text-3xl font-bold text-purple-700 border-b-2 border-purple-700">Skills Covered</h3>
+        </div>
+        <ul class="flex flex-wrap gap-2">
+            {% for skill in piece.skills.all %}
+                <li class="focusable">{% component "skill_card" skill=skill %}</li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endif %}
+<div id="modal"></div>
+{% endcomponent_block %}
+{% endcomponent_block %}
 {# vim: se ft=htmldjango : #}

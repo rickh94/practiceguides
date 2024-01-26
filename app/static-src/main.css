@@ -171,14 +171,6 @@
   src: url("/static/fonts/vollkorn-v23-latin-900italic.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
-.font-lato {
-  font-family: "Lato", sans-serif;
-}
-
-.font-playfair {
-  font-family: "Playfair", serif;
-}
-
 .font-vollkorn {
   font-family: "Vollkorn", serif;
 }
@@ -203,7 +195,7 @@ body {
 }
 
 .scale-in {
-  @apply opacity-0 duration-300 ease-out translate-y-4;
+  @apply opacity-100 duration-300 ease-out translate-y-0;
 }
 
 .scale-out {
@@ -211,10 +203,10 @@ body {
 }
 
 .htmx-added .scale-in {
-  @apply opacity-100 translate-y-0;
+  @apply opacity-0 translate-y-4;
 }
 
-.scale-out.htmx-swapping {
+.htmx-swapping .scale-out {
   @apply opacity-0 translate-y-4;
 }
 
@@ -273,7 +265,7 @@ body {
 
 @media screen(sm) {
   .scale-in {
-    @apply opacity-0 duration-300 ease-out translate-y-0 scale-95;
+    @apply opacity-100 transition duration-300 ease-out translate-y-0 scale-100;
   }
 
   .scale-out {
@@ -281,10 +273,10 @@ body {
   }
 
   .htmx-added .scale-in {
-    @apply opacity-100 translate-y-0 scale-100;
+    @apply opacity-0 translate-y-0 scale-95;
   }
 
-  .scale-out.htmx-swapping {
+  .htmx-swapping .scale-out {
     @apply opacity-0 translate-y-0 scale-95;
   }
 }
@@ -299,5 +291,11 @@ body {
 
 .focusable:focus-visible,
 .focusable:has(:focus-visible) {
-  @apply outline outline-offset-2 outline-slate-800;
+  @apply outline outline-offset-2 outline-slate-800 rounded- g;
+}
+
+.space-breaks br {
+  @apply mb-2;
+  content: " ";
+  display: block;
 }

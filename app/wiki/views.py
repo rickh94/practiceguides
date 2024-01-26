@@ -209,7 +209,6 @@ class SpotDetailView(HtmxView, generic.DetailView[Spot]):
         context = super().get_context_data(**kwargs)
         context["piece"] = self.object.piece
         # type: ignore
-        context["steps"] = self.object.steps.order_by("order")
         context["spot_notes_id"] = f"spot{self.object.piece.id}{self.kwargs['pk']}notes"
         return context
 

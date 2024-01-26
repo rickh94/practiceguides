@@ -1,80 +1,77 @@
-<main id="main-content" class="flex-1 px-2 font-lato fade-in fade-out">
-    <div class="container grid grid-cols-1 gap-2 px-4 pt-3 pb-4 mx-auto mt-4 max-w-6xl bg-white rounded shadow md:grid-cols-2">
-        <header class="flex flex-col col-span-full gap-2" id="skill-header">
-            <div class="flex flex-col flex-wrap gap-4 justify-center items-center">
-                <div>
-                    <h2 class="px-2 text-3xl font-bold text-purple-700 border-b-2 border-purple-700 sm:text-5xl font-playfair">
-                        Skill: {{ skill.name }}
-                    </h2>
-                </div>
-            </div>
-        </header>
-        {% if skill.description or skill.read_more_link %}
-            <section id="about-skill" class="flex flex-col gap-2">
-                {% if skill.description %}
-                    <div class="flex">
-                        <h3 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">About</h3>
-                    </div>
-                    <p class="text-lg text-gray-900">{{ skill.description }}</p>
-                {% endif %}
-                {% if skill.read_more_link %}
-                    <a href="{{ skill.read_more_link }}"
-                       class="text-lg text-blue-700 underline hover:text-blue-400"
-                       target="_blank"
-                       rel="noreferrer noopener">
-                        {% if skill.description %}
-                            Read more
-                        {% else %}
-                            Learn About {{ skill.name }}
-                        {% endif %}
-                    </a>
-                {% endif %}
-            </section>
-        {% endif %}
-        {% if skill.piece_set.all %}
-            {% with piece_list=skill.piece_set.all showlink=False list_title="Pieces" %}
-                {% include "wiki/components/small_lists/_piece_list.html" %}
-            {% endwith %}
-        {% endif %}
-        {% if skill.standaloneexercise_set.all %}
-            {% with piece_list=skill.standaloneexercise_set.all showlink=False list_title="Etudes" %}
-                {% include "wiki/components/small_lists/_piece_list.html" %}
-            {% endwith %}
-        {% endif %}
-        {% if skill.spot_set.all %}
-            <section id="skill-spots" class="flex flex-col gap-2">
-                <div class="flex">
-                    <div>
-                        <h2 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">Spots</h2>
-                    </div>
-                </div>
-                <ul class="flex flex-wrap gap-2">
-                    {% for spot in skill.spot_set.all %}
-                        <li>
-                            <a class="block p-4 rounded border border-blue-200 shadow hover:bg-white hover:shadow-lg bg-blue-100/50"
-                               href="{{ spot.get_absolute_url }}">{{ spot }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </section>
-        {% endif %}
-        {% if skill.pieceexercise_set.all %}
-            <section id="skill-piece-exercises" class="flex flex-col gap-2">
-                <div class="flex">
-                    <div>
-                        <h2 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700 font-playfair">Exercises</h2>
-                    </div>
-                </div>
-                <ul class="flex flex-wrap gap-2">
-                    {% for exercise in skill.pieceexercise_set.all %}
-                        <li>
-                            <a class="block p-4 rounded border border-blue-200 shadow hover:bg-white hover:shadow-lg bg-blue-100/50"
-                               href="{{ exercise.get_absolute_url }}">{{ exercise }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </section>
-        {% endif %}
+{% component_block "main" %}
+{% component_block "panel" id="skill-detail" %}
+<header class="flex flex-col col-span-full gap-2" id="skill-header">
+    <div class="flex flex-col flex-wrap gap-4 justify-center items-center">
+        <div>
+            <h2 class="px-2 text-3xl font-bold text-purple-700 border-b-2 border-purple-700 sm:text-5xl">
+                Skill: {{ skill.name }}
+            </h2>
+        </div>
     </div>
-</main>
+</header>
+{% if skill.description or skill.read_more_link %}
+    <section id="about-skill" class="flex flex-col gap-2">
+        {% if skill.description %}
+            <div class="flex">
+                <h3 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700">About</h3>
+            </div>
+            <p class="text-lg text-gray-900">{{ skill.description }}</p>
+        {% endif %}
+        {% if skill.read_more_link %}
+            <a href="{{ skill.read_more_link }}"
+               class="text-lg text-blue-700 underline hover:text-blue-400"
+               target="_blank"
+               rel="noreferrer noopener">
+                {% if skill.description %}
+                    Read more
+                {% else %}
+                    Learn About {{ skill.name }}
+                {% endif %}
+            </a>
+        {% endif %}
+    </section>
+{% endif %}
+{% if skill.piece_set.all %}
+    {% with piece_list=skill.piece_set.all showlink=False list_title="Pieces" %}
+        {% include "wiki/components/small_lists/_piece_list.html" %}
+    {% endwith %}
+{% endif %}
+{% if skill.standaloneexercise_set.all %}
+    {% with piece_list=skill.standaloneexercise_set.all showlink=False list_title="Etudes" %}
+        {% include "wiki/components/small_lists/_piece_list.html" %}
+    {% endwith %}
+{% endif %}
+{% if skill.spot_set.all %}
+    <section id="skill-spots" class="flex flex-col gap-2">
+        <div class="flex">
+            <div>
+                <h2 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700">Spots</h2>
+            </div>
+        </div>
+        <ul class="flex flex-wrap gap-2">
+            {% for spot in skill.spot_set.all %}
+                <li class="focusable">{% component "spot_card" spot=spot hx=False %}</li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endif %}
+{% if skill.pieceexercise_set.all %}
+    <section id="skill-piece-exercises" class="flex flex-col gap-2">
+        <div class="flex">
+            <div>
+                <h2 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700">Exercises</h2>
+            </div>
+        </div>
+        <ul class="flex flex-wrap gap-2">
+            {% for exercise in skill.pieceexercise_set.all %}
+                <li>
+                    <a class="block p-4 rounded border border-blue-200 shadow hover:bg-white hover:shadow-lg bg-blue-100/50"
+                       href="{{ exercise.get_absolute_url }}">{{ exercise }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endif %}
+{% endcomponent_block %}
+{% endcomponent_block %}
 {# vim: se ft=htmldjango: #}

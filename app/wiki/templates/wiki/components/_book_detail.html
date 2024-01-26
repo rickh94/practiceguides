@@ -1,33 +1,36 @@
-<main id="main-content" class="flex-1 px-2 font-lato fade-in fade-out">
-    <div class="gap-2 px-4 pt-3 pb-4 mx-auto mt-4 max-w-6xl bg-white rounded shadow">
-        <header class="flex flex-col col-span-full gap-2" id="skill-header">
-            <div class="flex flex-col flex-wrap gap-4 justify-center items-center">
-                <div>
-                    <h2 class="px-2 text-3xl font-bold text-purple-700 border-b-2 border-purple-700 sm:text-5xl font-playfair">
-                        Book: {{ book.title }}
-                    </h2>
-                </div>
-            </div>
-            <div class="px-6">
-                {% if book.description %}<p class="text-lg text-gray-900">{{ book.description }}</p>{% endif %}
-                {% if book.link %}
-                    <a href="{{ book.link }}"
-                       class="text-lg text-blue-700 underline hover:text-blue-400"
-                       target="_blank"
-                       rel="noreferrer noopener">Get the book</a>
-                {% endif %}
-            </div>
-        </header>
-        {% if book.pieces.all %}
-            {% with piece_list=book.pieces.all showlink=False list_title="Pieces" %}
-                {% include "wiki/components/small_lists/_piece_list.html" %}
-            {% endwith %}
-        {% endif %}
-        {% if book.standaloneexercises.all %}
-            {% with piece_list=book.standaloneexercises.all showlink=False list_title="Etudes" %}
-                {% include "wiki/components/small_lists/_piece_list.html" %}
-            {% endwith %}
+{% component_block "main" %}
+{% component_block "panel" id="book-detail" %}
+<header class="flex flex-col col-span-full gap-2" id="skill-header">
+    <div class="flex flex-col flex-wrap gap-4 justify-center items-center">
+        <div>
+            <h2 class="px-2 text-3xl font-bold text-purple-700 border-b-2 border-purple-700 sm:text-5xl">
+                Book: {{ book.title }}
+            </h2>
+        </div>
+    </div>
+    <div class="px-6">
+        {% if book.description %}<p class="text-lg text-gray-900">{{ book.description }}</p>{% endif %}
+        {% if book.link %}
+            <a href="{{ book.link }}"
+               class="text-lg text-blue-700 underline hover:text-blue-400"
+               target="_blank"
+               preload="false"
+               hx-boost="false"
+               rel="noreferrer noopener">Get the book</a>
         {% endif %}
     </div>
-</main>
+</header>
+{# TODO: make this prettier #}
+{% if book.pieces.all %}
+    {% with piece_list=book.pieces.all showlink=False list_title="Pieces" %}
+        {% include "wiki/components/small_lists/_piece_list.html" %}
+    {% endwith %}
+{% endif %}
+{% if book.standaloneexercises.all %}
+    {% with piece_list=book.standaloneexercises.all showlink=False list_title="Etudes" %}
+        {% include "wiki/components/small_lists/_piece_list.html" %}
+    {% endwith %}
+{% endif %}
+{% endcomponent_block %}
+{% endcomponent_block %}
 {# vim: se ft=htmldjango : #}

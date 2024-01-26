@@ -1,6 +1,5 @@
-<main id="main-content"
-      class="flex-1 px-2 max-w-full font-lato fade-in fade-out">
-    {% include "wiki/components/_search_panel.html" %}
-    {% include "wiki/components/_search_results.html" %}
-</main>
+{% component_block "main" %}
+{% include "wiki/components/_search_panel.html" %}
+{% include "wiki/components/_search_results.html" %}
+{% endcomponent_block %}
 {# vim: se ft=htmldjango : #}

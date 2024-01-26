@@ -3,12 +3,12 @@
      role="dialog"
      aria-modal="true"
      id="exercise-{{ pieceexercise.pk }}-modal">
-    <div class="fixed inset-0 bg-blue-100 bg-opacity-75 backdrop-blur-sm fade-in fade-out"></div>
-    <div class="overflow-y-auto fixed inset-0 z-10 w-screen">
-        <div class="flex flex-col justify-end items-center p-4 w-full min-h-full text-center sm:justify-center sm:p-0">
-            <div class="flex overflow-hidden relative flex-col gap-2 px-4 pt-5 pb-4 max-w-full text-left bg-white rounded-lg shadow-xl transition-all transform sm:p-6 sm:my-8 sm:w-full sm:max-w-lg">
-                <header class="flex justify-between w-full" id="modal-title">
-                    <h3 class="text-2xl font-bold leading-6 text-left text-purple-700 border-b-2 border-purple-700"
+    <div class="fixed inset-0 bg-blue-200 bg-opacity-75 backdrop-blur-sm fade-in fade-out"></div>
+    <div class="overflow-y-auto fixed inset-0 z-10 w-screen font-vollkorn">
+        <div class="flex flex-col justify-end items-center py-4 w-full min-h-full text-center sm:justify-center sm:p-0 scale-in scale-out">
+            <div class="flex overflow-hidden relative flex-col gap-2 p-4 max-w-full text-left bg-white rounded-lg border-2 border-blue-500 shadow-xl transition-all transform sm:my-8 sm:w-full sm:max-w-2xl">
+                <header class="flex justify-between pb-1 w-full" id="modal-title">
+                    <h3 class="mt-2 text-2xl font-bold leading-6 text-left text-purple-700 border-b-2 border-purple-700"
                         id="modal-title">
                         {% if pieceexercise.nickname %}
                             Exercise: {{ pieceexercise.nickname }}
@@ -22,23 +22,16 @@
                        hx-target="#exercise-{{ pieceexercise.pk }}-modal"
                        hx-trigger="click"
                        hx-push-url="{% url 'piece_detail' pieceexercise.piece.pk %}"
-                       class="justify-self-end text-rose-500 hover:text-rose-300">
+                       class="flex justify-center items-center -mt-1 -mr-1 text-rose-600 rounded-full hover:bg-rose-200 size-8">
                         <span class="sr-only">Close</span>
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                             fill="none"
-                             viewBox="0 0 24 24"
-                             stroke-width="1.5"
-                             stroke="currentColor"
-                             class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                        <span class="size-6 icon-[heroicons--x-circle-solid]" aria-hidden="true"></span>
                     </a>
                 </header>
                 <p class="-mt-1">{{ pieceexercise.description }}</p>
                 {% if pieceexercise.instructions %}
-                    <div>
-                        <h4 class="text-lg font-bold text-black">Instructions</h4>
-                        <p>{{ pieceexercise.instructions }}</p>
+                    <div class="text-lg leading-tight">
+                        <h4 class="text-xl font-bold text-black">Instructions</h4>
+                        <div class="py-1 text-lg leading-tight space-breaks">{{ pieceexercise.instructions|linebreaks }}</div>
                     </div>
                 {% endif %}
                 {% if pieceexercise.abc_notation %}
@@ -53,25 +46,25 @@
                     </div>
                 {% endif %}
                 {% if pieceexercise.skills %}
-                    <div class="flex gap-2">
+                    <div class="flex gap-2 items-center">
                         <h4 class="text-lg">Skills</h4>
                         <ul class="flex flex-wrap gap-2">
                             {% for skill in pieceexercise.skills.all %}
-                                <li class="text-sm bg-pink-200 rounded border border-pink-500 shadow-lg hover:text-gray-800 hover:bg-pink-100 hover:border-pink-300">
-                                    <a href="{{ skill.get_absolute_url }}" class="block p-0.5">{{ skill.name }}</a>
-                                </li>
+                                <li class="focusable">{% component "skill_card" skill=skill %}</li>
                             {% endfor %}
                         </ul>
                     </div>
                 {% endif %}
-                <div class="flex justify-end w-full">
-                    <a class="block py-2 px-4 font-bold text-white bg-teal-500 rounded hover:bg-teal-700"
+                <div class="flex justify-end pt-2 w-full">
+                    <a class="flex gap-1 justify-center items-center px-3 w-full h-12 text-xl font-medium text-emerald-900 bg-emerald-200 rounded-lg border-2 border-emerald-500 shadow-sm hover:text-emerald-700 hover:shadow shadow-emerald-400/20 hover:shadow-emerald-400/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
                        href="{% url 'piece_detail' pieceexercise.piece.pk %}"
                        hx-get="{% url 'piece_detail' pieceexercise.piece.pk %}"
                        hx-swap="delete swap:300ms"
                        hx-target="#exercise-{{ pieceexercise.pk }}-modal"
                        hx-trigger="click"
-                       hx-push-url="{% url 'piece_detail' pieceexercise.piece.pk %}">Done</a>
+                       hx-push-url="{% url 'piece_detail' pieceexercise.piece.pk %}">
+                        <span class="-ml-1 icon-[heroicons--x-circle-solid] size-6"></span>
+                        <span class="-mb-1">Done</span></a>
                 </div>
             </div>
         </div>
