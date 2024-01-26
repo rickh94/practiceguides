@@ -1,25 +1,23 @@
 {% component_block "main" %}
 {% component_block "panel" id="book-detail" %}
-<header class="flex flex-col col-span-full gap-2" id="skill-header">
-    <div class="flex flex-col flex-wrap gap-4 justify-center items-center">
-        <div>
-            <h2 class="px-2 text-3xl font-bold text-purple-700 border-b-2 border-purple-700 sm:text-5xl">
-                Book: {{ book.title }}
-            </h2>
-        </div>
-    </div>
-    <div class="px-6">
-        {% if book.description %}<p class="text-lg text-gray-900">{{ book.description }}</p>{% endif %}
-        {% if book.link %}
-            <a href="{{ book.link }}"
-               class="text-lg text-blue-700 underline hover:text-blue-400"
-               target="_blank"
-               preload="false"
-               hx-boost="false"
-               rel="noreferrer noopener">Get the book</a>
-        {% endif %}
-    </div>
-</header>
+{% component_block "panel_header" id="book-header" %}
+{% fill "title" %}
+<span class="text-black">Book:</span> {{ book.title }}
+{% endfill %}
+{% fill "subhead" %}
+<div class="px-6">
+    {% if book.description %}<p class="text-lg text-gray-900">{{ book.description }}</p>{% endif %}
+    {% if book.link %}
+        <a href="{{ book.link }}"
+           class="text-lg text-blue-700 underline hover:text-blue-400"
+           target="_blank"
+           preload="false"
+           hx-boost="false"
+           rel="noreferrer noopener">Get the book</a>
+    {% endif %}
+</div>
+{% endfill %}
+{% endcomponent_block %}
 {# TODO: make this prettier #}
 {% if book.pieces.all %}
     {% with piece_list=book.pieces.all showlink=False list_title="Pieces" %}

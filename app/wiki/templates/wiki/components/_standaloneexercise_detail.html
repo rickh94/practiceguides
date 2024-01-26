@@ -1,36 +1,19 @@
 {% component_block "main" %}
 {% component_block "panel" id="etude-detail" %}
-<header class="flex flex-col col-span-full gap-2"
-        id="standaloneexercise-header">
-    <div class="flex flex-col flex-wrap gap-4 justify-center items-center">
-        <div>
-            <h2 class="px-2 text-5xl font-bold text-purple-700 border-b-2 border-purple-700">{{ standaloneexercise.title }}</h2>
-        </div>
-        <div class="flex flex-wrap gap-4">
-            {% if standaloneexercise.composer %}
-                <div class="text-2xl">
-                    by
-                    <a href="{{ standaloneexercise.composer.get_absolute_url }}"
-                       hx-get="{{ standaloneexercise.composer.get_absolute_url }}"
-                       hx-push-url="{{ standaloneexercise.composer.get_absolute_url }}"
-                       hx-target="#main-content"
-                       hx-swap="outerHTML swap:300ms"
-                       class="italic text-blue-700 underline hover:text-blue-400">{{ standaloneexercise.composer.name }}</a>
-                </div>
-            {% endif %}
-            {% if standaloneexercise.book %}
-                <div class="text-2xl">
-                    from
-                    <a href="{{ standaloneexercise.book.get_absolute_url }}"
-                       hx-get="{{ standaloneexercise.book.get_absolute_url }}"
-                       hx-push-url="{{ standaloneexercise.book.get_absolute_url }}"
-                       hx-target="#main-content"
-                       hx-swap="outerHTML swap:300ms"
-                       class="italic text-blue-700 underline hover:text-blue-400">{{ standaloneexercise.book.title }}</a>
-                </div>
-            {% endif %}
-        </div>
-    </div>
+{% component_block "panel_header" id="etude-header" %}
+{% fill "title" %}
+<span class="text-black">Etude:</span> {{ standaloneexercise.title }}
+{% endfill %}
+{% fill "subhead" %}
+{% if standaloneexercise.composer %}
+    {% component "composer_card" composer=standaloneexercise.composer %}
+{% endif %}
+{% if standaloneexercise.book %}
+    {% component "book_card" book=standaloneexercise.book icon=False abbreviated=True %}
+{% endif %}
+{% endfill %}
+{% endcomponent_block %}
+<div>
     <p class="text-lg text-gray-900">{{ standaloneexercise.description }}</p>
     {% if standaloneexercise.recording %}
         <div class="flex gap-2 items-center text-2xl font-bold text-black">
@@ -40,39 +23,21 @@
             </audio>
         </div>
     {% endif %}
-    <div class="flex gap-2">
-        {% if standaloneexercise.spotify_link %}
-            <a href="{{ standaloneexercise.spotify_link }}"
-               target="_blank"
-               rel="noopener noreferrer"
-               class="py-2 px-4 text-xl font-bold text-white bg-green-600 rounded shadow hover:bg-green-400 hover:shadow-lg">
-                Listen on Spotify
-            </a>
-        {% endif %}
-        {% if standaloneexercise.apple_music_link %}
-            <a href="{{ standaloneexercise.apple_music_link }}"
-               target="_blank"
-               rel="noopener noreferrer"
-               class="py-2 px-4 text-xl font-bold text-white bg-rose-600 rounded shadow hover:bg-rose-400 hover:shadow-lg">
-                Listen on Apple Music
-            </a>
-        {% endif %}
-    </div>
-</header>
+</div>
 <section id="standaloneexercise-practice-notes" class="flex flex-col gap-2">
     <h3 class="text-3xl font-bold">Practicing</h3>
     <p class="text-lg text-gray-900">{{ standaloneexercise.practice_notes }}</p>
-    {% if standaloneexercise.skills %}
-        <div class="flex flex-col gap-2">
-            <h4 class="text-xl">Skills</h4>
-            <ul class="flex flex-wrap gap-2">
-                {% for skill in standaloneexercise.skills.all %}
-                    <li class="focusable">{% component "skill_card" skill=skill %}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
 </section>
+{% if standaloneexercise.skills %}
+    <div class="flex flex-col gap-2">
+        <h4 class="text-xl font-medium">Skills</h4>
+        <ul class="flex flex-wrap gap-2">
+            {% for skill in standaloneexercise.skills.all %}
+                <li class="focusable">{% component "skill_card" skill=skill %}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
 {% endcomponent_block %}
 {% endcomponent_block %}
 {# vim: se ft=htmldjango : #}
