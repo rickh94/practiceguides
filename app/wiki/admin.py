@@ -1,8 +1,10 @@
 from django.contrib import admin
+
+# from unfold.admin import ModelAdmin
+from django.contrib.admin import ModelAdmin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from django.utils.html import format_html
-from unfold.admin import ModelAdmin
 
 from . import models
 from .util import truncate_words
@@ -129,6 +131,6 @@ class ComposerAdmin(ModelAdmin):
     search_fields = ["name", "pieces__title"]
 
 
-admin.site.site_header = "Studio Wiki Admin"
-admin.site.site_title = "Studio Wiki Admin"
-admin.site.index_title = "Welcome to Studio Wiki Admin"
+admin.site.site_header = "Practice Guides Admin"
+admin.site.site_title = "Practice Guides Admin"
+admin.site.index_title = "Welcome to Practice Guides Admin"
