@@ -68,6 +68,12 @@ class Piece(models.Model):
     recording = models.ForeignKey(
         "Recording", on_delete=models.SET_NULL, null=True, related_name="+", blank=True
     )
+    measures = models.IntegerField(
+        null=True, blank=True, validators=[validate_positive]
+    )
+    goal_tempo = models.IntegerField(
+        null=True, blank=True, validators=[validate_positive]
+    )
     spotify_link = models.URLField(null=True, blank=True)
     apple_music_link = models.URLField(null=True, blank=True)
     amazon_music_link = models.URLField(null=True, blank=True)
@@ -110,6 +116,30 @@ class Piece(models.Model):
             or self.apple_music_link
             or self.amazon_music_link
         )
+
+    def to_dict(self):
+        return {
+            "title": self.title,
+            "description": self.description or "",
+            "composer": self.composer.name if self.composer else None,
+            "measures": self.measures or 0,
+            "goal_tempo": 0,
+            "stage": "active",
+            "spots": [
+                {
+                    "name": spot.nickname or f"Spot {i + 1}",
+                    "stage": "repeat",
+                    "measures": spot.measures or "",
+                    "audioPromptUrl": spot.recording.file.url if spot.recording else "",
+                    "imagePromptUrl": "",
+                    "notesPrompt": spot.abc_notation or "",
+                    "textPrompt": spot.instructions or "",
+                    "currentTempo": 0,
+                    "priority": 0,
+                }
+                for i, spot in enumerate(self.spots.all())
+            ],
+        }
 
 
 class Spot(models.Model):

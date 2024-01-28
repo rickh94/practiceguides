@@ -3,6 +3,7 @@ from typing import Any
 from django import forms
 from django.db.models import Count, Q, QuerySet
 from django.http import HttpRequest, HttpResponse
+from django.http.response import JsonResponse
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import generic
@@ -74,6 +75,11 @@ class PieceDetailView(HtmxView, generic.DetailView[Piece]):
             return ["wiki/htmx/piece_detail.html"]
         else:
             return ["wiki/piece_detail.html"]
+
+
+def piece_export(_request: HttpRequest, pk: int) -> JsonResponse:
+    piece = Piece.objects.get(pk=pk)
+    return JsonResponse(piece.to_dict())
 
 
 @method_decorator(decorators, name="dispatch")

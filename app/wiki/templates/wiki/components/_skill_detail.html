@@ -17,6 +17,8 @@
             <a href="{{ skill.read_more_link }}"
                class="text-lg text-blue-700 underline hover:text-blue-400"
                target="_blank"
+               preload="false"
+               hx-boost="false"
                rel="noreferrer noopener">
                 {% if skill.description %}
                     Read more
@@ -60,10 +62,7 @@
         </div>
         <ul class="flex flex-wrap gap-2">
             {% for exercise in skill.pieceexercise_set.all %}
-                <li>
-                    <a class="block p-4 rounded border border-blue-200 shadow hover:bg-white hover:shadow-lg bg-blue-100/50"
-                       href="{{ exercise.get_absolute_url }}">{{ exercise }}</a>
-                </li>
+                <li>{% component "exercise_card" exercise=exercise hx=False %}</li>
             {% endfor %}
         </ul>
     </section>

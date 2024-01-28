@@ -1,9 +1,4 @@
-<a
-  class="block py-2 px-4 text-lg font-medium border-teal-500 hover:text-teal-900 hover:bg-teal-50 hover:border-teal-600 card shadow-teal-400/20 hover:shadow-teal-400/30 focusable"
-  preload="preload:init"
-  href="{{ exercise.get_absolute_url }}"
-  hx-get="{{ exercise.get_absolute_url }}"
-  hx-push-url="{{ exercise.get_absolute_url }}"
-  hx-target="#modal"
-  >{{ exercise.display_name }}</a
->
+<a class="block py-2 px-4 text-lg font-medium border-teal-500 hover:text-teal-900 hover:bg-teal-50 hover:border-teal-600 card shadow-teal-400/20 hover:shadow-teal-400/30 focusable"
+   href="{{ exercise.get_absolute_url }}"
+   {% if hx %} preload="preload:init" hx-get="{{ exercise.get_absolute_url }}" hx-push-url="{{ exercise.get_absolute_url }}" hx-target="#modal" {% endif %}>{{ exercise.display_name }}</a>
+{# vim: se ft=htmldjango : #}

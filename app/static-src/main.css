@@ -291,7 +291,7 @@ body {
 
 .focusable:focus-visible,
 .focusable:has(:focus-visible) {
-  @apply outline outline-offset-2 outline-slate-800 rounded- g;
+  @apply outline outline-offset-2 outline-slate-800 rounded-lg;
 }
 
 .space-breaks br {

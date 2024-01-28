@@ -10,6 +10,7 @@ debug_patterns = [
 urlpatterns = [
     path("", views.index, name="index"),
     path("pieces/<int:pk>", views.PieceDetailView.as_view(), name="piece_detail"),
+    path("pieces/<int:pk>/export", views.piece_export, name="piece_export"),
     path("pieces", views.PieceListView.as_view(), name="piece_list"),
     path(
         "etudes/<int:pk>",
