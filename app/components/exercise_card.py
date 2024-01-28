@@ -8,4 +8,5 @@ class ExerciseCard(component.Component):
     def get_context_data(self, *_args, **kwargs):
         context = super().get_context_data(**kwargs)
         context["exercise"] = kwargs.get("exercise")
+        context["hx"] = kwargs.get("hx", True)
         return context
