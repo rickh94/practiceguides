@@ -29,6 +29,12 @@
                 </header>
                 <div class="flex flex-col flex-shrink gap-2">
                     <div class="flex-shrink mt-1">{{ spot.description|linebreaks }}</div>
+                    {% if spot.instructions %}
+                        <div class="text-lg leading-tight">
+                            <h4 class="text-xl font-bold text-black">Instructions</h4>
+                            <div class="py-1 text-lg leading-tight space-breaks">{{ spot.instructions|linebreaks }}</div>
+                        </div>
+                    {% endif %}
                     {% if spot.measures %}<p class="flex-shrink mt-1">{{ spot.measures }}</p>{% endif %}
                     <div class="flex-grow flex-shrink min-w-0 max-w-full overflow-x-clip">
                         {% if spot.abc_notation %}
