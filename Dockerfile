@@ -1,7 +1,7 @@
 FROM node:latest as tailwind-builder
 
 WORKDIR /app
-COPY ./app/package.json ./app/bun.lockb .
+COPY ./app/package.json ./app/package-lock.json .
 RUN npm install
 COPY ./app/. .
 RUN npm run build
