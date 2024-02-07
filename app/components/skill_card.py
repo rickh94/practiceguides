@@ -8,4 +8,5 @@ class SkillCard(component.Component):
     def get_context_data(self, *_args, **kwargs):
         context = super().get_context_data(**kwargs)
         context["skill"] = kwargs.get("skill")
+        context["small"] = kwargs.get("small", False)
         return context

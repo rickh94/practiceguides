@@ -1,4 +1,4 @@
-<a class="block py-2 px-4 text-lg font-medium focus:outline-none card border-sky-500 shadow-sky-400/20 hover:text-sky-900 hover:bg-sky-50 hover:border-sky-600 hover:shadow-sky-400/30"
+<a class="block {% if small %}py-0.5 px-1 text-sm{% else %}py-2 px-4 text-lg{% endif %} font-medium focus:outline-none card border-sky-500 shadow-sky-400/20 hover:text-sky-900 hover:bg-sky-50 hover:border-sky-600 hover:shadow-sky-400/30"
    href="{{ spot.get_absolute_url }}"
    {% if hx %} preload="preload:init" hx-get="{{ spot.get_absolute_url }}" hx-push-url="{{ spot.get_absolute_url }}" hx-target="#modal" {% endif %}>{{ spot.display_name }}</a>
 {# vim: se ft=htmldjango : #}
