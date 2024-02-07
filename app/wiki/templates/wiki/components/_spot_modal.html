@@ -35,7 +35,7 @@
                             <div class="py-1 text-lg leading-tight space-breaks">{{ spot.instructions|linebreaks }}</div>
                         </div>
                     {% endif %}
-                    {% if spot.measures %}<p class="flex-shrink mt-1">{{ spot.measures }}</p>{% endif %}
+                    {% if spot.measures %}<p class="flex-shrink mt-1">Measures: {{ spot.measures }}</p>{% endif %}
                     <div class="flex-grow flex-shrink min-w-0 max-w-full overflow-x-clip">
                         {% if spot.abc_notation %}
                             {% include "wiki/components/_abcjs_viewer.html" with viewer_id=spot_notes_id notes=spot.abc_notation %}
@@ -50,7 +50,7 @@
                         </div>
                     {% endif %}
                     {% if spot.skills %}
-                        <div class="flex flex-col flex-shrink-0 gap-2 items-start w-full text-left">
+                        <div class="flex flex-col flex-shrink-0 gap-2">
                             <h4 class="text-lg">Skills</h4>
                             <ul class="flex flex-wrap gap-2">
                                 {% for skill in spot.skills.all %}
@@ -59,6 +59,18 @@
                             </ul>
                         </div>
                     {% endif %}
+                </div>
+                <div class="flex justify-end pt-2 w-full">
+                    <a class="flex gap-1 justify-center items-center px-3 h-12 text-xl font-medium text-emerald-900 bg-emerald-200 rounded-lg border-2 border-emerald-500 shadow-sm hover:text-emerald-700 hover:shadow shadow-emerald-400/20 hover:shadow-emerald-400/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+                       href="{% url 'piece_detail' spot.piece.pk %}"
+                       hx-get="{% url 'piece_detail' spot.piece.pk %}"
+                       hx-swap="delete swap:300ms"
+                       hx-target="#spot-{{ spot.pk }}-modal"
+                       hx-trigger="click"
+                       hx-replace-url="{% url 'piece_detail' spot.piece.pk %}">
+                        <span class="-mb-0.5">Done</span>
+                        <span class="-mr-1 icon-[heroicons--check-circle-solid] size-6"></span>
+                    </a>
                 </div>
             </div>
         </div>

@@ -11,9 +11,9 @@
                     <h3 class="mt-2 text-2xl font-bold leading-6 text-left text-purple-700 border-b-2 border-purple-700"
                         id="modal-title">
                         {% if pieceexercise.nickname %}
-                            Exercise: {{ pieceexercise.nickname }}
+                            Prepare: {{ pieceexercise.nickname }}
                         {% else %}
-                            Exercise
+                            Prepare
                         {% endif %}
                     </h3>
                     <a href="{% url 'piece_detail' pieceexercise.piece.pk %}"
@@ -56,15 +56,16 @@
                     </div>
                 {% endif %}
                 <div class="flex justify-end pt-2 w-full">
-                    <a class="flex gap-1 justify-center items-center px-3 w-full h-12 text-xl font-medium text-emerald-900 bg-emerald-200 rounded-lg border-2 border-emerald-500 shadow-sm hover:text-emerald-700 hover:shadow shadow-emerald-400/20 hover:shadow-emerald-400/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+                    <a class="flex gap-1 justify-center items-center px-3 h-12 text-xl font-medium text-emerald-900 bg-emerald-200 rounded-lg border-2 border-emerald-500 shadow-sm hover:text-emerald-700 hover:shadow shadow-emerald-400/20 hover:shadow-emerald-400/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
                        href="{% url 'piece_detail' pieceexercise.piece.pk %}"
                        hx-get="{% url 'piece_detail' pieceexercise.piece.pk %}"
                        hx-swap="delete swap:300ms"
                        hx-target="#exercise-{{ pieceexercise.pk }}-modal"
                        hx-trigger="click"
                        hx-push-url="{% url 'piece_detail' pieceexercise.piece.pk %}">
-                        <span class="-ml-1 icon-[heroicons--x-circle-solid] size-6"></span>
-                        <span class="-mb-1">Done</span></a>
+                        <span class="-mb-0.5">Done</span>
+                        <span class="-mr-1 icon-[heroicons--check-circle-solid] size-6"></span>
+                    </a>
                 </div>
             </div>
         </div>
