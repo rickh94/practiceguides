@@ -5,7 +5,7 @@
 </div>
 <ul class="flex flex-wrap col-span-full gap-2">
     {% for composer in composer_list %}
-        {% include "wiki/components/cards/_composer_card.html" %}
+        {% component "composer_card" composer=composer %}
     {% endfor %}
 </ul>
 {% include "wiki/components/_pagination.html" %}

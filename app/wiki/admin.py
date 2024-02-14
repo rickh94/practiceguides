@@ -76,7 +76,7 @@ class SpotAdmin(ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin):
 
 @admin.register(models.PieceExercise)
 class PieceExerciseAdmin(ModelAdmin, RecordingPlayerMixin, TruncatedDescriptionMixin):
-    list_display = ["nickname", "piece", "truncated_description"]
+    list_display = ["nickname", "piece", "truncated_description", "player"]
     list_filter = ["piece"]
     autocomplete_fields = ["recording", "piece"]
     readonly_fields = ["player"]

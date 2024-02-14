@@ -18,3 +18,4 @@ staticfiles/main.css
 app/media
 app/static/main.css
 .venv
+scratch
