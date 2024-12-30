@@ -12,13 +12,9 @@
                 <h1 class="text-4xl font-bold">Practice Guides</h1>
             </a>
             <ul class="flex flex-1 gap-4 justify-center items-center text-lg sm:justify-end sm:text-2xl">
+                {% comment %}
                 <li>
-                    <a href="{% url 'search' %}"
-                       hx-get="{% url 'search' %}"
-                       hx-push-url="{% url 'search' %}"
-                       hx-target="#main-content"
-                       hx-swap="outerHTML swap:300ms"
-                       class="hover:text-blue-500 hover:underline focusable">Search</a>
+                    <a href="{% url 'search' %}" hx-get="{% url 'search' %}" hx-push-url="{% url 'search' %}" hx-target="#main-content" hx-swap="outerHTML swap:300ms" class="hover:text-blue-500 hover:underline focusable">Search</a>
                 </li>
                 <li>
                     <a href="{% url 'skill_list' %}"
@@ -28,6 +24,8 @@
                        hx-swap="outerHTML swap:300ms"
                        class="hover:text-blue-500 hover:underline focusable">Skills</a>
                 </li>
+
+                {% endcomment %}
                 <li>
                     <a href="{% url 'piece_list' %}"
                        hx-get="{% url 'piece_list' %}"
@@ -36,6 +34,7 @@
                        hx-swap="outerHTML swap:300ms"
                        class="hover:text-blue-500 hover:underline focusable">Pieces</a>
                 </li>
+          {% comment %}
                 <li>
                     <a href="{% url 'standaloneexercise_list' %}"
                        hx-get="{% url 'standaloneexercise_list' %}"
@@ -44,6 +43,7 @@
                        hx-swap="outerHTML swap:300ms"
                        class="hover:text-blue-500 hover:underline focusable">Etudes</a>
                 </li>
+{% endcomment %}
                 <li>
                     <a href="{% url 'book_list' %}"
                        hx-get="{% url 'book_list' %}"

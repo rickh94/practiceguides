@@ -20,11 +20,13 @@
     </div>
     {# vim: se ft=htmldjango : #}
 {% endif %}
+{% comment %}
 {% if book.standaloneexercises.all %}
     {% with piece_list=book.standaloneexercises.all showlink=False list_title="Etudes" %}
         {% include "wiki/components/small_lists/_piece_list.html" %}
     {% endwith %}
 {% endif %}
+{% endcomment %}
 <div class="flex flex-col p-1">
     <div class="flex">
         <h2 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700">About</h2>

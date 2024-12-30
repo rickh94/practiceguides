@@ -12,18 +12,18 @@ urlpatterns = [
     path("pieces/<int:pk>", views.PieceDetailView.as_view(), name="piece_detail"),
     path("pieces/<int:pk>/export", views.piece_export, name="piece_export"),
     path("pieces", views.PieceListView.as_view(), name="piece_list"),
-    path(
-        "etudes/<int:pk>",
-        views.StandaloneExerciseDetailView.as_view(),
-        name="standaloneexercise_detail",
-    ),
-    path(
-        "etudes",
-        views.StandaloneExerciseListView.as_view(),
-        name="standaloneexercise_list",
-    ),
-    path("skills/<int:pk>", views.SkillDetailView.as_view(), name="skill_detail"),
-    path("skills", views.SkillListView.as_view(), name="skill_list"),
+    # path(
+    #     "etudes/<int:pk>",
+    #     views.StandaloneExerciseDetailView.as_view(),
+    #     name="standaloneexercise_detail",
+    # ),
+    # path(
+    #     "etudes",
+    #     views.StandaloneExerciseListView.as_view(),
+    #     name="standaloneexercise_list",
+    # ),
+    # path("skills/<int:pk>", views.SkillDetailView.as_view(), name="skill_detail"),
+    # path("skills", views.SkillListView.as_view(), name="skill_list"),
     path("books/<int:pk>", views.BookDetailView.as_view(), name="book_detail"),
     path("books", views.BookListView.as_view(), name="book_list"),
     path(

@@ -5,7 +5,6 @@
   # https://devenv.sh/packages/
   packages = with pkgs; [
     git
-    litestream
     ffmpeg
     rustywind
     ruff
@@ -41,7 +40,7 @@
   scripts.automigrate.exec = "python app/manage.py makemigrations && python app/manage.py migrate";
 
   processes = {
-    litestream.exec = "${pkgs.litestream}/bin/litestream replicate -config ${./litestream.dev.yml}";
+    litestream.exec = "litestream replicate -config ${./litestream.dev.yml}";
     dev.exec = "cd app && ${pkgs.poetry}/bin/poetry run python manage.py runserver 0.0.0.0:8000";
   };
 }

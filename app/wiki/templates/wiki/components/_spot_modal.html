@@ -11,9 +11,9 @@
                     <h3 class="mt-2 text-xl font-bold leading-6 text-center text-purple-700 border-b-2 border-purple-700 sm:text-2xl"
                         id="modal-title">
                         {% if spot.nickname %}
-                            Spot: {{ spot.nickname }}
+                            Section: {{ spot.nickname }}
                         {% else %}
-                            Spot: {{ spot.order }}
+                            Section: {{ spot.order }}
                         {% endif %}
                     </h3>
                     <a href="{% url 'piece_detail' spot.piece.pk %}"
@@ -36,11 +36,13 @@
                         </div>
                     {% endif %}
                     {% if spot.measures %}<p class="flex-shrink mt-1">Measures: {{ spot.measures }}</p>{% endif %}
+                    {% comment %}
                     <div class="flex-grow flex-shrink min-w-0 max-w-full overflow-x-clip">
                         {% if spot.abc_notation %}
                             {% include "wiki/components/_abcjs_viewer.html" with viewer_id=spot_notes_id notes=spot.abc_notation %}
                         {% endif %}
                     </div>
+                    {% endcomment %}
                     {% if spot.recording %}
                         <div class="flex flex-col gap-2 justify-start text-xl font-bold text-black sm:flex-row sm:items-center">
                             Listen:
@@ -49,6 +51,7 @@
                             </audio>
                         </div>
                     {% endif %}
+                    {% comment %}
                     {% if spot.skills %}
                         <div class="flex flex-col flex-shrink-0 gap-2">
                             <h4 class="text-lg">Skills</h4>
@@ -59,6 +62,7 @@
                             </ul>
                         </div>
                     {% endif %}
+                    {% endcomment %}
                 </div>
                 <div class="flex justify-end pt-2 w-full">
                     <a class="flex gap-1 justify-center items-center px-3 h-12 text-xl font-medium text-emerald-900 bg-emerald-200 rounded-lg border-2 border-emerald-500 shadow-sm hover:text-emerald-700 hover:shadow shadow-emerald-400/20 hover:shadow-emerald-400/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"

@@ -72,6 +72,7 @@
         </div>
     </section>
 {% endif %}
+{% comment %}
 {% if piece.exercises.all %}
     <section id="piece-exercises" class="flex flex-col gap-2">
         <div class="flex">
@@ -84,10 +85,11 @@
         </ul>
     </section>
 {% endif %}
+{% endcomment %}
 {% if piece.spots.all %}
     <section id="piece-spots" class="flex flex-col gap-2">
         <div class="flex">
-            <h3 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700">Spots</h3>
+            <h3 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700">Sections</h3>
         </div>
         <ul class="flex flex-wrap gap-2">
             {% for spot in piece.spots|order_by:'order' %}
@@ -104,6 +106,7 @@
         <p class="text-lg text-gray-900">{{ piece.practice_notes }}</p>
     </section>
 {% endif %}
+{% comment %}
 {% if piece.skills %}
     <section class="flex flex-col gap-2">
         <div class="flex">
@@ -116,6 +119,7 @@
         </ul>
     </section>
 {% endif %}
+{% endcomment %}
 <div id="modal"></div>
 {% endcomponent_block %}
 {% endcomponent_block %}
