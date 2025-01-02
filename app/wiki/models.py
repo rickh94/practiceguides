@@ -232,6 +232,11 @@ class PieceExercise(models.Model):
         return self.nickname or truncate_words(self.description)
 
 
+class GoLink(models.Model):
+    slug = models.CharField(max_length=255, null=False, blank=False)
+    endpoint = models.CharField(max_length=255, null=False, blank=False)
+
+
 class StandaloneExercise(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(null=True)

@@ -4,7 +4,7 @@ from django import forms
 from django.db.models import Count, Q, QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.http.response import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views import generic
 from django.views.decorators.cache import cache_control
@@ -14,6 +14,7 @@ from wiki.types import HtmxHttpRequest, HtmxView
 from .models import (
     Book,
     Composer,
+    GoLink,
     Piece,
     PieceExercise,
     Skill,
@@ -292,3 +293,8 @@ class SearchView(HtmxView, generic.TemplateView):
 
 def not_found(request: HtmxHttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
     return render(request, "404.html", status=404)
+
+
+def go(_request: HtmxHttpRequest, *_args: Any, **kwargs: Any) -> HttpResponse:
+    golink = GoLink.objects.get(slug=kwargs["slug"])
+    return redirect(golink.endpoint)

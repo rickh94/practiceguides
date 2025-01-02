@@ -134,3 +134,5 @@ class ComposerAdmin(ModelAdmin):
 admin.site.site_header = "Practice Guides Admin"
 admin.site.site_title = "Practice Guides Admin"
 admin.site.index_title = "Welcome to Practice Guides Admin"
+
+admin.site.register(models.GoLink)

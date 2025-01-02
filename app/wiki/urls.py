@@ -41,6 +41,7 @@ urlpatterns = [
         name="pieceexercise_detail",
     ),
     path("search/", views.SearchView.as_view(), name="search"),
+    path("go/<slug:slug>", views.go, name="go"),
 ]
 
 if settings.DEBUG:
