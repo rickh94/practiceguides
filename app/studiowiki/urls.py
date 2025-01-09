@@ -32,7 +32,7 @@ favicon_view = RedirectView.as_view(url="/static/icons/favicon.ico", permanent=T
 def robots(request: HttpRequest) -> HttpResponse:
     return HttpResponse(
         f"""User-agent: *
-Allow: *
+Disallow: /
 
 Sitemap: https://{request.get_host()}/sitemap.xml
     """,
