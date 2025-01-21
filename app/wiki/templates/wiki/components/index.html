@@ -4,25 +4,6 @@
 {% with showlink=True list_title="Pieces" list_view="piece_list" %}
     {% include "wiki/components/small_lists/_piece_list.html" %}
 {% endwith %}
-<div class="flex flex-col p-1">
-    <div class="flex">
-        <h2 class="pr-4 pl-2 mb-2 text-4xl font-bold text-purple-700 border-b-2 border-purple-700">Skills</h2>
-    </div>
-    <ul class="flex flex-wrap gap-2 list-none">
-        {% for skill in skill_list %}
-            <li class="focusable">{% component "skill_card" skill=skill %}</li>
-        {% endfor %}
-        <li class="flex items-center h-10 hover:text-black card border-slate-500 hover:border-slate-600 hover:bg-slate-100 focusable">
-            <a href="{% url 'skill_list' %}"
-               preload
-               class="block px-2 pt-2 pb-1 focus:outline-none"
-               hx-get="{% url 'skill_list' %}"
-               hx-push-url="{% url 'skill_list' %}"
-               hx-target="#main-content"
-               hx-swap="outerHTML swap:300ms">View All Skills…</a>
-        </li>
-    </ul>
-</div>
 {% with showlink=True %}
     {% include "wiki/components/small_lists/_book_list.html" %}
 {% endwith %}
@@ -45,9 +26,6 @@
         </li>
     </ul>
 </div>
-{% with showlink=True list_title="Etudes" piece_list=standaloneexercise_list list_view="standaloneexercise_list" %}
-    {% include "wiki/components/small_lists/_piece_list.html" %}
-{% endwith %}
 {% endcomponent_block %}
 {% endcomponent_block %}
 {# vim: se ft=htmldjango : #}

@@ -27,6 +27,7 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 
 RUN pip install "gunicorn==20.0.4"
 RUN pip install poetry
+RUN poetry self add poetry-plugin-export
 
 # Install the project requirements.
 COPY pyproject.toml poetry.lock /
