@@ -25,15 +25,13 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     libwebp-dev \
  && rm -rf /var/lib/apt/lists/*
 
-RUN pip install "gunicorn==20.0.4"
 RUN pip install poetry
 RUN poetry self add poetry-plugin-export
 
 # Install the project requirements.
 COPY pyproject.toml poetry.lock /
 WORKDIR /
-RUN poetry export -o requirements.txt
-RUN pip install -r requirements.txt
+RUN poetry install --no-root
 
 WORKDIR /app
 
@@ -45,6 +43,6 @@ COPY --from=tailwind-builder /app/static/main.css /app/static/main.css
 
 #USER django
 
-RUN python manage.py collectstatic --noinput --clear
+RUN poetry run python manage.py collectstatic --noinput --clear
 
-CMD gunicorn studiowiki.wsgi:application
+CMD poetry run gunicorn studiowiki.wsgi:application

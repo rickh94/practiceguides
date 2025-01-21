@@ -4,7 +4,6 @@ version = "0.1.0"
 description = ""
 authors = ["Rick Henry <rickhenry@rickhenry.dev>"]
 license = "MIT"
-readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -19,6 +18,7 @@ django-unfold = "^0.20.1"
 django-compression-middleware = "^0.5.0"
 django-fastdev = "^1.8.0"
 django-components = "^0.33"
+gunicorn = "^23.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
@@ -30,6 +30,7 @@ pre-commit = "^3.4.0"
 pyproject-flake8 = "^6.0.1"
 djhtml = "^3.0.6"
 python-lsp-server = { extras = ["all"], version = "^1.9.0" }
+
 
 [build-system]
 requires = ["poetry-core"]
