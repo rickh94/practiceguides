@@ -29,19 +29,15 @@ RUN pip install poetry
 RUN poetry self add poetry-plugin-export
 
 # Install the project requirements.
-COPY pyproject.toml poetry.lock /
-WORKDIR /
-RUN poetry install --no-root
 
 WORKDIR /app
+COPY pyproject.toml poetry.lock /app
+WORKDIR /app
+RUN poetry install --no-root
 
-#RUN chown django:django /app
 
-#COPY --chown=django:django ./app/. .
 COPY ./app/. .
 COPY --from=tailwind-builder /app/static/main.css /app/static/main.css
-
-#USER django
 
 RUN poetry run python manage.py collectstatic --noinput --clear
 
